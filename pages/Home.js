@@ -18,8 +18,9 @@ export default function Home({ navigation }) {
   
   var progress = 0.76
   return (
-    <View style={styles.container}>
-      <View style={{flexDirection:"row", marginTop:35, justifyContent:"flex-start", width:"100%"}}>
+    <View style={{...styles.container, justifyContent:"space-between", alignItems: 'center'}}>
+      <View style={styles.container}>
+      <View style={{flexDirection:"row", marginTop:50, width:"100%"}}>
         <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Diet")}>
           <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
         </TouchableOpacity>
@@ -34,7 +35,16 @@ export default function Home({ navigation }) {
         <Text style={{fontSize:20, marginBottom:5}}>{progress * 100}%</Text>
         <LinearProgress value={progress} variant="determinate" />
       </TouchableOpacity>
-      <Divider inset={true} color="gray"/>
+      <Divider color={"lightgray"} style={{marginVertical:25, width:250, borderRadius:30}} width={10}/>
+      <TouchableOpacity style = {styles.weeklyProgressButton} onPress = {() => navigation.navigate("Diet")}>
+        <Text style = {styles.boxText}>Diet</Text>
+        <View></View>
+      </TouchableOpacity>
+      <TouchableOpacity style = {{...styles.weeklyProgressButton, marginTop:15}} onPress = {() => navigation.navigate("Diet")}>
+        <Text style = {styles.boxText}>Workout</Text>
+        <View></View>
+      </TouchableOpacity>
+      </View>
       <BottomNav navigation={navigation}/>
     </View>
   )
@@ -45,14 +55,12 @@ const styles = StyleSheet.create({
       flex: 1,
       //backgroundColor:'rgba(73,186,81,68.0)',
       backgroundColor:'lightgreen',
-      alignItems: 'center',
       //marginHorizontal :16
     },
     friendsButton:{
       backgroundColor: '#0F2135',
       borderRadius:10,
       padding:10,
-      marginLeft:30
     },
     trophyButton: {
       backgroundColor: '#AEB320',
