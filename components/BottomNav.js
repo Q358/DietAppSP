@@ -8,6 +8,7 @@ export default function BottomNav({ navigation }) {
   const styles = StyleSheet.create({
     container: {
       flexDirection:"row",
+      marginBottom: 15
     },
     navButton: {
       marginVertical:20,
