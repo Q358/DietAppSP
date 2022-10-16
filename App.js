@@ -7,7 +7,9 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import Login from './pages/sign in/Login';
 import SignUp from './pages/sign in/SignUp';
+import Trophies from './pages/Trophies';
 import Workout from './pages/Workout';
+//import Sandbox from './pages/sandbox';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +21,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="Home" component={Home}/>
+        <Stack.Screen name= "Trophies" component={Trophies}/>
         <Stack.Screen name="Diet" component={Diet}/>
         <Stack.Screen name="Workout" component={Workout}/>
       </Stack.Navigator>

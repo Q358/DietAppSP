@@ -13,8 +13,8 @@ export default function BottomNav({ navigation }) {
     container: {
       flexDirection:"row",
       position: 'absolute',
-      height: 80,
-      top: height - 75, 
+      height: 90,
+      top: height *.88, 
  
     },
     navButton: {
