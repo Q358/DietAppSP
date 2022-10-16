@@ -7,8 +7,14 @@ import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export default function Home({ navigation }) {
+  const [loaded] = useFonts({
+    AdidogDemo: require('../assets/fonts/AdidogDemo-RpqMo.otf'),
+  });
   // const [count, setCount] = useState(0);
   // const onPress = () => setCount(prevCount => prevCount + 1);
+  if (!loaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <TouchableOpacity style = {styles.Friendsbutton} onPress={()=>navigation.navigate("Diet")}>
@@ -17,7 +23,7 @@ export default function Home({ navigation }) {
       <TouchableOpacity style = {styles.Trophybutton} onPress={()=>navigation.navigate("Trophies")}>
         <FontAwesomeIcon icon = {faTrophy} size = {20} color ={'white'}/> 
       </TouchableOpacity>
-      <Text style = {{fontFamily: "DamascusBold", color:"white", fontSize:45, bottom:290}}>Happy Saturday,</Text>
+      <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:20, bottom:290}}>Happy Saturday,</Text>
       <TouchableOpacity style = {styles.weeklyProgressbutton} onPress = {() => navigation.navigate("Diet")}>
         <Text style = {styles.boxText}>Weekly Goal Progress </Text>
       </TouchableOpacity>
@@ -69,9 +75,9 @@ const styles = StyleSheet.create({
       borderRadius: 15
     },
     boxText:{
-      fontFamily: "DamascusBold",
+      fontFamily: "AdidogDemo",
       color: "black",
-      fontSize: "15",
+      fontSize: "7",
       right:120,
       top: -30,
       marginHorizontal: -15,
