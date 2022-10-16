@@ -1,10 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
 import { SafeAreaView, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Divider, LinearProgress } from "@rneui/themed";
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
@@ -15,18 +15,26 @@ export default function Home({ navigation }) {
   if (!loaded) {
     return null;
   }
+  
+  var progress = 0.76
   return (
     <View style={styles.container}>
-      <TouchableOpacity style = {styles.Friendsbutton} onPress={()=>navigation.navigate("Diet")}>
-        <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
-      </TouchableOpacity>
-      <TouchableOpacity style = {styles.Trophybutton} onPress={()=>navigation.navigate("Trophies")}>
-        <FontAwesomeIcon icon = {faTrophy} size = {20} color ={'white'}/> 
-      </TouchableOpacity>
-      <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:20, bottom:290}}>Happy Saturday,</Text>
-      <TouchableOpacity style = {styles.weeklyProgressbutton} onPress = {() => navigation.navigate("Diet")}>
+      <View style={{flexDirection:"row", marginTop:35, justifyContent:"flex-start", width:"100%"}}>
+        <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Diet")}>
+          <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.trophyButton} onPress={()=>navigation.navigate("Trophies")}>
+          <FontAwesomeIcon icon = {faTrophy} size = {20} color ={'white'}/> 
+        </TouchableOpacity>
+      </View>
+      <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:20, marginVertical:20}}>Happy Saturday,</Text>
+      <TouchableOpacity style = {styles.weeklyProgressButton} onPress = {() => navigation.navigate("Diet")}>
         <Text style = {styles.boxText}>Weekly Goal Progress </Text>
+        <Text style={{marginLeft:5, marginBottom:30}}>On track - keep it up!</Text>
+        <Text style={{fontSize:20, marginBottom:5}}>{progress * 100}%</Text>
+        <LinearProgress value={progress} variant="determinate" />
       </TouchableOpacity>
+      <Divider inset={true} color="gray"/>
       <BottomNav navigation={navigation}/>
     </View>
   )
@@ -38,51 +46,33 @@ const styles = StyleSheet.create({
       //backgroundColor:'rgba(73,186,81,68.0)',
       backgroundColor:'lightgreen',
       alignItems: 'center',
-      justifyContent: 'center',
       //marginHorizontal :16
     },
-    Friendsbutton:{
-      //color:'#1DA664',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'absolute',
+    friendsButton:{
       backgroundColor: '#0F2135',
       borderRadius:10,
       padding:10,
-      left: 20,
-      top: 60,
+      marginLeft:30
     },
-    Trophybutton: {
-      //color:'#1DA664',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'absolute',
+    trophyButton: {
       backgroundColor: '#AEB320',
       borderRadius:10,
       padding:10,
-      left: 75,
-      top: 60,
+      marginLeft:20
     },
-    weeklyProgressbutton:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'absolute',
+    weeklyProgressButton:{
       backgroundColor: 'white',
-      top: 250,
       //left: 75,
-      paddingHorizontal:150,
-      paddingVertical: 66,
-      borderRadius: 15
+      width:350,
+      height:150,
+      paddingVertical:15,
+      paddingHorizontal:15,
+      borderRadius:15
     },
     boxText:{
       fontFamily: "AdidogDemo",
       color: "black",
-      fontSize: "7",
-      right:120,
-      top: -30,
-      marginHorizontal: -15,
-      alignSelf:"Center",
-      width: 100
+      fontSize: 10,
       //fontWeight: "500"
     },
     countContainer: {
