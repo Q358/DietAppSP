@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
   var progress = 0.76
   return (
     <View style={styles.container}>
-      <View style={{flexDirection:"row", marginTop:35, justifyContent:"flex-start", width:"100%"}}>
+      <View style={{flexDirection:"row", marginTop:50, justifyContent:"flex-start", width:"100%"}}>
         <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Diet")}>
           <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
         </TouchableOpacity>
@@ -34,7 +34,7 @@ export default function Home({ navigation }) {
         <Text style={{fontSize:20, marginBottom:5}}>{progress * 100}%</Text>
         <LinearProgress value={progress} variant="determinate" />
       </TouchableOpacity>
-      <Divider inset={true} color="gray"/>
+      <Divider style = {styles.dividerStyle} width ={10}/>
       <BottomNav navigation={navigation}/>
     </View>
   )
@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
       backgroundColor:'lightgreen',
       alignItems: 'center',
       //marginHorizontal :16
+    },
+    dividerStyle: {
+      width : 300,
+      marginVertical: 45,
+      marginHorizontal: 20,
+      borderRadius:30,
+      color: 'white',
+      borderColor: 'white'
     },
     friendsButton:{
       backgroundColor: '#0F2135',
