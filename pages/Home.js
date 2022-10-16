@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { SafeAreaView, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Button, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import { useFonts } from 'expo-font';
 import { faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
@@ -15,11 +15,14 @@ export default function Home({ navigation }) {
   if (!loaded) {
     return null;
   }
-  
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get('window').height;
   var progress = 0.76
   return (
-    <View style={styles.container}>
-      <View style={{flexDirection:"row", marginTop:50, justifyContent:"flex-start", width:"100%"}}>
+
+    <View style={{...styles.container, justifyContent:"space-between", alignItems: 'center'}}>
+      <View style={styles.container}>
+      <View style={{flexDirection:"row", marginTop:50, width:"100%"}}>
         <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Diet")}>
           <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
         </TouchableOpacity>
@@ -34,7 +37,17 @@ export default function Home({ navigation }) {
         <Text style={{fontSize:20, marginBottom:5}}>{progress * 100}%</Text>
         <LinearProgress value={progress} variant="determinate" />
       </TouchableOpacity>
-      <Divider style = {styles.dividerStyle} width ={10}/>
+      <View style = {{borderBottomColor : "gray", marginHorizontal:windowWidth/8, marginVertical:windowHeight/40, borderBottomWidth:10, borderRadius:30, width:250}}/>
+      <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:12, marginBottom:20, marginTop:-15}}>Daily Breakdown</Text>
+      <TouchableOpacity style = {styles.weeklyProgressButton} onPress = {() => navigation.navigate("Diet")}>
+        <Text style = {styles.boxText}>Diet</Text>
+        <View></View>
+      </TouchableOpacity>
+      <TouchableOpacity style = {{...styles.weeklyProgressButton, marginTop:15}} onPress = {() => navigation.navigate("Diet")}>
+        <Text style = {styles.boxText}>Workout</Text>
+        <View></View>
+      </TouchableOpacity>
+      </View>
       <BottomNav navigation={navigation}/>
     </View>
   )
@@ -45,13 +58,12 @@ const styles = StyleSheet.create({
       flex: 1,
       //backgroundColor:'rgba(73,186,81,68.0)',
       backgroundColor:'lightgreen',
-      alignItems: 'center',
       //marginHorizontal :16
     },
     dividerStyle: {
-      width : 300,
-      marginVertical: 45,
-      marginHorizontal: 20,
+      width : 250,
+      marginVertical: 25,
+      //marginHorizontal: 20,
       borderRadius:30,
       color: 'white',
       borderColor: 'white'
@@ -60,7 +72,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#0F2135',
       borderRadius:10,
       padding:10,
-      marginLeft:30
     },
     trophyButton: {
       backgroundColor: '#AEB320',

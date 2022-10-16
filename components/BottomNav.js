@@ -12,13 +12,10 @@ export default function BottomNav({ navigation }) {
   const styles = StyleSheet.create({
     container: {
       flexDirection:"row",
-      position: 'absolute',
-      height: 80,
-      top: height *.88, 
- 
+      marginBottom: 15
     },
     navButton: {
-      marginVertical:22,
+      marginVertical:20,
       marginHorizontal:50
       //marginHorizontal:65
     }
@@ -29,7 +26,7 @@ export default function BottomNav({ navigation }) {
         <FontAwesomeIcon icon={faAppleWhole} size={50}/>
       </TouchableOpacity>
       {/* <Text style={{fontSize:55}}>|</Text> */}
-      <TouchableOpacity style={{borderRadius:50, backgroundColor:"white", padding:15}} onPress={()=>Alert.alert("Barcode Reader!")}>
+      <TouchableOpacity style={{borderRadius:50, backgroundColor:"white", padding:15, height:80}} onPress={()=>Alert.alert("Barcode Reader!")}>
         <FontAwesomeIcon icon={faBarcode} size={50}/>
       </TouchableOpacity>
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Workout")}>
