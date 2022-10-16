@@ -1,14 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Alert, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
 import { faPersonRunning } from "@fortawesome/free-solid-svg-icons";
 import { faBarcode } from "@fortawesome/free-solid-svg-icons";
 
 export default function BottomNav({ navigation }) {
-  const size = useWindowDimensions();
-  const width = size.width;
-  const height = size.height;
-
   const styles = StyleSheet.create({
     container: {
       flexDirection:"row",
@@ -24,7 +20,6 @@ export default function BottomNav({ navigation }) {
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Diet")}>
         <FontAwesomeIcon icon={faAppleWhole} size={50}/>
       </TouchableOpacity>
-      {/* <Text style={{fontSize:55}}>|</Text> */}
       <TouchableOpacity style={{borderRadius:50, backgroundColor:"white", padding:15, height:80}} onPress={()=>Alert.alert("Barcode Reader!")}>
         <FontAwesomeIcon icon={faBarcode} size={50}/>
       </TouchableOpacity>
