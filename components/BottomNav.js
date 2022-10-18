@@ -1,36 +1,18 @@
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Alert, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
-import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
-import { faPersonRunning } from "@fortawesome/free-solid-svg-icons";
-import { faBarcode } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { faAppleWhole } from "@fortawesome/free-solid-svg-icons"
+import { faPersonRunning } from "@fortawesome/free-solid-svg-icons"
+import { faBarcode } from "@fortawesome/free-solid-svg-icons"
 
 export default function BottomNav({ navigation }) {
-  const size = useWindowDimensions();
-  const width = size.width;
-  const height = size.height;
 
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection:"row",
-      position: 'absolute',
-      height: 80,
-      top: height - 75, 
- 
-    },
-    navButton: {
-      marginVertical:22,
-      marginHorizontal:50
-      //marginHorizontal:65
-    }
-  })
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Diet")}>
         <FontAwesomeIcon icon={faAppleWhole} size={50}/>
       </TouchableOpacity>
-      {/* <Text style={{fontSize:55}}>|</Text> */}
-      <TouchableOpacity style={{borderRadius:50, backgroundColor:"white", padding:15}} onPress={()=>Alert.alert("Barcode Reader!")}>
-        <FontAwesomeIcon icon={faBarcode} size={50}/>
+      <TouchableOpacity style={{marginTop:5, borderRadius:50, backgroundColor:"white", padding:15, height:80}} onPress={()=>navigation.navigate("Barcode")}>
+        <FontAwesomeIcon icon={faBarcode} size={50} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Workout")}>
         <FontAwesomeIcon icon={faPersonRunning} size={50}/>
@@ -38,3 +20,16 @@ export default function BottomNav({ navigation }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flexDirection:"row",
+      marginBottom: 15,
+      backgroundColor:"orange",
+      borderRadius:20
+    },
+    navButton: {
+      marginVertical:20,
+      marginHorizontal:30
+    }
+  })
