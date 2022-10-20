@@ -4,6 +4,7 @@ import BarcodeScanSceen from './pages/BarcodeScanScreen'
 import Diet from './pages/Diet'
 import Home from './pages/Home'
 import Landing from './pages/Landing'
+import Profile from './pages/Profile'
 import Login from './pages/sign in/Login'
 import SignUp from './pages/sign in/SignUp'
 import Trophies from './pages/Trophies'
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name= "Trophies" component={Trophies}/>
+        <Stack.Screen name="Profile" component={Profile}/>
         <Stack.Screen name="Diet" component={Diet}/>
         <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
         <Stack.Screen name="Workout" component={Workout}/>

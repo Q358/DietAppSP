@@ -26,7 +26,7 @@ export default function BarcodeScanSceen({ navigation }) {
     return <Text>No access to camera</Text>
   }
 
-  // TODO Query FatSecret API with code number
+  // TODO Query FatSecret API with code number, navigate user to loading page
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true)
     alert(`Bar code with type ${type} and data ${data} has been scanned!`)
@@ -40,20 +40,31 @@ export default function BarcodeScanSceen({ navigation }) {
       paddingVertical: 10,
       width:"75%",
       position:"absolute", // Added to make it overlay over camera view
-      top:windowHeight - 50
+      top:height - 25
+    },
+    topText: {
+      color:"white",
+      fontSize:20,
+      position:"absolute",
+      bottom:height - 40,
+      backgroundColor:"gray",
+      borderRadius:15,
+      paddingVertical:5,
+      paddingHorizontal:8
     }
   })
 
+  // Added 115% width to BarcodeScanner to make it fill screen - need to check if this causes any issues other than increased zoom
   return (
-    <View style={{ flex: 1, backgroundColor:"black", alignItems:"center" }}>
-      <Text style={{color:"white", fontSize:20, marginTop:40 }}>Looking for barcode...</Text>
-      <View style={{ flex: 1, backgroundColor:"black", width:"100%"  }}>
-        <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={StyleSheet.absoluteFillObject}/>
+    <>
+      <View style={{ backgroundColor:"black", width:"100%", height: "100%", alignItems:"center" }}>
+        <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={{...StyleSheet.absoluteFillObject, height:"100%", width:"115%"}}/>
+        <Text style={styles.topText}>Looking for barcode...</Text>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}>
+          <Text style={{fontSize:20}}>Cancel</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}>
-        <Text style={{fontSize:20}}>Cancel</Text>
-      </TouchableOpacity>
-    </View>
+    </>
   )
 }
 
