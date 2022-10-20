@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import { BarCodeScanner } from "expo-barcode-scanner"
-import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions, useWindowDimensions } from "react-native"
 
 export default function BarcodeScanSceen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
   
-  const windowWidth = Dimensions.get("window").width
-  const windowHeight = Dimensions.get("window").height
+  const { height } = useWindowDimensions()
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
