@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
     rectangle: {
       height: 100,
-      width: 115,
+      width: 120,
       backgroundColor: '#333333',
       borderRadius:10
     },
