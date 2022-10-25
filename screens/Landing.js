@@ -1,15 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFonts } from 'expo-font';
+import { useAuth } from '../config/authContext';
 
 export default function Landing({ navigation }) {
   const [loaded] = useFonts({
     BandarBold: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
   });
 
-  if (!loaded) {
+  const { user } = useAuth()
+
+  if(user)
+    navigation.navigate("Home")
+  else if (!loaded) {
     return null;
   }
+
   return (
     <View style={styles.container}>
       <Text style={{fontFamily:"BandarBold", fontSize:70}}>nutri</Text>
