@@ -1,5 +1,7 @@
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { registerRootComponent } from 'expo'
+import { AuthProvider } from './config/authContext'
 import BarcodeScanSceen from './screens/BarcodeScanScreen'
 import Diet from './screens/Diet'
 import Home from './screens/Home'
@@ -12,21 +14,24 @@ import Workout from './screens/Workout'
 
 
 const Stack = createNativeStackNavigator();
+// registerRootComponent(App);
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false,}}>
-        <Stack.Screen name="Landing" component={Landing}/>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="SignUp" component={SignUp}/>
-        <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name= "Trophies" component={Trophies}/>
-        <Stack.Screen name="Profile" component={Profile}/>
-        <Stack.Screen name="Diet" component={Diet}/>
-        <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
-        <Stack.Screen name="Workout" component={Workout}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false,}}>
+          <Stack.Screen name="Landing" component={Landing}/>
+          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="SignUp" component={SignUp}/>
+          <Stack.Screen name="Home" component={Home}/>
+          <Stack.Screen name= "Trophies" component={Trophies}/>
+          <Stack.Screen name="Profile" component={Profile}/>
+          <Stack.Screen name="Diet" component={Diet}/>
+          <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
+          <Stack.Screen name="Workout" component={Workout}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

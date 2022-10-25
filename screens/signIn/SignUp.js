@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useAuth } from "../../config/authContext";
 
 export default function SignUp({ navigation }) {
   const [email, onChangeEmail] = useState()
@@ -9,13 +10,25 @@ export default function SignUp({ navigation }) {
   const [loaded] = useFonts({
     BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
   });
+  const { register } = useAuth()
 
   if (!loaded) {
     return null;
   }
 
-  const handleSubmit = () => {
-    (email && name && password) ? navigation.navigate("Home") : Alert.alert("Please fill out all fields")
+  const handleSubmit = async () => {
+    if (!email || !name || !password) {
+      Alert.alert("Please fill out all fields")
+      return 0
+    }
+    else{
+      try {
+        await register(email, password, name)
+        navigation.navigate("Home")
+      } catch (error) {
+        Alert.alert("Failed to sign up:" + error)
+      }
+    }
   }
 
   return (
