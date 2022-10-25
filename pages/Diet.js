@@ -1,6 +1,5 @@
 import { SafeAreaView, Image, StyleSheet, TouchableOpacity, Text, View, Dimensions, ScrollView } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import BottomNav from "../components/BottomNav";
 import React from "react";
 
 export default function Diet({navigation}) {
