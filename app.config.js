@@ -18,7 +18,10 @@ export default {
     },
     assetBundlePatterns: ["**/*"],
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
+      infoPlist: {
+        NSCameraUsageDescription: "This app uses the camera to scan barcodes."
+      }
     },
     android: {
       adaptiveIcon: {
