@@ -21,33 +21,16 @@ export default function Home({ navigation }) {
 
   return (
     <View style={{...styles.container, justifyContent:"space-between", alignItems: 'center'}}>
-        <View style={{flexDirection:"row", marginTop:50, width:"100%"}}>
-          <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Diet")}>
-            <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.trophyButton} onPress={()=>navigation.navigate("Trophies")}>
-            <FontAwesomeIcon icon = {faTrophy} size = {20} color ={'white'}/> 
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+      <View style={styles.container}>
+      <View style={{flexDirection:"row", marginTop:50, width:"100%"}}>
+        <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Diet")}>
+          <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.trophyButton} onPress={()=>navigation.navigate("Trophies")}>
+          <FontAwesomeIcon icon = {faTrophy} size = {20} color ={'white'}/> 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Avatar style={{marginLeft:210, width:40,height:40, border:"solid 1px black", borderBottomColor:"black"}} size={"large"} rounded source={profilePic}/>
-          </TouchableOpacity>
-        </View>
-        <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:20, marginVertical:20}}>Happy Saturday,</Text>
-        <TouchableOpacity style = {styles.weeklyProgressButton} onPress = {() => navigation.navigate("Diet")}>
-          <Text style = {styles.boxText}>Weekly Goal Progress </Text>
-          <Text style={{marginLeft:5, marginBottom:30}}>On track - keep it up!</Text>
-          <Text style={{fontSize:20, marginBottom:5}}>{progress * 100}%</Text>
-          <LinearProgress value={progress} variant="determinate" />
-        </TouchableOpacity>
-        <View style = {{...styles.dividerStyle, marginHorizontal:windowWidth/9, marginVertical:windowHeight/45, }}/>
-        <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:12, marginBottom:5}}>Daily Breakdown</Text>
-        <TouchableOpacity style = {styles.weeklyProgressButton} onPress = {() => navigation.navigate("Diet")}>
-          <Text style = {styles.boxText}>Diet</Text>
-          <View></View>
-        </TouchableOpacity>
-        <TouchableOpacity style = {{...styles.weeklyProgressButton, marginTop:10}} onPress = {() => navigation.navigate("Diet")}>
-          <Text style = {styles.boxText}>Workout</Text>
-          <View></View>
         </TouchableOpacity>
       </View>
       <Text style = {{fontFamily: "AdidogDemo", color:"white", fontSize:20, marginVertical:20}}>Happy Saturday,</Text>
