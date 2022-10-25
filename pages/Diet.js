@@ -1,14 +1,18 @@
 import { SafeAreaView, Image, StyleSheet, TouchableOpacity, Text, View, Dimensions, ScrollView } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React from "react";
+
 
 export default function Diet({navigation}) {
   return (
-    <View style={{...styles.container, justifyContent:"space-between", alignItems: "center"}}>
-      <Text style = {{marginVertical:50}}>Diet</Text>
-      <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginBottom:750, marginTop:-15}}>Today's Meal</Text>
-      {/* <View style = {{...styles.rectangle, alignItems: "center"}}><Text style = {{marginVertical:50}}>Test</Text></View> */}
-      <View style = {{height:50, width:50, backgroundColor:'red'}}/>
+    <View style={{...styles.container, alignItems: "center"}}>
+      <Text style = {{marginVertical:50, marginTop:-400}}>Diet</Text>
+      <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-15, marginBottom: 10}}>Today's Meals</Text>
+      <View style = {{...styles.rectangle, marginTop: 10, marginRight:250}}/>
+      <View style = {{...styles.rectangle, marginTop: -100, alignItems:"center"}}/>
+      <View style = {{...styles.rectangle, marginTop: -100, marginLeft:250}}/>
+      <Text style = {{marginVertical:50, marginTop: 10, marginRight:260}}>Breakfast</Text>
+      <Text style = {{marginVertical:50, marginTop: -70, alignItems: "center"}}>Lunch</Text>
+      <Text style = {{marginVertical:50, marginTop: -70, marginLeft:260}}>Dinner</Text>
     </View>
   )
 }
@@ -21,11 +25,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
 
-    // rectangle: {
-    //   height: 70,
-    //   width: 70,
-    //   backgroundColor: '#333333'
-    // },
+    rectangle: {
+      height: 100,
+      width: 110,
+      backgroundColor: '#333333',
+      borderRadius:10
+    },
 
     // dividerStyle: {
     //   borderBottomColor : "lightgray", 
