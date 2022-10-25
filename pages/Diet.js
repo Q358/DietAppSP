@@ -1,6 +1,6 @@
 import { SafeAreaView, Image, StyleSheet, TouchableOpacity, Text, View, Dimensions, ScrollView } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAngleDown, faAngleLeft, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleLeft, faAppleWhole, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function Diet({navigation}) {
@@ -17,6 +17,8 @@ export default function Diet({navigation}) {
       <Text style = {{marginVertical:50, marginTop: 10, marginRight:260}}>Breakfast</Text>
       <Text style = {{marginVertical:50, marginTop: -70, alignItems: "center"}}>Lunch</Text>
       <Text style = {{marginVertical:50, marginTop: -70, marginLeft:260}}>Dinner</Text>
+      <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-15, marginBottom: 10, marginRight:80}}>This Week</Text>
+
     </View>
   )
 }
