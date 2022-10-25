@@ -13,12 +13,12 @@ export default function BottomNav({ navigation }) {
     container: {
       flexDirection:"row",
       position: 'absolute',
-      height: 80,
-      top: height - 75, 
- 
+      height: 90,
+      top: height * .88,
+      paddingTop:10
     },
     navButton: {
-      marginVertical:22,
+      marginVertical:15,
       marginHorizontal:50
       //marginHorizontal:65
     }
@@ -28,7 +28,6 @@ export default function BottomNav({ navigation }) {
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Diet")}>
         <FontAwesomeIcon icon={faAppleWhole} size={50}/>
       </TouchableOpacity>
-      {/* <Text style={{fontSize:55}}>|</Text> */}
       <TouchableOpacity style={{borderRadius:50, backgroundColor:"white", padding:15}} onPress={()=>Alert.alert("Barcode Reader!")}>
         <FontAwesomeIcon icon={faBarcode} size={50}/>
       </TouchableOpacity>

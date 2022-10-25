@@ -2,12 +2,12 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import Diet from './pages/Diet';
-import Home from './pages/Home';
-import Landing from './pages/Landing';
-import Login from './pages/sign in/Login';
-import SignUp from './pages/sign in/SignUp';
-import Workout from './pages/Workout';
+import Diet from './screens/Diet';
+import Home from './screens/Home';
+import Landing from './screens/Landing';
+import Login from './screens/signIn/Login';
+import SignUp from './screens/signIn/SignUp';
+import Workout from './screens/Workout';
 
 const Stack = createNativeStackNavigator();
 
