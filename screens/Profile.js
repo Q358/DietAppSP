@@ -22,7 +22,7 @@ export default function Profile({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>{user.displayName}</Text>
+      <Text>{user?.displayName}</Text>
       <Avatar />
       <TouchableOpacity style={styles.button} onPress={handleLogout}>
         <Text style={{marginHorizontal:10}}>Logout</Text>
