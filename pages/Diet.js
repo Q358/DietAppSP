@@ -6,7 +6,7 @@ import { faAngleDown, faAngleLeft, faAppleWhole, faTrophy } from "@fortawesome/f
 export default function Diet({navigation}) {
   return (
     <View style={{...styles.container, alignItems: "center"}}>
-      <Text style = {{marginVertical:50, marginTop:-150, color:'white', fontFamily:'AdidogDemo', fontSize:10}}>Diet</Text>
+      <Text style = {{marginVertical:50, marginTop:-200, color:'white', fontFamily:'AdidogDemo', fontSize:10}}>Diet</Text>
       <View style = {{...styles.leftArrowIcon, marginRight: 300}}>
       <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </View>
