@@ -57,7 +57,7 @@ export default function BarcodeScanSceen({ navigation }) {
   return (
     <>
       <View style={{ backgroundColor:"black", width:"100%", height: "100%", alignItems:"center" }}>
-        <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={{...StyleSheet.absoluteFillObject, height:"100%", width:"100%"}}/>
+        <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={{...StyleSheet.absoluteFillObject, height:"100%", width:"115%"}}/>
         <Text style={styles.topText}>Looking for barcode...</Text>
         <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}>
           <Text style={{fontSize:20}}>Cancel</Text>
