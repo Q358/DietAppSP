@@ -10,10 +10,8 @@ export default function Landing({ navigation }) {
 
   const { user } = useAuth()
 
-  if(user)
-    navigation.navigate("Home")
-  else if (!loaded) {
-    return null;
+  if (!loaded) {
+    return null
   }
 
   return (
