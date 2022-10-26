@@ -6,6 +6,7 @@ import BarcodeScanSceen from './screens/BarcodeScanScreen'
 import Diet from './screens/Diet'
 import Home from './screens/Home'
 import Landing from './screens/Landing'
+import LoadingScreen from './screens/LoadingScreen'
 import Profile from './screens/Profile'
 import Login from './screens/signIn/Login'
 import SignUp from './screens/signIn/SignUp'
@@ -21,6 +22,7 @@ export default function App() {
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false,}}>
+          <Stack.Screen name="Loading" component={LoadingScreen}/>
           <Stack.Screen name="Landing" component={Landing}/>
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="SignUp" component={SignUp}/>

@@ -1,10 +1,11 @@
+import { CommonActions, StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../../config/authContext";
 
-export default function Login({ navigation }) {
+export default function Login ({ navigation }) {
   const [email, onChangeEmail] = useState()
   const [password, onChangePassword] = useState()
   const [loaded] = useFonts({
@@ -20,7 +21,12 @@ export default function Login({ navigation }) {
   const handleSubmit = async () => {
     try {
       await login(email, password)
-      navigation.navigate("Home")
+      navigation.dispatch(CommonActions.reset(({ // Stops users from going back to Login page
+        index: 0,
+        routes: [
+          { name: 'Home' },
+        ],
+      })))
     } catch (error) {
       Alert.alert("Failed to login:" + error)
     }
@@ -29,8 +35,8 @@ export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>login</Text>
-      <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email"/>
-      <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true}/>
+      <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email" autoComplete="email"/>
+      <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true} autoComplete="password"/>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={{fontWeight:"500", color:"lightgreen"}}>submit</Text>
       </TouchableOpacity>

@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
     container: {
       flexDirection:"row",
       marginBottom: 15,
-      backgroundColor:"orange",
+backgroundColor:"lightgray",
+ 
+      borderWidth:3,
       borderRadius:20
     },
     navButton: {
