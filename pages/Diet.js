@@ -1,6 +1,6 @@
 import { SafeAreaView, Image, StyleSheet, TouchableOpacity, Text, View, Dimensions, ScrollView } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAngleDown, faAngleLeft, faAppleWhole, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleLeft, faAngleRight, faAppleWhole, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function Diet({navigation}) {
@@ -8,7 +8,9 @@ export default function Diet({navigation}) {
     <View style={{...styles.container, alignItems: "center"}}>
       <Text style = {{marginVertical:50, marginTop:-200, color:'white', fontFamily:'AdidogDemo', fontSize:10}}>Diet</Text>
       <View style = {{...styles.leftArrowIcon, marginRight: 300}}>
-      <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
+        <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+          <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
+      </TouchableOpacity>
       </View>
       <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-15, marginBottom: 10}}>Today's Meals</Text>
       <View style = {{...styles.rectangle, marginTop: 10, marginRight:250}}/>
@@ -18,7 +20,15 @@ export default function Diet({navigation}) {
       <Text style = {{marginVertical:50, marginTop: -70, alignItems: "center"}}>Lunch</Text>
       <Text style = {{marginVertical:50, marginTop: -70, marginLeft:260}}>Dinner</Text>
       <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-15, marginBottom: 10, marginRight:80}}>This Week</Text>
-      <View style = {{...styles.rectangle2, marginTop: 10, marginRight:250}}/>
+      <View style = {{...styles.rectangle2, marginTop: 10, marginRight:250}}>
+        <Text style = {{marginTop:20, marginLeft: 135, color:"white", fontFamily:"AdidogDemo", fontSize:10}}>Sunday</Text>
+        <View style = {{...styles.leftArrow, marginTop:30}}>
+        <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'white'}/>
+        </View>
+        <View style = {{...styles.rightArrow, marginTop:-30, marginLeft: 320}}>
+        <FontAwesomeIcon icon={faAngleRight} size = {30} color = {'white'}/>
+        </View>
+      </View>
     </View>
   )
 }
@@ -51,11 +61,5 @@ const styles = StyleSheet.create({
 
     }
 
-    // dividerStyle: {
-    //   borderBottomColor : "lightgray", 
-    //   borderBottomWidth:10, 
-    //   borderRadius:30, 
-    //   width:250
-    // },
 });
 
