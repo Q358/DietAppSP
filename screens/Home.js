@@ -8,6 +8,7 @@ import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
 import profilePic from "../assets/favicon.png"
 import { useAuth } from '../config/authContext';
+import moment from 'moment';
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
@@ -17,12 +18,14 @@ export default function Home({ navigation }) {
 
   const { user } = useAuth()
 
+
   if (!loaded) {
     return null;
   }
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get('window').height;
-  var progress = 0.76
+  var progress = 0.76;
+  var dayOfWeek = moment().format('dddd');
 
   return (
     <View style={{...styles.container, justifyContent:"space-between", alignItems: 'center'}}>
@@ -38,7 +41,8 @@ export default function Home({ navigation }) {
               <Avatar style={{marginLeft:210, width:40,height:40, border:"solid 1px black", borderBottomColor:"black"}} size={"large"} rounded source={profilePic}/>
           </TouchableOpacity>
         </View>
-        <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:35, marginVertical:20}}>Happy Saturday, {user?.displayName}</Text>
+        <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:35, marginVertical:20}}>Happy {dayOfWeek},</Text>
+        <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:35, marginVertical:-10,marginBottom:10}}>{user?.displayName}</Text>
         <TouchableOpacity style = {styles.weeklyProgressButton} onPress = {() => navigation.navigate("Diet")}>
           <Text style = {styles.boxText}>Weekly Goal Progress </Text>
           <Text style={{marginLeft:5, marginBottom:30}}>On track - keep it up!</Text>
@@ -108,10 +112,10 @@ const styles = StyleSheet.create({
       fontSize: 20,
       marginBottom:3
     },
-    countContainer: {
-      alignItems: "center",
-      padding: 10
-    }  
+    carouselContainer:{
+
+    }
+    
     /*title:{
       textAlign:'center',
       marginVertical:8,

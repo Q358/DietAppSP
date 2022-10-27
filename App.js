@@ -4,6 +4,7 @@ import { registerRootComponent } from 'expo'
 import { AuthProvider } from './config/authContext'
 import BarcodeScanSceen from './screens/BarcodeScanScreen'
 import Diet from './screens/Diet'
+import Friends from './screens/Friends'
 import Home from './screens/Home'
 import Landing from './screens/Landing'
 import LoadingScreen from './screens/LoadingScreen'
@@ -32,6 +33,7 @@ export default function App() {
           <Stack.Screen name="Diet" component={Diet}/>
           <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
           <Stack.Screen name="Workout" component={Workout}/>
+          <Stack.Screen name="Friends" component={Friends}/>
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

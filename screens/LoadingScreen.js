@@ -3,11 +3,14 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../config/authContext";
+import  Constants  from "expo-constants";
 
 export default function LoadingScreen({ navigation }) {
     const [loaded] = useFonts({
       BandarBold: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
     });
+
+    console.log(Constants.manifest.extra.apiKey);
 
     const { user } = useAuth()
 
