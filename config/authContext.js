@@ -28,9 +28,9 @@ export function AuthProvider({ children }) {
     return unsubscribe
   }, [])
   
-  function register(email, password, displayName){
-    createUserWithEmailAndPassword(auth, email, password)
-    return  updateProfile(user, {displayName})
+  async function register(email, password, displayName){
+    await createUserWithEmailAndPassword(auth, email, password)
+    return updateProfile(user, {displayName})
   }
 
   function login(email, password){
