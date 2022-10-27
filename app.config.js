@@ -2,11 +2,11 @@ import "dotenv/config"
 
 export default {
   expo: {
-    name: "nutrifit",
-    slug: "nutrifit",
+    name: "nutri",
+    slug: "nutri",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./assets/nutri_icon.png",
     userInterfaceStyle: "light",
     splash: {
       image: "./assets/splash.png",
@@ -25,7 +25,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./assets/nutri_adaptive_icon.png",
         backgroundColor: "#FFFFFF"
       }
     },
