@@ -10,7 +10,7 @@ export default function LoadingScreen({ navigation }) {
       BandarBold: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
     });
 
-    console.log(Constants.manifest.extra.apiKey);
+    //console.log(Constants.manifest.extra.apiKey);
 
     const { user } = useAuth()
 

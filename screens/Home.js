@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { SafeAreaView, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import { faTrophy, faUserGroup, faAppleWhole, faFish, faCarrot, faBreadSlice, faWineGlass, faCheese, faCookieBite, faSmoking } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUserGroup, faAppleWhole, faFish, faCarrot, faBreadSlice, faWineGlass, faCheese, faCookieBite, faSmoking, faPersonRunning, faBiking, faWalking, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
@@ -9,6 +9,9 @@ import FoodBlock from "../components/FoodBlock"
 import profilePic from "../assets/favicon.png"
 import { useAuth } from '../config/authContext';
 import moment from 'moment';
+import Onboarding from "react-native-onboarding-swiper";
+
+
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
@@ -64,7 +67,36 @@ export default function Home({ navigation }) {
         <TouchableOpacity style = {{...styles.weeklyProgressButton, marginVertical:15}} onPress = {() => navigation.navigate("Workout")}>
           <Text style = {styles.boxText}>Workout</Text>
           <View>
-            
+          <Onboarding
+      //onSkip={() => navigation.navigate("Home")}
+          onDone= {() => navigation.navigate("Home")}
+          pages={[
+            {
+              backgroundColor: '#fff',
+              image: <FontAwesomeIcon icon = {faPersonRunning} size = {20} color = {'#BC62FF'} ></FontAwesomeIcon>,
+              //title: 'Running',
+              title : <Text style={{fontFamily:"Ubuntu", fontSize: 10, marginTop:-8}}></Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4}}></Text>
+            },
+            {
+              backgroundColor: '#fff',
+              image: <FontAwesomeIcon icon = {faDumbbell} size = {100} color = {'#BC62FF'} style = {styles.secondCarouselIconStyle}></FontAwesomeIcon>,
+              title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(Dimensions.get('window').width)/4}}></Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(Dimensions.get('window').width)/4}}></Text>, // no subtitle, just for testing purposes
+            },
+            {
+              backgroundColor: '#fff',
+              image: <FontAwesomeIcon icon = {faBiking} size = {100} color = {'#BC62FF'} style = {styles.thirdCarouselIconStyle}></FontAwesomeIcon>,
+              title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(Dimensions.get('window').width)/3}}>Station Bike</Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(Dimensions.get('window').width)/3}}>30 mins</Text>,
+            },
+            {
+              backgroundColor: '#fff',
+              image: <FontAwesomeIcon icon = {faWalking} size = {100} color = {'#BC62FF'} style = {styles.fourthCarouselIconStyle}></FontAwesomeIcon>,
+              title : <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginRight: (Dimensions.get('window').width)/8}}>Walking</Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginRight: (Dimensions.get('window').width)/8}}> 3x10 mins</Text>
+            },
+          ]}/>
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -112,9 +144,33 @@ const styles = StyleSheet.create({
       fontSize: 20,
       marginBottom:3
     },
-    carouselContainer:{
-
-    }
+    workoutCarouselcontainer: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    secondCarouselIconStyle: {
+      flex:1,
+      backgroundColor:'white',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: (Dimensions.get('window').width)/4 ,
+    },
+    thirdCarouselIconStyle: {
+      flex:1,
+      backgroundColor:'white',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: (Dimensions.get('window').width)/3 ,
+    },
+    fourthCarouselIconStyle: {
+      flex:1,
+      backgroundColor:'white',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: (Dimensions.get('window').width)/8 ,
+    },
     
     /*title:{
       textAlign:'center',
