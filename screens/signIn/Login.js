@@ -1,23 +1,43 @@
+import { CommonActions, StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useState } from "react";
+import { Alert } from "react-native";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useAuth } from "../../config/authContext";
 
-export default function Login({ navigation }) {
+export default function Login ({ navigation }) {
   const [email, onChangeEmail] = useState()
   const [password, onChangePassword] = useState()
   const [loaded] = useFonts({
     BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
   });
+  const { login } = useAuth()
 
   if (!loaded) {
     return null;
   }
+  
+  // TODO Improve Alert and add input validation
+  const handleSubmit = async () => {
+    try {
+      await login(email, password)
+      navigation.dispatch(CommonActions.reset(({ // Stops users from going back to Login page
+        index: 0,
+        routes: [
+          { name: 'Home' },
+        ],
+      })))
+    } catch (error) {
+      Alert.alert("Failed to login:" + error)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>login</Text>
-      <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email"/>
-      <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true}/>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Home")}>
+      <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email" autoComplete="email"/>
+      <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true} autoComplete="password"/>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={{fontWeight:"500", color:"lightgreen"}}>submit</Text>
       </TouchableOpacity>
     </View>

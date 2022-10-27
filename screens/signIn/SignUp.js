@@ -1,6 +1,8 @@
+import { StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useAuth } from "../../config/authContext";
 
 export default function SignUp({ navigation }) {
   const [email, onChangeEmail] = useState()
@@ -9,21 +11,38 @@ export default function SignUp({ navigation }) {
   const [loaded] = useFonts({
     BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
   });
+  const { register } = useAuth()
 
   if (!loaded) {
     return null;
   }
 
-  const handleSubmit = () => {
-    (email && name && password) ? navigation.navigate("Home") : Alert.alert("Please fill out all fields")
+  const handleSubmit = async () => {
+    if (!email || !name || !password) {
+      Alert.alert("Please fill out all fields")
+      return 0
+    }
+    else{
+      try {
+        await register(email, password, name)
+        navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
+          index: 0,
+          routes: [
+            { name: 'Home' }, // TODO This should go to a diet customization set up process
+          ],
+        })))
+      } catch (error) {
+        Alert.alert("Failed to sign up:" + error)
+      }
+    }
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>sign up</Text>
-      <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email"/>
-      <TextInput style={styles.textInput} onChangeText={onChangeName} value={name} placeholder="name"/>
-      <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true}/>
+      <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email" autoComplete="email"/>
+      <TextInput style={styles.textInput} onChangeText={onChangeName} value={name} placeholder="name" autoComplete="name"/>
+      <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true} autoComplete="password-new"/>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={{fontWeight:"500", color:"lightgreen"}}>submit</Text>
       </TouchableOpacity>
@@ -37,7 +56,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor:"lightgreen"
+      backgroundColor:"#b0fe8d"
     },
     text: {
       fontSize: 50,
