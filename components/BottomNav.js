@@ -24,11 +24,12 @@ export default function BottomNav({ navigation }) {
 const styles = StyleSheet.create({
     container: {
       flexDirection:"row",
-      marginBottom: 15,
-backgroundColor:"lightgray",
- 
+      backgroundColor:"lightgray",
       borderWidth:3,
-      borderRadius:20
+      borderRadius:20,
+      marginTop:20,
+      width:"90%",
+      justifyContent:"center"
     },
     navButton: {
       marginVertical:20,

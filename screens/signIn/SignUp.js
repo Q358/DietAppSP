@@ -41,6 +41,10 @@ export default function SignUp({ navigation }) {
       setErrorText("Password must be longer than 8 characters")
       return 0
     }
+    if(name.length >= 30){
+      setErrorText("Name must be shorter than 30 characters")
+      return 0
+    }
 
     try {
       setIsLoading(true)
@@ -65,7 +69,7 @@ export default function SignUp({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.text}>sign up</Text>
       <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email" autoComplete="email" on/>
-      <TextInput style={styles.textInput} onChangeText={onChangeName} value={name} placeholder="name" autoComplete="name"/>
+      <TextInput style={styles.textInput} onChangeText={onChangeName} value={name} placeholder="first name" autoComplete="name"/>
       <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true} autoComplete="password-new"/>
       <Text style={{color:"red", marginTop:8}}>
         {errorText ? errorText : null}
