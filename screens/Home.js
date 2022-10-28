@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { SafeAreaView, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView } from 'react-native';
+import { SafeAreaView, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView, useWindowDimensions } from 'react-native';
 import { useFonts } from 'expo-font';
 import { faTrophy, faUserGroup, faAppleWhole, faFish, faCarrot, faBreadSlice, faWineGlass, faCheese, faCookieBite, faSmoking } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
@@ -17,12 +17,12 @@ export default function Home({ navigation }) {
   });
 
   const { user } = useAuth()
+  const { width, height } = useWindowDimensions()
 
   if (!loaded) {
     return null;
   }
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get('window').height;
+
   var progress = 0.76
 
   return (
@@ -46,16 +46,16 @@ export default function Home({ navigation }) {
         <ScrollView style={{backgroundColor:"#29a442", padding:10, borderRadius:15, flex:1}}>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Diet")}>
           <View style={{flexDirection:"row", alignItems:"center"}}>
-            <View>
+            <View style={{marginBottom:5, justifyContent:"space-between"}}>
           <Text style = {styles.boxText}>Weekly Goal Progress </Text>
-          <Text style={{fontFamily:"Ubuntu",marginLeft:5, marginBottom:30}}>On track - keep it up!</Text>
+          <Text style={{fontFamily:"Ubuntu",marginLeft:10, marginBottom:20, marginTop:10}}>On track - keep it up!</Text>
           </View>
           <Text style={{fontSize:40, marginTop:30, fontWeight:"800"}}>{progress * 100}%</Text>
           </View>
           <LinearProgress value={progress} variant="determinate" />
         </TouchableOpacity>
-        <View style = {{...styles.divider, marginHorizontal:windowWidth/20, marginVertical:windowHeight/80}}/>
-        <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:25, marginBottom:windowHeight/80}}>Daily Breakdown</Text>
+        <View style = {{...styles.divider, marginHorizontal:width/20, marginVertical:height/80}}/>
+        <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:25, marginBottom:height/80}}>Daily Breakdown</Text>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, justifyContent:"space-between"}} onPress = {() => navigation.navigate("Diet")}>
           <Text style = {styles.boxText}>Diet</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#0F2135',
       borderRadius:10,
       padding:10,
+      marginLeft:10
     },
     trophyButton: {
       backgroundColor: '#AEB320',
