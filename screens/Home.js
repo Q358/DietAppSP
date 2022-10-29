@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { SafeAreaView, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions } from 'react-native';
 import { useFonts } from 'expo-font';
-import { faTrophy, faUserGroup, faAppleWhole, faFish, faCarrot, faBreadSlice, faWineGlass, faCheese, faCookieBite, faSmoking } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
-import profilePic from "../assets/nutriIcon.jpg"
 import { useAuth } from '../config/authContext';
 
 export default function Home({ navigation }) {
@@ -16,7 +15,7 @@ export default function Home({ navigation }) {
     Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf')
   });
 
-  const { user } = useAuth()
+  const { user, userAvatar } = useAuth()
   const { width, height } = useWindowDimensions()
 
   if (!loaded) {
@@ -38,10 +37,10 @@ export default function Home({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-            <Avatar style={{width:40,height:40, borderRadius:20, borderTopColor:"black", borderWidth:1, borderColor:"black"}} size={"large"} rounded source={profilePic}/>
+            <Avatar style={{width:40,height:40, borderRadius:20, borderTopColor:"black", borderWidth:1, borderColor:"black"}} size={"large"} rounded source={userAvatar}/>
           </TouchableOpacity>
         </View>
-        <Text style={styles.welcomeText}>Happy Saturday, {user.displayName}</Text>
+        <Text style={styles.welcomeText}>Happy Saturday, {user?.displayName}</Text>
         </View>
         <ScrollView style={{backgroundColor:"#29a442", padding:10, borderRadius:15, flex:1}}>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Diet")}>

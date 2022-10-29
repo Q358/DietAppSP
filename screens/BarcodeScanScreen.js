@@ -19,10 +19,10 @@ export default function BarcodeScanSceen({ navigation }) {
 
   // TODO Make into dialogs
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>
+    return <Text>Requesting camera permission...</Text>  // TODO Make this look better
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>
+    return <Text>No access to camera. Please allow access to use the barcode scanner.</Text>
   }
 
   // TODO Query FatSecret API with code number, navigate user to loading page
