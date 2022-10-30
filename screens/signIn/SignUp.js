@@ -41,6 +41,10 @@ export default function SignUp({ navigation }) {
       setErrorText("Password must be longer than 8 characters")
       return 0
     }
+    if(name.length >= 30){
+      setErrorText("Name must be shorter than 30 characters")
+      return 0
+    }
 
     try {
       setIsLoading(true)
@@ -80,10 +84,9 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor:"#b0fe8d"
+      backgroundColor:"#9ce979"
     },
     text: {
       fontSize: 50,
