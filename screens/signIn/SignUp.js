@@ -69,7 +69,7 @@ export default function SignUp({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.text}>sign up</Text>
       <TextInput style={styles.textInput} onChangeText={onChangeEmail} value={email} placeholder="email" autoComplete="email" on/>
-      <TextInput style={styles.textInput} onChangeText={onChangeName} value={name} placeholder="first name" autoComplete="name"/>
+      <TextInput style={styles.textInput} onChangeText={onChangeName} value={name} placeholder="name" autoComplete="name"/>
       <TextInput style={styles.textInput} onChangeText={onChangePassword} value={password} placeholder="password" secureTextEntry={true} autoComplete="password-new"/>
       <Text style={{color:"red", marginTop:8}}>
         {errorText ? errorText : null}
@@ -84,10 +84,9 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor:"#b0fe8d"
+      backgroundColor:"#9ce979"
     },
     text: {
       fontSize: 50,

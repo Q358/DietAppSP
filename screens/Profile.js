@@ -80,7 +80,7 @@ export default function Profile({ navigation }) {
         setUserAvatar({uri:uri})
       } catch (error) {
         console.log(error)
-        setErrorText(error.code)
+        setErrorText("There was a problem uploading your file. Check your phone for any weasels that may have snuck in.") // Should this be changed?
       }
     }
     }
@@ -122,7 +122,7 @@ export default function Profile({ navigation }) {
                 </>
               ) : (
                 <>
-                  <Text style={{fontFamily:"UbuntuBold", marginBottom:15}}>Error: {errorText}</Text>
+                  <Text style={{fontFamily:"UbuntuBold", marginBottom:15}}>{errorText}</Text>
                   <TouchableOpacity style={styles.errorButton} onPress={() => setErrorText(undefined)}>
                     <Text>Ok</Text>
                   </TouchableOpacity>

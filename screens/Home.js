@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import { faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
 import { useAuth } from '../config/authContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
@@ -26,8 +27,9 @@ export default function Home({ navigation }) {
 
   return (
     <View style={{...styles.container, justifyContent:"space-evenly", alignItems: 'center'}}>
-      <View style={{...styles.container, flex:0, width:"90%", justifyContent:"center", alignItems:"center"}}>
-        <View style={{flexDirection:"row", marginTop:50, width:"100%", justifyContent:"space-between"}}>
+      <StatusBar  translucent backgroundColor={"transparent"}/>
+      <SafeAreaView style={{...styles.container, flex:0, width:"90%", justifyContent:"center", alignItems:"center"}}>
+        <View style={{flexDirection:"row", width:"100%", marginTop:13, justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
             <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Friends")}>
               <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
@@ -37,12 +39,12 @@ export default function Home({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-            <Avatar style={{width:40,height:40, borderRadius:20, borderTopColor:"black", borderWidth:1, borderColor:"black"}} size={"large"} rounded source={userAvatar}/>
+            <Avatar style={{width:40,height:40, borderRadius:20, borderWidth:1, borderColor:"white"}} size={"large"} rounded source={userAvatar}/>
           </TouchableOpacity>
         </View>
         <Text style={styles.welcomeText}>Happy Saturday, {user?.displayName}</Text>
-        </View>
-        <ScrollView style={{backgroundColor:"#29a442", padding:10, borderRadius:15, flex:1}}>
+        </SafeAreaView>
+        <ScrollView style={{backgroundColor:"#29a442", padding:10, borderRadius:15}}>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Diet")}>
           <View style={{flexDirection:"row", alignItems:"center"}}>
             <View style={{marginBottom:5, justifyContent:"space-between"}}>
@@ -72,7 +74,6 @@ export default function Home({ navigation }) {
           </View>
         </TouchableOpacity>
       </ScrollView>
-
       <BottomNav navigation={navigation}/>
     </View>
   )
@@ -96,13 +97,17 @@ const styles = StyleSheet.create({
       backgroundColor: '#0F2135',
       borderRadius:10,
       padding:10,
-      marginLeft:10
+      marginLeft:10,
+      borderColor:"white",
+      borderWidth:1
     },
     trophyButton: {
       backgroundColor: '#AEB320',
       borderRadius:10,
       padding:10,
-      marginLeft:20
+      marginLeft:20,
+      borderColor:"white",
+      borderWidth:1
     },
     welcomeText:{
       fontFamily: "UbuntuBold",

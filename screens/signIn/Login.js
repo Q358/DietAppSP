@@ -31,7 +31,7 @@ export default function Login ({ navigation }) {
   // TODO Improve Alert and add input validation
   const handleSubmit = async () => {
     if (!email || !password) {
-      setIncomplete("Please fill out all fields")
+      setErrorText("Please fill out all fields")
       return 0
     }
     if(!email.match(/\S+@\S+\.\S+/)){
@@ -79,7 +79,6 @@ export default function Login ({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor:"lightgreen",
