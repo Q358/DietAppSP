@@ -1,6 +1,6 @@
-import { firebase, getApp, getApps, initializeApp } from "firebase/app"
+import { getApp, getApps, initializeApp } from "firebase/app"
 import { getAuth, initializeAuth, updateProfile } from "firebase/auth"
-import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import { getReactNativePersistence } from 'firebase/auth/react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Constants from "expo-constants"

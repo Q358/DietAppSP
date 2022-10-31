@@ -87,12 +87,6 @@ const styles = StyleSheet.create({
       //marginHorizontal :16,
       maxWidth:"100%"
     },
-    dividerStyle: {
-      borderBottomColor : "lightgray", 
-      borderBottomWidth:10, 
-      borderRadius:30, 
-      width:250
-    },
     friendsButton:{
       backgroundColor: '#0F2135',
       borderRadius:10,

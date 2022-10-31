@@ -7,6 +7,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { upload } from "../config/firebase"
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from "react"
+import LoadingModal from "../components/LoadingModal"
 
 export default function Profile({ navigation }) {
   const { user, logout, userAvatar, setUserAvatar } = useAuth()
@@ -108,29 +109,7 @@ export default function Profile({ navigation }) {
         <Text style={{marginHorizontal:10}}>Logout</Text>
         <FontAwesomeIcon icon={faRightFromBracket} />
       </TouchableOpacity>
-      <Modal visible={visible} animationType="slide" transparent={true}
-        onRequestClose={() => {
-          console.log("Modal has been closed.")
-          setVisible(!visible)
-        }}>
-          <View style={{justifyContent:"center", alignItems:"center", flex:1}}>
-            <View style={{backgroundColor:"white", borderRadius:15,padding:35, alignItems:"center", width:"70%"}}>
-              {isLoading ? (
-                <>
-                  <Text style={{fontFamily:"UbuntuBold",marginBottom:15,fontSize:20}}>loading...</Text>
-                  <ActivityIndicator size="large" color="lightgreen"/>
-                </>
-              ) : (
-                <>
-                  <Text style={{fontFamily:"UbuntuBold", marginBottom:15}}>{errorText}</Text>
-                  <TouchableOpacity style={styles.errorButton} onPress={() => setErrorText(undefined)}>
-                    <Text>Ok</Text>
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-        </View>
-      </Modal>
+      <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
     </View>
   )
 }
@@ -151,14 +130,5 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     backgroundColor:"green",
     flexDirection:"row"
-  },
-  errorButton:{
-    backgroundColor:"green",
-    borderRadius:15,
-    borderWidth:1,
-    flex:0,
-    alignItems:"center",
-    paddingHorizontal:20,
-    paddingVertical:10
   }
 })

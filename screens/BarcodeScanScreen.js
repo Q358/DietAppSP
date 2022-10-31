@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
 import { BarCodeScanner } from "expo-barcode-scanner"
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, useWindowDimensions } from "react-native"
+import { getFood } from "../config/fatsecret"
+import BarcodeResult from "./BarcodeResultScreen"
 
 export default function BarcodeScanSceen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [food, setFood] = useState()
   
   const { height } = useWindowDimensions()
 
@@ -40,9 +44,17 @@ export default function BarcodeScanSceen({ navigation }) {
   }
 
   // TODO Query FatSecret API with code number, navigate user to loading page
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true)
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+    console.log("Barcode:",data)
+    // setIsLoading(true)
+    let foodData = await getFood(data)
+    let food = foodData.food
+    console.log(foodData)
+    console.log(food.servings)
+    setFood(food)
+    setVisible(true)
+    // alert(`Bar code with type ${type} and data ${data} has been scanned! This is a ${food.brand_name} ${food.food_name}.`)
   }
 
   // Added absolute to cancel button to make it overlay over camera view
@@ -56,6 +68,7 @@ export default function BarcodeScanSceen({ navigation }) {
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
+      <BarcodeResult food={food} visible={visible} setVisible={setVisible} setScanned={setScanned}/>
     </>
   )
 }
