@@ -28,12 +28,12 @@ export default function Diet({ navigation }) {
       <Text style = {{marginVertical:50, marginTop: -70, marginLeft:260}}>Dinner</Text>
       <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-25, marginBottom: 10, marginRight:80}}>This Week</Text>
       <View style = {{...styles.rectangle2, marginTop: 10, marginRight:250}}>
-        <Text style = {{marginTop:20, marginLeft: 135, color:"white", fontFamily:"AdidogDemo", fontSize:10}}>Sunday</Text>
+        <Text style = {{marginTop:20, marginLeft: 135, color:"black", fontFamily:"AdidogDemo", fontSize:10}}>Sunday</Text>
         <View style = {{...styles.leftArrow, marginTop:30}}>
-        <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'white'}/>
+        <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'black'}/>
         </View>
         <View style = {{...styles.rightArrow, marginTop:-30, marginLeft: 320}}>
-        <FontAwesomeIcon icon={faAngleRight} size = {30} color = {'white'}/>
+        <FontAwesomeIcon icon={faAngleRight} size = {30} color = {'black'}/>
         <View style = {{marginLeft:-290, marginTop:-50}}>
         <FoodBlock icons={["apple", "cookie", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")}/>
         </View>
@@ -44,10 +44,15 @@ export default function Diet({ navigation }) {
           <FoodBlock icons={["fish", "carrot", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")}/>
         </View>
         </View>
+        <Text style = {{marginVertical:50, marginTop: 5, marginLeft: 40, fontSize:13}}>Breakfast</Text>
+        <Text style = {{marginVertical:50, marginTop: -66, marginLeft: 160, fontSize:13}}>Lunch</Text>
+        <Text style = {{marginVertical:50, marginTop: -66, marginLeft: 260, fontSize:13}}>Dinner</Text>
       </View>
     <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:35, marginTop: 20}}>Cheats</Text>
-    <View style = {{marginTop:10, marginBottom:-15}}>
+    <View style = {{flexDirection:"row"}}>
+      <View style = {{marginTop:10, marginBottom:-15}}>
       <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={100} onPress={() => navigation.navigate("Breakfast")}/>
+    </View>
     </View>
     <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
     <View style = {{...styles.houseButton, marginRight:200, marginTop: 50}}>
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
     rectangle2: {
       height: 170,
       width: 350,
-      backgroundColor: '#C1C1C1',
+      backgroundColor: 'white',
       borderRadius:30, 
       marginLeft: 250
 
