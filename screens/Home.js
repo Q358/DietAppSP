@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { SafeAreaView, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import { faTrophy, faUserGroup, faAppleWhole, faFish, faCarrot, faBreadSlice, faWineGlass, faCheese, faCookieBite, faSmoking, faPersonRunning, faBiking, faWalking, faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUserGroup, faAppleWhole, faFish, faCarrot, faBreadSlice, faWineGlass, faCheese, faCookieBite, faSmoking, faPersonRunning, faBiking, faPersonWalking, faWalking, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
@@ -10,16 +10,27 @@ import profilePic from "../assets/favicon.png"
 import { useAuth } from '../config/authContext';
 import moment from 'moment';
 import Onboarding from "react-native-onboarding-swiper";
+import Carousel from 'react-native-banner-carousel';
 
 
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
     AdidogDemo: require('../assets/fonts/AdidogDemo-RpqMo.otf'),
-    UbuntuBold: require('../assets/fonts/Ubuntu-Bold.ttf')
+    UbuntuBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
+    Ubuntu : require('../assets/fonts/Ubuntu-Medium.ttf'),
   });
 
   const { user } = useAuth()
+
+
+  const iconNames = new Map();
+  iconNames.set(1, faPersonRunning);
+  iconNames.set(2, faDumbbell);
+  iconNames.set(3, faBiking);
+  iconNames.set(4, faPersonWalking);
+
+  
 
 
   if (!loaded) {
@@ -68,31 +79,29 @@ export default function Home({ navigation }) {
           <Text style = {styles.boxText}>Workout</Text>
           <View>
           <Onboarding
-      //onSkip={() => navigation.navigate("Home")}
-          onDone= {() => navigation.navigate("Home")}
           pages={[
             {
               backgroundColor: '#fff',
               image: <FontAwesomeIcon icon = {faPersonRunning} size = {20} color = {'#BC62FF'} ></FontAwesomeIcon>,
               //title: 'Running',
-              title : <Text style={{fontFamily:"Ubuntu", fontSize: 10, marginTop:-8}}></Text>,
-              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4}}></Text>
+              title : <Text style={{fontFamily:"Ubuntu", fontSize: 2, marginTop:-2}}></Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:2, marginTop:-1}}></Text>
             },
             {
               backgroundColor: '#fff',
-              image: <FontAwesomeIcon icon = {faDumbbell} size = {100} color = {'#BC62FF'} style = {styles.secondCarouselIconStyle}></FontAwesomeIcon>,
+              image: <FontAwesomeIcon icon = {faDumbbell} size = {20} color = {'#BC62FF'} style = {styles.secondCarouselIconStyle}></FontAwesomeIcon>,
               title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(Dimensions.get('window').width)/4}}></Text>,
               subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(Dimensions.get('window').width)/4}}></Text>, // no subtitle, just for testing purposes
             },
             {
               backgroundColor: '#fff',
-              image: <FontAwesomeIcon icon = {faBiking} size = {100} color = {'#BC62FF'} style = {styles.thirdCarouselIconStyle}></FontAwesomeIcon>,
+              image: <FontAwesomeIcon icon = {faBiking} size = {20} color = {'#BC62FF'} style = {styles.thirdCarouselIconStyle}></FontAwesomeIcon>,
               title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(Dimensions.get('window').width)/3}}>Station Bike</Text>,
               subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(Dimensions.get('window').width)/3}}>30 mins</Text>,
             },
             {
               backgroundColor: '#fff',
-              image: <FontAwesomeIcon icon = {faWalking} size = {100} color = {'#BC62FF'} style = {styles.fourthCarouselIconStyle}></FontAwesomeIcon>,
+              image: <FontAwesomeIcon icon = {faWalking} size = {20} color = {'#BC62FF'} style = {styles.fourthCarouselIconStyle}></FontAwesomeIcon>,
               title : <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginRight: (Dimensions.get('window').width)/8}}>Walking</Text>,
               subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginRight: (Dimensions.get('window').width)/8}}> 3x10 mins</Text>
             },
