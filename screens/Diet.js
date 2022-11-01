@@ -49,10 +49,8 @@ export default function Diet({ navigation }) {
         <Text style = {{marginVertical:50, marginTop: -66, marginLeft: 260, fontSize:13}}>Dinner</Text>
       </View>
     <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:35, marginTop: 20}}>Cheats</Text>
-    <View style = {{flexDirection:"row"}}>
-      <View style = {{marginTop:10, marginBottom:-15}}>
-      <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={100} onPress={() => navigation.navigate("Breakfast")}/>
-    </View>
+    <View style = {{marginTop:10, marginBottom:-15}}>
+      <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={100}  onPress={() => navigation.navigate("Breakfast")}/>
     </View>
     <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
     <View style = {{...styles.houseButton, marginRight:200, marginTop: 50}}>
