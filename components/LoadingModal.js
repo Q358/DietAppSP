@@ -4,7 +4,7 @@ export default function LoadingModal ({ visible, setVisible, errorText, setError
   return(
     <Modal visible={visible} animationType="slide" transparent={true}
       onRequestClose={() => {
-        console.log("Modal has been closed.")
+        console.log("Loading modal has been closed.")
         setVisible(!visible)
       }}>
       <View style={{justifyContent:"center", alignItems:"center", flex:1}}>

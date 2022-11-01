@@ -9,6 +9,8 @@ export default function BarcodeScanSceen({ navigation }) {
   const [scanned, setScanned] = useState(false)
   const [visible, setVisible] = useState(false)
   const [food, setFood] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [errorText, setErrorText] = useState()
   
   const { height } = useWindowDimensions()
 
@@ -43,20 +45,38 @@ export default function BarcodeScanSceen({ navigation }) {
     )
   }
 
+  const handleAPICall = async (data) => {
+    try {
+      setIsLoading(true)
+      var foodData = await getFood(data)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      setIsLoading(false)
+      setErrorText("Server error. That's probably our bad.")
+      setScanned(false)
+    }
+    if(foodData?.error){
+      setErrorText("We're unable to find a food with that barcode.")
+      setScanned(false)
+    }
+    else{
+      console.log(foodData)
+      console.log(foodData?.food?.servings?.serving)
+      return foodData?.food
+    }
+  }
+
   // TODO Query FatSecret API with code number, navigate user to loading page
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true)
-    console.log("Barcode:",data)
-    // setIsLoading(true)
-    let foodData = await getFood(data)
-    let food = foodData.food
-    console.log(foodData)
-    console.log(food.servings)
-    setFood(food)
+    console.log("Barcode:", data)
     setVisible(true)
+    setFood(await handleAPICall(data))
+
     // alert(`Bar code with type ${type} and data ${data} has been scanned! This is a ${food.brand_name} ${food.food_name}.`)
   }
-
+  
   // Added absolute to cancel button to make it overlay over camera view
   // Added 115% width to BarcodeScanner to make it fill screen - need to check if this causes any issues other than increased zoom
   return (
@@ -68,7 +88,8 @@ export default function BarcodeScanSceen({ navigation }) {
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
-      <BarcodeResult food={food} visible={visible} setVisible={setVisible} setScanned={setScanned}/>
+      <BarcodeResult data={food} visible={visible} setVisible={setVisible} setScanned={setScanned} isLoading={isLoading} errorText={errorText}
+       setErrorText={setErrorText}/>
     </>
   )
 }

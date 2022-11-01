@@ -1,10 +1,8 @@
-import { CommonActions, StackActions } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import ErrorMessage from "../../components/ErrorMessage";
-import { useAuth } from "../../config/authContext";
+import { CommonActions, StackActions } from "@react-navigation/native"
+import { useFonts } from "expo-font"
+import { useEffect, useState } from "react"
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { useAuth } from "../../config/authContext"
 
 export default function Login ({ navigation }) {
   const [loaded] = useFonts({
