@@ -1,7 +1,8 @@
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useRef, useEffect } from "react";
-import { Animated, StyleSheet, Text, View, PanResponder, LogBox } from "react-native";
+import { Animated, StyleSheet, View, PanResponder, LogBox } from "react-native";
+import TrophiesDB from "../components/TrophiesDB";
 
 
 
@@ -20,12 +21,14 @@ for (var i=0; i<6; i++)
 }
 
 var leftMarginMovementTrophy2;
-
 leftMarginMovementTrophy2 = Math.floor(Math.random()*200);
-
 var bottomMarginmovementTrophy2;
-
 bottomMarginmovementTrophy2 = Math.floor(Math.random()*200);
+
+var horizontalMarginMovementTrophy3;
+horizontalMarginMovementTrophy3 = Math.floor(Math.random()*100);
+var topMarginmovementTrophy3;
+topMarginmovementTrophy3 = Math.floor(Math.random()*100);
 
 const Trophies = () => {
   useEffect(() => {
@@ -50,22 +53,40 @@ const Trophies = () => {
     <View style={styles.container}>
       <Animated.View
         style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
+          ...styles.trophy1 , transform: [{ translateX: pan.x }, { translateY: pan.y }]
         }}
         {...panResponder1.panHandlers}
-      >
-        <FontAwesomeIcon icon = {faTrophy} size = {100} color = {trophy1Color} style = {styles.trophy1} ></FontAwesomeIcon>
-        <View/>
+      > 
+        <TrophiesDB icons = {["trophy1"]} size = {100} /> 
       </Animated.View>
+      
       <Animated.View
         style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
+          ...styles.trophy2 , transform: [{ translateX: pan.x }, { translateY: pan.y }]
         }}
         {...panResponder1.panHandlers}
       >
-        <FontAwesomeIcon icon = {faTrophy} size = {100} color = {trophy2Color} style = {styles.trophy2} ></FontAwesomeIcon>
-        <View/>
+        <TrophiesDB icons = {["trophy2"]} size = {100} /> 
       </Animated.View>
+
+      <Animated.View
+        style={{
+          ...styles.trophy3 , transform: [{ translateX: pan.x }, { translateY: pan.y }]
+        }}
+        {...panResponder1.panHandlers}
+      >
+        <TrophiesDB icons = {["trophy3"]} size = {100} /> 
+      </Animated.View>
+
+      <Animated.View
+        style={{
+          ...styles.trophy4 , transform: [{ translateX: pan.x }, { translateY: pan.y }]
+        }}
+        {...panResponder1.panHandlers}
+      >
+        <TrophiesDB icons = {["trophy4"]} size = {100} /> 
+      </Animated.View>
+      
     </View>
   );
 }
@@ -91,6 +112,17 @@ const styles = StyleSheet.create({
     marginLeft: leftMarginMovementTrophy2,
     marginBottom: bottomMarginmovementTrophy2
   },
+  trophy3: {
+    marginHorizontal: horizontalMarginMovementTrophy3,
+    marginTop: -0.5* topMarginmovementTrophy3
+  },
+  trophy4: {
+    marginRight: Math.floor(Math.random()*100),
+    marginTop: 0.5* topMarginmovementTrophy3
+  },
+  
+
+
 
   });
 

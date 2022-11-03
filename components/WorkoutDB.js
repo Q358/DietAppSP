@@ -13,7 +13,8 @@ export default function WorkoutDB({workouts, onPress}){
   var completedMessage = () => {
     Alert.alert("Completed");
   }
-    const WorkoutDBList = workouts?.map(( Exercise ) => {
+  var WorkoutDBList;
+    return (WorkoutDBList = workouts?.map(( Exercise ) => {
         let color;
         switch(Exercise){
         case "Running":
@@ -47,28 +48,10 @@ export default function WorkoutDB({workouts, onPress}){
         break;
         }
         return {backgroundColor, iconName, color, title, subtitle}
-    })
+    }))
 
-    const ExerciseComponents = WorkoutDBList?.map(({backgroundColor, iconName, color, title, subtitle}, index ) =>
-    {
-      return(
-        <View>backgroundColor: {backgroundColor},
-          image:  <TouchableOpacity onPress={onPress}>
-          <FontAwesomeIcon icon = {iconName} size = {100} color ={color}/> 
-        </TouchableOpacity>,
-          title : <Text style={{fontFamily:"Ubuntu", fontSize:50, marginTop:-40}}>{title}</Text>,
-          subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:25, marginTop:20}}>3 {subtitle}</Text>,
-          </View>
-      )
-    }
-    )
+    
 
-    return (
-      <TouchableOpacity style = {{...styles.box, width: size, height: size, paddingVertical: size * 0.03, paddingHorizontal: size * 0.03, style}} 
-        onPress ={onPress}>
-        {ExerciseComponents}
-      </TouchableOpacity>
-    )
 }
 
 
