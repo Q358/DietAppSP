@@ -96,6 +96,11 @@ export async function getFood(barcode){
 }
 
 
+// OpenFoodData API
+
+
+
+
 // async function authorize () {
 //     let formData = new FormData()
 //     formData.append('grant_type', 'client_credentials')

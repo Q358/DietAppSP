@@ -1,6 +1,7 @@
+import { Divider } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import LoadingModal from "../components/LoadingModal";
 import { getFood } from "../config/fatsecret";
 
@@ -14,12 +15,12 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
 
   useEffect(() => {
   
-    if(visible){
+    if(data){
       // awaithandleAPICall()
       console.log("|",data, servings, "|")
     }
 
-  }, [visible])
+  }, [data])
   
 
   useEffect(() => {
@@ -30,19 +31,25 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
 
   if(data){
     return (
-      <Modal style={styles.container} visible={visible}  
+      <Modal style={{...StyleSheet.absoluteFillObject}} visible={visible} 
         onRequestClose={() => {
           console.log("Barcode result has been closed.")
           setVisible(false)
           setScanned(false)
         }}>
-        <StatusBar backgroundColor="white"/>
-        <View style={styles.innerContainer}>
-          <Text style={{ fontFamily:"UbuntuBold", fontSize:20 }}>Item scanned!</Text>
-          <Text style={{ fontFamily:"UbuntuBold", fontSize:30, marginVertical:5 }}>{data?.brand_name} {data?.food_name}</Text>
-          <Text>Per serving, this food contains:</Text>
-          <View style={styles.divider}/>
-          {servings && Object.keys(servings).map(function(key, value){return <Text key={key}>- {key}: {value} </Text>})}
+        <StatusBar backgroundColor="lightgreen"/>
+        <View style={styles.container}>
+          <View style={styles.innerContainer}>
+            <Text style={{ fontFamily:"UbuntuBold", fontSize:20 }}>Item scanned!</Text>
+            <Text style={{ fontFamily:"UbuntuBold", fontSize:30, marginVertical:5 }}>{data?.brand_name} {data?.food_name}</Text>
+            <Divider width={3} style={{marginVertical:5}}/>
+            <Text>Per serving, this food contains:</Text>
+            {servings && Object.keys(servings).map(function(key){return <Text key={key}>- {key.replace(/_/g, " ")}: {servings[key]} </Text>})}
+            <Divider width={3} style={{marginVertical:7}}/>
+            <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Food added!")}>
+              <Text style={{ fontFamily:"UbuntuBold", fontSize:20, textAlign:"center" }}>Add Food</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     )
@@ -58,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightgreen',
     alignItems: 'center',
     justifyContent: 'center',
     height:"100%"
@@ -68,6 +75,13 @@ const styles = StyleSheet.create({
     borderRadius:15,
     justifyContent:'center',
     padding:10,
-    margin:10
+    margin:10,
+    backgroundColor:'white'
+  },
+  button:{
+    backgroundColor:"green",
+    borderRadius:15,
+    paddingVertical:7,
+    marginTop:5
   }
 });
