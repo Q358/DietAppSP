@@ -14,6 +14,7 @@ import SignUp from './screens/signIn/SignUp'
 import Friends from './screens/Friends'
 import Trophies from './screens/Trophies'
 import Workout from './screens/Workout'
+import Breakfast from './screens/Breakfast'
 
 
 const Stack = createNativeStackNavigator();
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
           <Stack.Screen name="Workout" component={Workout}/>
           <Stack.Screen name="Forgot" component={ForgotPassword}/>
+          <Stack.Screen name="Breakfast" component={Breakfast}/>
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
