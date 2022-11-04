@@ -2,11 +2,11 @@ import "dotenv/config"
 
 export default {
   expo: {
-    name: "nutrifit",
-    slug: "nutrifit",
+    name: "nutri",
+    slug: "nutri",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./assets/nutri_icon.png",
     userInterfaceStyle: "light",
     splash: {
       image: "./assets/splash.png",
@@ -25,7 +25,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./assets/nutri_adaptive_icon.png",
         backgroundColor: "#FFFFFF"
       }
     },
@@ -38,7 +38,9 @@ export default {
       projectId: process.env.PROJECT_ID,
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
-      appId: process.env.APP_ID
+      appId: process.env.APP_ID,
+      consumerKey: process.env.CONSUMER_KEY,
+      consumerSecret: process.env.CONSUMER_SECRET
     }
   }
 };

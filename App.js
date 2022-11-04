@@ -9,8 +9,10 @@ import Home from './screens/Home'
 import Landing from './screens/Landing'
 import LoadingScreen from './screens/LoadingScreen'
 import Profile from './screens/Profile'
+import ForgotPassword from './screens/signIn/ForgotPassword'
 import Login from './screens/signIn/Login'
 import SignUp from './screens/signIn/SignUp'
+import Friends from './screens/Friends'
 import Trophies from './screens/Trophies'
 import Workout from './screens/Workout'
 
@@ -28,12 +30,13 @@ export default function App() {
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="SignUp" component={SignUp}/>
           <Stack.Screen name="Home" component={Home}/>
-          <Stack.Screen name= "Trophies" component={Trophies}/>
+          <Stack.Screen name="Friends" component={Friends}/>
+          <Stack.Screen name="Trophies" component={Trophies}/>
           <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="Diet" component={Diet}/>
           <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
           <Stack.Screen name="Workout" component={Workout}/>
-          <Stack.Screen name="Friends" component={Friends}/>
+          <Stack.Screen name="Forgot" component={ForgotPassword}/>
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
