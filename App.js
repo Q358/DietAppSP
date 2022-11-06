@@ -12,7 +12,6 @@ import Profile from './screens/Profile'
 import ForgotPassword from './screens/signIn/ForgotPassword'
 import Login from './screens/signIn/Login'
 import SignUp from './screens/signIn/SignUp'
-import Friends from './screens/Friends'
 import Trophies from './screens/Trophies'
 import Workout from './screens/Workout'
 

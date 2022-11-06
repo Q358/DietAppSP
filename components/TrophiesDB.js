@@ -5,13 +5,19 @@ import { faBiking, faDumbbell, faFaceGrinBeamSweat, faHourglass, faPersonBiking,
 import Onboarding from "react-native-onboarding-swiper";
 
 var  trophyColorSymbols;
-var trophy1Color, trophy2Color, trophy3Color, trophy4Color;
+var trophy1Color, trophy2Color, trophy3Color, trophy4Color, trophy5Color, trophy6Color, trophy7Color, trophy8Color, trophy9Color;
 
 trophyColorSymbols = "0123456789ABCDEF";
 trophy1Color = "#";
 trophy2Color = "#";
 trophy3Color = '#';
 trophy4Color = '#';
+trophy5Color = "#";
+trophy6Color = "#";
+trophy7Color = '#';
+trophy8Color = '#';
+trophy9Color = '#';
+
 
 for (var i=0; i<6; i++)
 {
@@ -19,6 +25,11 @@ for (var i=0; i<6; i++)
     trophy2Color += trophyColorSymbols[Math.floor(Math.random()*16)];
     trophy3Color += trophyColorSymbols[Math.floor(Math.random()*16)];
     trophy4Color += trophyColorSymbols[Math.floor(Math.random()*16)];
+    trophy5Color += trophyColorSymbols[Math.floor(Math.random()*16)];
+    trophy6Color += trophyColorSymbols[Math.floor(Math.random()*16)];
+    trophy7Color += trophyColorSymbols[Math.floor(Math.random()*16)];
+    trophy8Color += trophyColorSymbols[Math.floor(Math.random()*16)];
+    trophy9Color += trophyColorSymbols[Math.floor(Math.random()*16)];
 }
 
 var leftMarginMovementTrophy2;
@@ -48,6 +59,27 @@ export default function TrophiesDB({icons, style, size, onPress}){
         case "trophy4":
           trophyIcon = faTrophy
           color = trophy4Color 
+          break;
+        case "trophy5":
+          trophyIcon = faTrophy
+          color = trophy5Color 
+          break;
+        case "trophy6":
+            trophyIcon = faTrophy
+            color = trophy6Color 
+            break;
+        case "trophy7":
+            trophyIcon = faTrophy
+            color = trophy7Color 
+            break;
+        case "trophy8":
+          trophyIcon = faTrophy
+          color = trophy8Color 
+          break;
+        
+        case "trophy9":
+          trophyIcon = faTrophy
+          color = trophy9Color 
           break;
             default:
             break;

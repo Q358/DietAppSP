@@ -8,6 +8,7 @@ import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
 import { useAuth } from '../config/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Onboarding from 'react-native-onboarding-swiper';
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
@@ -82,20 +83,20 @@ export default function Home({ navigation }) {
             {
               backgroundColor: '#fff',
               image: <FontAwesomeIcon icon = {faDumbbell} size = {20} color = {'#BC62FF'} style = {styles.secondCarouselIconStyle}></FontAwesomeIcon>,
-              title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(Dimensions.get('window').width)/4}}></Text>,
-              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(Dimensions.get('window').width)/4}}></Text>, // no subtitle, just for testing purposes
+              title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(width)/4}}></Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(width)/4}}></Text>, // no subtitle, just for testing purposes
             },
             {
               backgroundColor: '#fff',
               image: <FontAwesomeIcon icon = {faBiking} size = {20} color = {'#BC62FF'} style = {styles.thirdCarouselIconStyle}></FontAwesomeIcon>,
-              title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(Dimensions.get('window').width)/3}}>Station Bike</Text>,
-              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(Dimensions.get('window').width)/3}}>30 mins</Text>,
+              title: <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginLeft:(width)/3}}>Station Bike</Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginLeft:(width)/3}}>30 mins</Text>,
             },
             {
               backgroundColor: '#fff',
               image: <FontAwesomeIcon icon = {faWalking} size = {20} color = {'#BC62FF'} style = {styles.fourthCarouselIconStyle}></FontAwesomeIcon>,
-              title : <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginRight: (Dimensions.get('window').width)/8}}>Walking</Text>,
-              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginRight: (Dimensions.get('window').width)/8}}> 3x10 mins</Text>
+              title : <Text style={{fontFamily:"Ubuntu", fontSize:10, marginTop:-8, marginRight: (width)/8}}>Walking</Text>,
+              subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:5, marginTop:4, marginRight: (width)/8}}> 3x10 mins</Text>
             },
           ]}/>
           </View>
