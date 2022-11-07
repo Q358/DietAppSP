@@ -93,10 +93,10 @@ export default function TrophiesDB({icons, style, size, onPress}){
             
         )
         
-        })
+    })
         return (
           <TouchableOpacity 
-            onPress ={onPress}>
+            onPress ={() => onPress()}>
             {trophyComponents}
           </TouchableOpacity>
         )

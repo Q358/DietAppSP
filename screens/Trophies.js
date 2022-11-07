@@ -1,4 +1,4 @@
-import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faRadiation, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useRef, useEffect, useFonts } from "react";
 import { Animated, StyleSheet, View, PanResponder, LogBox, TouchableOpacity, Dimensions, useWindowDimensions } from "react-native";
@@ -46,9 +46,15 @@ const Trophies = ({navigation}) => {
     LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }, [])
   const pan = useRef(new Animated.ValueXY()).current;
+  const touchThreshold = 20;
   const panResponder1 = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder : () => false,
+    onMoveShouldSetPanResponder : (e, {dx, dy} ) => {
+        // const = gestureState;
+
+        return (Math.abs(dx) > touchThreshold) || (Math.abs(dy) > touchThreshold);
+    },
       onPanResponderMove: Animated.event([
         null,
         { dx: pan.x, dy: pan.y }
@@ -63,6 +69,7 @@ const Trophies = ({navigation}) => {
   
   ).current;
 
+  const size = 80
   return (
     <View style={styles.container}>
 
@@ -72,88 +79,23 @@ const Trophies = ({navigation}) => {
           ...styles.firstTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
         }}
         {...panResponder1.panHandlers}
-      > 
-        <TrophiesDB icons = {["trophy1"]} size = {100} />
-      </Animated.View>
-      
-      <Animated.View
-        style={{
-          ...styles.firstTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
       >
-        <TrophiesDB icons = {["trophy2"]} size = {100} /> 
+        <View style={{flexDirection:"row"}}>
+          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size} icon={faRadiation}/>
+          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size}/>
+          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size}/>
+        </View>
+        <View style={{flexDirection:"row"}}>
+          <Trophy background="orange" color="green" onPress={()=> navigation.navigate("Diet")} size={size}/>
+          <Trophy background="orange" color="green" onPress={()=> navigation.navigate("Diet")} size={size}/>
+          <Trophy background="orange" color="green" onPress={()=> navigation.navigate("Diet")} size={size}/>
+        </View>
+        <View style={{flexDirection:"row"}}>
+          <Trophy background="black" color="white" onPress={()=> navigation.navigate("Diet")} size={size}/>
+          <Trophy background="black" color="white" onPress={()=> navigation.navigate("Diet")} size={size}/>
+          <Trophy background="black" color="white" onPress={()=> navigation.navigate("Diet")} size={size}/>
+        </View>
       </Animated.View>
-
-      <Animated.View
-        style={{
-          ...styles.firstTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy3"]} size = {100} /> 
-      </Animated.View>
-
-
-      
-      
-      <Animated.View
-        style={{
-          ...styles.secondTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy4"]} size = {100} /> 
-      </Animated.View>
-
-      <Animated.View
-        style={{
-          ...styles.secondTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy5"]} size = {100} /> 
-      </Animated.View>
-
-      <Animated.View
-        style={{
-          ...styles.secondTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy6"]} size = {100} /> 
-      </Animated.View>
-
-      
-      <Animated.View
-        style={{
-          ...styles.thirdTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy7"]} size = {100} /> 
-      </Animated.View>
-
-      <Animated.View
-        style={{
-          ...styles.thirdTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy8"]} size = {100} /> 
-      </Animated.View>
-
-      <Animated.View
-        style={{
-          ...styles.thirdTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder1.panHandlers}
-      >
-        <TrophiesDB icons = {["trophy9"]} size = {100} /> 
-      </Animated.View>
-
-      
-      
     </View>
   );
 }
@@ -201,3 +143,11 @@ const styles = StyleSheet.create({
   });
 
   export default Trophies;
+
+function Trophy({ background, color, onPress, size, icon }) {
+  return(
+    <TouchableOpacity onPress={onPress ? () => onPress() : null} style={{backgroundColor:background, color:color, borderRadius:50, padding:10, margin:10}}>
+      <FontAwesomeIcon icon={icon ? icon : faTrophy} size={size} color={color}/>
+    </TouchableOpacity>
+  )
+}
