@@ -41,6 +41,7 @@ export default function Breakfast({ navigation }) {
         <View style = {{marginTop: 100, flexDirection:"row"}}>
         <FontAwesomeIcon icon={faSquarePlus} size = {70} color = {'grey'}/>
         </View>
+        <View style={{...styles.rectangle}}></View>
     </View>
   )
 }
@@ -52,4 +53,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
       },
+
+    rectangle: {
+      display: inline-block,
+      width: 100,
+      height: 100,
+      background: black,
+    },
   });
