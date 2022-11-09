@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, ScrollView, SafeAreaView} from "react-native";
 import { useFonts } from 'expo-font';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAngleLeft, faAppleWhole, faBreadSlice, faCarrot, faEgg, faMugSaucer, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAppleWhole, faBreadSlice, faCarrot, faEgg, faMugSaucer, faPlus } from "@fortawesome/free-solid-svg-icons";
 import FoodBlock from "../components/FoodBlock"
 
 export default function Breakfast({ navigation }) {
@@ -20,7 +20,7 @@ export default function Breakfast({ navigation }) {
         <View style = {{marginRight: 280, marginTop: 30}}>
         <FontAwesomeIcon icon={faBreadSlice} size = {55} color = {'brown'}/>
         </View>
-        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginLeft:70}}>A slice of multigrain toast.</Text>
+        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginLeft:60}}>A slice of multigrain toast.</Text>
         <View style = {{marginRight: 280, marginTop: 50}}>
         <FontAwesomeIcon icon = {faAppleWhole} size = {60} color = {'red'}/>
         </View>
@@ -28,20 +28,24 @@ export default function Breakfast({ navigation }) {
         <View style = {{marginRight: 280, marginTop: 50}}>
         <FontAwesomeIcon icon = {faMugSaucer} size = {70} color = {'purple'}/>
         </View>
-        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-30, marginRight:70}}>A cup of black coffee</Text>
+        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-30, marginLeft:30}}>A cup of black coffee</Text>
         <View style = {{marginRight: 280, marginTop: 50}}>
         <FontAwesomeIcon icon = {faEgg} size = {60} color = {'blue'}/>
         </View>
-        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:70}}>A boiled egg</Text>
+        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:60}}>A boiled egg</Text>
         <View style = {{marginRight: 280, marginTop: 50}}>
         <FontAwesomeIcon icon = {faCarrot} size = {60} color = {'orange'}/>
         </View>
-        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:70}}>Two carrot slices</Text>
-
-        <View style = {{marginTop: 100, flexDirection:"row"}}>
-        <FontAwesomeIcon icon={faSquarePlus} size = {70} color = {'grey'}/>
+        <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:30}}>Two carrot slices</Text>
+        
+        
+        <TouchableOpacity>
+        <View style={{...styles.rectangle}}>
+          <View style = {{alignItems:"center", marginTop:10}}>
+          <FontAwesomeIcon icon = {faPlus} size = {40} color = {'white'}/>
+          </View>
         </View>
-        {/* <View style={{...styles.rectangle}}></View> */}
+        </TouchableOpacity>
     </View>
   )
 }
@@ -54,10 +58,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
       },
 
-    // rectangle: {
-    //   display: inline-block,
-    //   width: 100,
-    //   height: 100,
-    //   background: black,
-    // },
+    rectangle: {
+      width: 300,
+      height: 60,
+      backgroundColor: 'grey',
+      marginTop: 80,
+      borderRadius: 12, 
+    },
   });
