@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
-import { faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
-import BottomNav from "../components/BottomNav";
+import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
@@ -15,16 +14,21 @@ export default function Home({ navigation }) {
     UbuntuBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
     Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf')
   });
+  const [exercisePage, setExercisePage] = useState(0)
+  const exercises = [[faDumbbell,faBiking,faPersonRunning], [faDumbbell,faPersonWalking,faBiking]]
 
   const { user, userAvatar } = useAuth()
   const { width, height } = useWindowDimensions()
 
-  if (!loaded) {
+  if (!loaded || !exercises) {
     return null;
   }
 
   var progress = 0.76
-
+  const size = 30
+  const day = new Date().getDay()
+  const dayOfWeek = day == 0 ? "Sunday" : day == 1 ? "Monday" : day == 2 ? "Tuesday" : day == 3 ? "Wednesday" : day == 4 ? "Thursday" : day == 5 ?
+    "Friday" : day == 6 ? "Saturday" : null
   return (
     <View style={{...styles.container, justifyContent:"space-evenly", alignItems: 'center'}}>
       <StatusBar  translucent backgroundColor={"transparent"}/>
@@ -42,7 +46,7 @@ export default function Home({ navigation }) {
             <Avatar style={{width:40,height:40, borderRadius:20, borderWidth:1, borderColor:"white"}} size={"large"} rounded source={userAvatar}/>
           </TouchableOpacity>
         </View>
-        <Text style={styles.welcomeText}>Happy Saturday, {user?.displayName}</Text>
+        <Text style={styles.welcomeText}>Happy {dayOfWeek}, {user?.displayName}</Text>
         </SafeAreaView>
         <ScrollView style={{backgroundColor:"#29a442", padding:10, borderRadius:15}}>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Diet")}>
@@ -58,19 +62,30 @@ export default function Home({ navigation }) {
         <View style = {{...styles.divider, marginHorizontal:width/20, marginVertical:height/80}}/>
         <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:25, marginBottom:height/80}}>Daily Breakdown</Text>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, justifyContent:"space-between"}} onPress = {() => navigation.navigate("Diet")}>
-          <Text style = {styles.boxText}>Diet</Text>
+          <Text style = {styles.boxText}>Today's Diet</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
             <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Diet")}/>
             <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Diet")}/>
             <FoodBlock icons={["bread","carrot", "meat", "fish"]} size={80} onPress={() => navigation.navigate("Diet")}/>
             <FoodBlock icons={["wine","smoke", "cheese", "cookie"]} size={60} onPress={() => navigation.navigate("Diet")}/>
           </View>
-          <View></View>
         </TouchableOpacity>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, marginVertical:15}} onPress = {() => navigation.navigate("Workout")}>
-          <Text style = {styles.boxText}>Workout</Text>
-          <View>
-            
+          <Text style = {styles.boxText}>Today's Workout</Text>
+          <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", height:"90%"}}>
+            <TouchableOpacity style={{...styles.workoutButton, marginBottom:0}} onPress={() => setExercisePage(exercisePage - 1)}>
+              <FontAwesomeIcon icon={faAngleLeft} size={size}/>
+            </TouchableOpacity>
+            {exercises[exercisePage][0] ? (
+            <>
+              <FontAwesomeIcon icon={exercises[exercisePage][0]} size={size}/>
+              <FontAwesomeIcon icon={exercises[exercisePage][1]} size={size}/>
+              <FontAwesomeIcon icon={exercises[exercisePage][2]} size={size}/>
+            </>
+            ) : (null)}
+            <TouchableOpacity style={styles.workoutButton} onPress={() => setExercisePage(exercisePage + 1)}>
+              <FontAwesomeIcon icon={faAngleRight} size={size}/>
+            </TouchableOpacity>
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -139,6 +154,11 @@ const styles = StyleSheet.create({
       borderRadius:30,
       width:300
     },
+    workoutButton:{
+
+      borderRadius:10,
+      padding:3
+    }
 
     /*title:{
       textAlign:'center',
@@ -146,3 +166,12 @@ const styles = StyleSheet.create({
       //marginHorizontal:4,
     },*/
 });
+
+
+// array[i],
+// array[i+1],
+// array[i+2]
+
+// map array to groups of three
+// or
+// useState x 
