@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
-import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight, faWalking } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
     Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf')
   });
   const [exercisePage, setExercisePage] = useState(0)
-  const exercises = [[faDumbbell,faBiking,faPersonRunning], [faDumbbell,faPersonWalking,faBiking]]
+  const exercises = [[faDumbbell,faBiking,faPersonRunning], [faDumbbell,faPersonWalking,faBiking], [faPersonRunning, faBiking, faWalking]]
 
   const { user, userAvatar } = useAuth()
   const { width, height } = useWindowDimensions()
