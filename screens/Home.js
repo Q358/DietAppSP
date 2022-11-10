@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
-import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';import BottomNav from "../components/BottomNav";
+import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
 import { useAuth } from '../config/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Onboarding from 'react-native-onboarding-swiper';
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
