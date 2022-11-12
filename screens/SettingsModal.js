@@ -59,7 +59,7 @@ function SettingsBar({ label, onPress }) {
 
   return(
     <TouchableOpacity style={styles.settingsBar} onPress={handleChange}>
-      <Text style={{flex:5,fontFamily:"UbuntuBold", fontSize:20, marginRight:10, color:"white", marginRight:10}}>{label}</Text>
+      <Text style={{flex:5,fontFamily:"UbuntuBold", fontSize:20, color:"white", marginRight:10}}>{label}</Text>
       <Switch value={checked} style={{flex:1,transform:[{scale:1.5}]}} trackColor={{ false: "lightgray", true: "green" }} thumbColor={!checked ? "white" : "green"}
         onValueChange={handleChange} />
     </TouchableOpacity>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     padding:15,
     width: 170,
     marginHorizontal:8,
-    marginVertical:15,
+    marginVertical:10,
     alignItems:"center",
     justifyContent:"center",
     flexDirection:"row",

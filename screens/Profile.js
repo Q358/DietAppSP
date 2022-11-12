@@ -3,7 +3,7 @@ import { Avatar, Divider } from "@rneui/themed"
 import { Alert, SafeAreaView, useWindowDimensions } from "react-native"
 import { StyleSheet, Text, TouchableOpacity, Switch, View, Share } from "react-native"
 import { useAuth } from "../config/authContext"
-import { faAppleWhole, faBreadSlice, faCarrot, faCog, faRightFromBracket, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faAppleWhole, faBreadSlice, faCarrot, faCog, faPen, faRightFromBracket, faUserPlus } from "@fortawesome/free-solid-svg-icons"
 import { upload } from "../config/firebase"
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from "react"
@@ -12,6 +12,8 @@ import SettingsModal from "./SettingsModal"
 
 export default function Profile({ navigation }) {
   const { user, userAvatar, setUserAvatar } = useAuth()
+  const creationDate = new Date(user.metadata.creationTime)
+  const accountDate = `${creationDate.getMonth()}/${creationDate.getDate()}/${creationDate.getFullYear()}` // May need to change this based on locale if targeting international audience
   const [isLoading, setIsLoading] = useState(false)
   const [errorText, setErrorText] = useState()
   const [visible, setVisible] = useState(false)
@@ -100,27 +102,32 @@ export default function Profile({ navigation }) {
     }
   }
 
+  const streak = 112
   return (
     <SafeAreaView style={styles.container}>
       <View style={{marginTop:30}}/>
-      <Avatar source={{...userAvatar, cache: "reload"}} size={150} rounded/>
-      <Text style={{fontFamily:"UbuntuBold", fontSize:30, marginVertical:5, color:"#68CC68"}}>{user?.displayName}</Text>
-      <Text style={{fontFamily:"Ubuntu", fontSize:15, color:"gray", marginBottom:10}}>living nutrifully since 11/4/22</Text>
+      <Avatar source={{...userAvatar, cache: "reload"}} size={170} rounded>
+        <View style={{borderRadius:30, backgroundColor:"#1E90FF", borderWidth:2, borderColor:"lightgreen", paddingVertical:5, paddingHorizontal:20, position:"absolute", top:"85%", right:"25%"}}>
+          <Text style={{fontFamily:"UbuntuBold", fontSize:20, color:"lightgreen"}}>{streak}</Text>
+        </View>
+        <TouchableOpacity style={{backgroundColor:"#1E90FF", borderRadius:10, padding:5, position:"absolute", right:"5%", top:"5%"}} onPress={handleUpload}>
+          <FontAwesomeIcon icon={faPen} color="white" size={20}/>
+        </TouchableOpacity>
+      </Avatar>
+      <Text style={{fontFamily:"UbuntuBold", fontSize:35, marginBottom:5, marginTop:20, color:"#68CC68"}}>{user?.displayName}</Text>
+      <Text style={{fontFamily:"Ubuntu", fontSize:15, color:"gray", marginBottom:10}}>living nutrifully since {accountDate}</Text>
       {/* <Divider width={3} style={{marginVertical:5, width:"70%"}} color="lightgray"/> */}
       <View style={{backgroundColor:"#ACACAC50", borderRadius:20, paddingVertical:10, paddingHorizontal:20, justifyContent:"space-evenly", marginBottom:10}}>
-        <ProfileRow statLabel={"Longest Streak"} statCount={112} icon={faCarrot} iconColor={"orange"}/>
-        <ProfileRow statLabel={"Longest Streak"} statCount={9350} icon={faAppleWhole} iconColor={"red"} iconLeft/>
-        <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"brown"}/>
+        <ProfileRow statLabel={"Longest Streak"} statCount={112} icon={faCarrot} iconColor={"#f09b24"}/>
+        <ProfileRow statLabel={"Total NutriScore"} statCount={9350} icon={faAppleWhole} iconColor={"#f02c24"} iconLeft/>
+        <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"#906A19"}/>
       </View>
-      <TouchableOpacity style={{padding:20, borderRadius:20, backgroundColor:"lightgreen", marginVertical:10, flexDirection:"row", alignItems:"center"}} onPress={handleInvite}>
+      <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:10, borderRadius:20, backgroundColor:"lightgreen", flexDirection:"row", alignItems:"center"}} onPress={handleInvite}>
         <Text style={{fontFamily:"UbuntuBold", fontSize:20, color:"white", marginRight:10}}>Invite Amigos</Text>
         <FontAwesomeIcon icon={faUserPlus} color={"white"}/>
       </TouchableOpacity>
-      {/* <TouchableOpacity style={styles.button} onPress={handleUpload}>
-        <Text style={{marginHorizontal:10}}>Change Avatar</Text>
-      </TouchableOpacity> */}
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
-      <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height-70}} onPress={() => setSettingsVisible(true)}>
+      <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height-60}} onPress={() => setSettingsVisible(true)}>
         <FontAwesomeIcon icon={faCog} color="#808180" size={45}></FontAwesomeIcon>
       </TouchableOpacity>
       <SettingsModal visible={settingsVisible} setVisible={setSettingsVisible}/>
@@ -173,3 +180,7 @@ const styles = StyleSheet.create({
     top:10
   }
 })
+
+
+// Notes:
+// Could add long-term graph or more info trackers? Info on weight lost, possibly in ridiculous units such as elephants?
