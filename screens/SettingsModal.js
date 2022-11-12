@@ -1,12 +1,15 @@
 import { faCog, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Overlay, Switch } from "@rneui/themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { makeStyles, Overlay, Switch, useTheme, withTheme } from "@rneui/themed";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../config/authContext";
 
 export default function SettingsModal({ visible, setVisible }) {
   const { logout } = useAuth()
+  const { updateTheme, theme } = useTheme()
+  const styles = useStyles()
 
   // TODO Add "Logout?" confirmation popup
   const handleLogout = async () => {
@@ -19,8 +22,17 @@ export default function SettingsModal({ visible, setVisible }) {
   }
 
   // TODO Add actual functions
-  const handleDarkModeSwitch = () => {
-    console.log("Dark Mode!")
+  const handleDarkModeSwitch = async() => {
+    let mode = (theme.mode === 'light' ? 'dark' : 'light')
+    try {
+      updateTheme((theme) => ({
+        mode: theme.mode === 'light' ? 'dark' : 'light',
+      }))
+      await AsyncStorage.setItem("appTheme", JSON.stringify(mode))
+    } catch (error) {
+      console.log("Failed to set Dark Mode")
+    }
+    console.log("Set theme to ", await AsyncStorage.getItem("appTheme"))
   }
 
   const handleNotificationsSwitch = () => {
@@ -38,7 +50,7 @@ export default function SettingsModal({ visible, setVisible }) {
         <Text style={styles.headingText}>Settings</Text>
         <FontAwesomeIcon icon={faCog} color="gray"size={20}/>
       </View>
-      <SettingsBar label={"Dark Mode"} onPress={handleDarkModeSwitch}/>
+      <SettingsBar label={"Dark Mode"} onPress={handleDarkModeSwitch} state={theme.mode === 'dark'}/>
       <SettingsBar label={"Notifications"} onPress={handleNotificationsSwitch}/>
       <SettingsBar label={"Zen Music"} onPress={handleMusicSwitch}/>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -49,8 +61,10 @@ export default function SettingsModal({ visible, setVisible }) {
   )
 }
 
-function SettingsBar({ label, onPress }) {
-  const [checked, setChecked] = useState()
+function SettingsBar({ label, onPress, state }) {
+  const [checked, setChecked] = useState(state)
+  const { theme } = useTheme()
+  const styles = useStyles()
 
   const handleChange = () => {
     setChecked(!checked)
@@ -59,16 +73,16 @@ function SettingsBar({ label, onPress }) {
 
   return(
     <TouchableOpacity style={styles.settingsBar} onPress={handleChange}>
-      <Text style={{flex:5,fontFamily:"UbuntuBold", fontSize:20, color:"white", marginRight:10}}>{label}</Text>
+      <Text style={{flex:5,fontFamily:"fontBold", fontSize:20, color:theme.colors.textSecondary, marginRight:10, textShadowColor:"black", shadowOpacity:3, shadowColor:"black"}}>{label}</Text>
       <Switch value={checked} style={{flex:1,transform:[{scale:1.5}]}} trackColor={{ false: "lightgray", true: "green" }} thumbColor={!checked ? "white" : "green"}
         onValueChange={handleChange} />
     </TouchableOpacity>
   )
 }
   
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme, props) => ({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius:15,
@@ -80,9 +94,10 @@ const styles = StyleSheet.create({
     alignItems:"center"
   },
   headingText:{
-    fontFamily:"UbuntuBold",
+    fontFamily:"fontBold",
     fontSize:30,
-    marginHorizontal:10
+    marginHorizontal:10,
+    color: theme.colors.textPrimary
   },
   logoutButton:{
     borderRadius:50,
@@ -103,9 +118,10 @@ const styles = StyleSheet.create({
     flex:0, 
     width:"65%",
     flexDirection:"row", 
-    backgroundColor:"lightgreen", 
     borderRadius:50, 
     marginVertical:10, 
     padding:3, 
-    paddingHorizontal:20}
-});
+    paddingHorizontal:20,
+    backgroundColor:theme.colors.secondary
+  }
+}));

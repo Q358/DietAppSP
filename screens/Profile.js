@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { Avatar, Divider } from "@rneui/themed"
+import { Avatar, Divider, makeStyles, useTheme } from "@rneui/themed"
 import { Alert, SafeAreaView, useWindowDimensions } from "react-native"
 import { StyleSheet, Text, TouchableOpacity, Switch, View, Share } from "react-native"
 import { useAuth } from "../config/authContext"
@@ -20,6 +20,8 @@ export default function Profile({ navigation }) {
   const [settingsVisible, setSettingsVisible] = useState(false)
 
   const {width, height} = useWindowDimensions()
+  const { theme } = useTheme()
+  const styles = useStyles()
 
   useEffect(() => {
 
@@ -107,24 +109,24 @@ export default function Profile({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={{marginTop:30}}/>
       <Avatar source={{...userAvatar, cache: "reload"}} size={170} rounded>
-        <View style={{borderRadius:30, backgroundColor:"#1E90FF", borderWidth:2, borderColor:"lightgreen", paddingVertical:5, paddingHorizontal:20, position:"absolute", top:"85%", right:"25%"}}>
-          <Text style={{fontFamily:"UbuntuBold", fontSize:20, color:"lightgreen"}}>{streak}</Text>
+        <View style={styles.streakCounter}>
+          <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.primary}}>{streak}</Text>
         </View>
         <TouchableOpacity style={{backgroundColor:"#1E90FF", borderRadius:10, padding:5, position:"absolute", right:"5%", top:"5%"}} onPress={handleUpload}>
-          <FontAwesomeIcon icon={faPen} color="white" size={20}/>
+          <FontAwesomeIcon icon={faPen} color={theme.colors.secondary} size={20}/>
         </TouchableOpacity>
       </Avatar>
-      <Text style={{fontFamily:"UbuntuBold", fontSize:35, marginBottom:5, marginTop:20, color:"#68CC68"}}>{user?.displayName}</Text>
-      <Text style={{fontFamily:"Ubuntu", fontSize:15, color:"gray", marginBottom:10}}>living nutrifully since {accountDate}</Text>
+      <Text style={{fontFamily:"fontBold", fontSize:35, marginBottom:5, marginTop:20, color:theme.mode === 'dark' ? theme.colors.textPrimary : theme.colors.primary}}>{user?.displayName}</Text>
+      <Text style={{fontFamily:"fontRegular", fontSize:15, color:"gray", marginBottom:10}}>living nutrifully since {accountDate}</Text>
       {/* <Divider width={3} style={{marginVertical:5, width:"70%"}} color="lightgray"/> */}
       <View style={{backgroundColor:"#ACACAC50", borderRadius:20, paddingVertical:10, paddingHorizontal:20, justifyContent:"space-evenly", marginBottom:10}}>
         <ProfileRow statLabel={"Longest Streak"} statCount={112} icon={faCarrot} iconColor={"#f09b24"}/>
         <ProfileRow statLabel={"Total NutriScore"} statCount={9350} icon={faAppleWhole} iconColor={"#f02c24"} iconLeft/>
         <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"#906A19"}/>
       </View>
-      <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:10, borderRadius:20, backgroundColor:"lightgreen", flexDirection:"row", alignItems:"center"}} onPress={handleInvite}>
-        <Text style={{fontFamily:"UbuntuBold", fontSize:20, color:"white", marginRight:10}}>Invite Amigos</Text>
-        <FontAwesomeIcon icon={faUserPlus} color={"white"}/>
+      <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
+        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
+        <FontAwesomeIcon icon={faUserPlus} color={"white"} size={20}/>
       </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
       <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height-60}} onPress={() => setSettingsVisible(true)}>
@@ -137,49 +139,59 @@ export default function Profile({ navigation }) {
 
 function ProfileRow({ statLabel, statCount, icon, iconColor, iconLeft}) {
   const size = 55
+  const { theme } = useTheme()
   return(
     <View style={{flexDirection:"row", alignItems:"center"}}>
-     {iconLeft && (
-       <View style={{backgroundColor:iconColor, padding:10, borderRadius:15, marginRight:20}}>
+      {iconLeft && (
+        <View style={{backgroundColor:iconColor, padding:10, borderRadius:15, marginRight:20}}>
+          <FontAwesomeIcon icon={icon} size={size} color="white"/>
+        </View>
+      )}
+      <View style={{backgroundColor:"#1E90FF", borderRadius:40, padding:15, paddingHorizontal:20, marginVertical:15}}>
+        <Text style={{fontFamily:"fontRegular", fontSize:20, color:"white", textAlign:"center"}}>{statLabel}</Text>
+        <Text style={{fontFamily:"fontBold", fontSize:35, color:theme.colors.primary, textAlign:"center"}}>{statCount}</Text>
+      </View>
+      {!iconLeft && (
+      <View style={{backgroundColor:iconColor, padding:10, borderRadius:15, marginLeft:20}}>
         <FontAwesomeIcon icon={icon} size={size} color="white"/>
-       </View>
-     )}
-     <View style={{backgroundColor:"#1E90FF", borderRadius:40, padding:15, paddingHorizontal:20, marginVertical:15}}>
-      <Text style={{fontFamily:"Ubuntu", fontSize:20, color:"white", textAlign:"center"}}>{statLabel}</Text>
-      <Text style={{fontFamily:"UbuntuBold", fontSize:35, color:"lightgreen", textAlign:"center"}}>{statCount}</Text>
-     </View>
-     {!iconLeft && (
-     <View style={{backgroundColor:iconColor, padding:10, borderRadius:15, marginLeft:20}}>
-      <FontAwesomeIcon icon={icon} size={size} color="white"/>
-     </View>
-     )}
+      </View>
+      )}
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
   container:{
     flex:1,
     alignItems:"center",
-    justifyContent:"center"
-  },
-  button:{
-    borderRadius:50,
-    padding:15,
-    width: 170,
-    marginHorizontal:8,
-    marginVertical:15,
-    alignItems:"center",
     justifyContent:"center",
-    backgroundColor:"green",
-    flexDirection:"row"
+    backgroundColor: theme.colors.secondary
   },
   cog:{
     position:"absolute",
     left:100,
     top:10
+  },
+  streakCounter:{
+    borderRadius:30,
+    backgroundColor:"#1E90FF",
+    borderWidth:2,
+    borderColor:theme.colors.primary,
+    paddingVertical:5,
+    paddingHorizontal:20,
+    position:"absolute",
+    top:"85%",
+    right:"25%"
+  },
+  inviteButton:{
+    paddingHorizontal:20,
+    paddingVertical:10,
+    borderRadius:20,
+    backgroundColor:theme.colors.primary,
+    flexDirection:"row",
+    alignItems:"center"
   }
-})
+}))
 
 
 // Notes:

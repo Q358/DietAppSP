@@ -1,28 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
-import { useFonts } from 'expo-font';
+import { Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
 import { faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Avatar, LinearProgress } from "@rneui/themed";
+import { Avatar, LinearProgress, makeStyles, useTheme } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
 import { useAuth } from '../config/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { theme } from '../Styles';
 
 export default function Home({ navigation }) {
-  const [loaded] = useFonts({
-    AdidogDemo: require('../assets/fonts/AdidogDemo-RpqMo.otf'),
-    UbuntuBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
-    Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf')
-  });
-
   const { user, userAvatar } = useAuth()
   const { width, height } = useWindowDimensions()
-
-  if (!loaded) {
-    return null;
-  }
+  const { theme } = useTheme()
+  const styles = useStyles()
 
   var progress = 0.76
 
@@ -33,10 +23,10 @@ export default function Home({ navigation }) {
         <View style={{flexDirection:"row", width:"100%", marginTop:13, justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
             <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Friends")}>
-              <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={'white'}/> 
+              <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={"white"}/> 
             </TouchableOpacity>
             <TouchableOpacity style = {styles.trophyButton} onPress={()=>navigation.navigate("Trophies")}>
-              <FontAwesomeIcon icon = {faTrophy} size = {20} color ={'white'}/> 
+              <FontAwesomeIcon icon = {faTrophy} size = {20} color ={"white"}/> 
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
@@ -44,20 +34,20 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         </View>
         <Text style={styles.welcomeText}>Happy Saturday, {user?.displayName}</Text>
-        </SafeAreaView>
-        <ScrollView style={{backgroundColor:"#29a442", padding:10, borderRadius:15}}>
+      </SafeAreaView>
+      <ScrollView style={{backgroundColor:theme.colors.tertiary, padding:10, borderRadius:15}}>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Diet")}>
           <View style={{flexDirection:"row", alignItems:"center"}}>
             <View style={{marginBottom:5, justifyContent:"space-between"}}>
           <Text style = {styles.boxText}>Weekly Goal Progress </Text>
-          <Text style={{fontFamily:"Ubuntu",marginLeft:10, marginBottom:20, marginTop:10}}>On track - keep it up!</Text>
+          <Text style={{fontFamily:"fontRegular",marginLeft:10, marginBottom:20, marginTop:10, color:theme.colors.textSecondary}}>On track - keep it up!</Text>
           </View>
-          <Text style={{fontSize:40, marginTop:30, fontWeight:"800"}}>{progress * 100}%</Text>
+          <Text style={{fontSize:40, marginTop:30, fontWeight:"800", color:theme.colors.textSecondary}}>{progress * 100}%</Text>
           </View>
-          <LinearProgress value={progress} variant="determinate" />
+          <LinearProgress value={progress} variant="determinate" color={theme.colors.primary}/>
         </TouchableOpacity>
         <View style = {{...styles.divider, marginHorizontal:width/20, marginVertical:height/80}}/>
-        <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:25, marginBottom:height/80}}>Daily Breakdown</Text>
+        <Text style = {{fontFamily: "fontBold", color:theme.colors.textPrimary, fontSize:25, marginBottom:height/80}}>Daily Breakdown</Text>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, justifyContent:"space-between"}} onPress = {() => navigation.navigate("Diet")}>
           <Text style = {styles.boxText}>Diet</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
@@ -80,11 +70,11 @@ export default function Home({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
     container: {
       flex: 1,
       //backgroundColor:'rgba(73,186,81,68.0)',
-      backgroundColor:theme.backgroundMain,
+      backgroundColor:theme.colors.primary,
       //marginHorizontal :16,
       maxWidth:"100%"
     },
@@ -93,7 +83,7 @@ const styles = StyleSheet.create({
       borderRadius:10,
       padding:10,
       marginLeft:10,
-      borderColor:"white",
+      borderColor: theme.colors.secondary,
       borderWidth:1
     },
     trophyButton: {
@@ -101,12 +91,12 @@ const styles = StyleSheet.create({
       borderRadius:10,
       padding:10,
       marginLeft:20,
-      borderColor:"white",
+      borderColor: theme.colors.secondary,
       borderWidth:1
     },
     welcomeText:{
-      fontFamily: "UbuntuBold",
-      color:"white",
+      fontFamily: "fontBold",
+      color: theme.colors.textPrimary,
       fontSize:35,
       marginTop:10,
       marginBottom:10,
@@ -115,8 +105,7 @@ const styles = StyleSheet.create({
       paddingHorizontal:10
     },
     weeklyProgressButton:{
-      backgroundColor: 'white',
-      //left: 75,
+      backgroundColor: theme.colors.secondary,
       width:350,
       height:150,
       paddingVertical:15,
@@ -125,8 +114,8 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
     boxText:{
-      fontFamily: "UbuntuBold",
-      color: "black",
+      fontFamily: "fontBold",
+      color: theme.colors.textSecondary,
       fontSize: 20,
       marginBottom:3
     },
@@ -146,4 +135,4 @@ const styles = StyleSheet.create({
       marginVertical:8,
       //marginHorizontal:4,
     },*/
-});
+}));

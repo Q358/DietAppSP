@@ -40,14 +40,14 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
         <StatusBar backgroundColor="lightgreen"/>
         <View style={styles.container}>
           <View style={styles.innerContainer}>
-            <Text style={{ fontFamily:"UbuntuBold", fontSize:20 }}>Item scanned!</Text>
-            <Text style={{ fontFamily:"UbuntuBold", fontSize:30, marginVertical:5 }}>{data?.brand_name} {data?.food_name}</Text>
+            <Text style={{ fontFamily:"fontBold", fontSize:20 }}>Item scanned!</Text>
+            <Text style={{ fontFamily:"fontBold", fontSize:30, marginVertical:5 }}>{data?.brand_name} {data?.food_name}</Text>
             <Divider width={3} style={{marginVertical:5}}/>
             <Text>Per serving, this food contains:</Text>
             {servings && Object.keys(servings).map(function(key){return <Text key={key}>- {key.replace(/_/g, " ")}: {servings[key]} </Text>})}
             <Divider width={3} style={{marginVertical:7}}/>
             <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Food added!")}>
-              <Text style={{ fontFamily:"UbuntuBold", fontSize:20, textAlign:"center" }}>Add Food</Text>
+              <Text style={{ fontFamily:"fontBold", fontSize:20, textAlign:"center" }}>Add Food</Text>
             </TouchableOpacity>
           </View>
         </View>

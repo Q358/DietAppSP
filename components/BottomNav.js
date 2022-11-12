@@ -3,8 +3,10 @@ import { StyleSheet, TouchableOpacity, View } from "react-native"
 import { faAppleWhole } from "@fortawesome/free-solid-svg-icons"
 import { faPersonRunning } from "@fortawesome/free-solid-svg-icons"
 import { faBarcode } from "@fortawesome/free-solid-svg-icons"
+import { makeStyles } from "@rneui/themed"
 
 export default function BottomNav({ navigation }) {
+  const styles = useStyles()
 
   return (
     <View style={styles.container}>
@@ -21,12 +23,12 @@ export default function BottomNav({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
     container: {
       flexDirection:"row",
-      backgroundColor:"lightgreen",
+      backgroundColor: theme.colors.primary,
       borderTopWidth:3,
-      borderColor:"green",
+      borderColor: theme.colors.tertiary,
       marginTop:20,
       width:"80%",
       justifyContent:"center",
@@ -36,4 +38,4 @@ const styles = StyleSheet.create({
       marginVertical:20,
       marginHorizontal:40
     }
-  })
+  }))

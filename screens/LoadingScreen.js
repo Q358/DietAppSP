@@ -6,8 +6,13 @@ import { useAuth } from "../config/authContext";
 
 export default function LoadingScreen({ navigation }) {
     const [loaded] = useFonts({
-      BandarBold: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
+      fontLogo: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
     });
+    useFonts({ 
+      fontBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
+      fontRegular: require('../assets/fonts/Ubuntu-Regular.ttf'),
+      fontMedium: require('../assets/fonts/Ubuntu-Medium.ttf')
+    })
 
     const { user } = useAuth()
 
@@ -24,7 +29,7 @@ export default function LoadingScreen({ navigation }) {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontFamily:"BandarBold", fontSize:70}}>nutri</Text>
+        <Text style={{fontFamily:"fontLogo", fontSize:70}}>nutri</Text>
       </View>
     )
   }
