@@ -8,6 +8,7 @@ import { Avatar, LinearProgress } from "@rneui/themed";
 import FoodBlock from "../components/FoodBlock"
 import { useAuth } from '../config/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { theme } from '../Styles';
 
 export default function Home({ navigation }) {
   const [loaded] = useFonts({
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       //backgroundColor:'rgba(73,186,81,68.0)',
-      backgroundColor:'lightgreen',
+      backgroundColor:theme.backgroundMain,
       //marginHorizontal :16,
       maxWidth:"100%"
     },
