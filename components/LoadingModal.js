@@ -11,7 +11,7 @@ export default function LoadingModal ({ visible, setVisible, errorText, setError
         <View style={styles.innerContainer}>
           {errorText ? (
             <>
-              <Text style={{fontFamily:"UbuntuBold", marginBottom:15}}>{errorText}</Text>
+              <Text style={{fontFamily:"fontBold", marginBottom:15}}>{errorText}</Text>
               <TouchableOpacity style={styles.errorButton} onPress={() => setErrorText(undefined)}>
                 <Text>Ok</Text>
               </TouchableOpacity>
@@ -19,7 +19,7 @@ export default function LoadingModal ({ visible, setVisible, errorText, setError
             </>
           ) : isLoading ? (
             <>
-              <Text style={{fontFamily:"UbuntuBold",marginBottom:15,fontSize:20}}>loading...</Text>
+              <Text style={{fontFamily:"fontBold",marginBottom:15,fontSize:20}}>loading...</Text>
               <ActivityIndicator size="large" color="lightgreen"/>
             </>
           ) : (

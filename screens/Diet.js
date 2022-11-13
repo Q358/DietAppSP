@@ -7,13 +7,13 @@ import React from "react";
 export default function Diet({ navigation }) {
   return (
     <View style={{...styles.container, alignItems: "center"}}>
-      <Text style = {{marginVertical:50, marginTop:30, color:'white', fontFamily:'UbuntuBold', fontSize:20}}>Diet</Text>
+      <Text style = {{marginVertical:50, marginTop:30, color:'white', fontFamily:'fontBold', fontSize:20}}>Diet</Text>
       <View style = {{...styles.leftArrowIcon, marginRight: 300}}>
         <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
           <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-15, marginBottom: 10}}>Today's Meals</Text>
+      <Text style = {{fontFamily: "fontLogo", color:"white", fontSize:40, marginTop:-15, marginBottom: 10}}>Today's Meals</Text>
       <View style = {{marginTop: 10, marginRight:250}}>
         <FoodBlock icons={["apple", "cookie", "bread"]} size={110} onPress={() => navigation.navigate("Breakfast")}/>
       </View>
@@ -26,9 +26,9 @@ export default function Diet({ navigation }) {
       <Text style = {{marginVertical:50, marginTop: 10, marginRight:260}}>Breakfast</Text>
       <Text style = {{marginVertical:50, marginTop: -70, alignItems: "center"}}>Lunch</Text>
       <Text style = {{marginVertical:50, marginTop: -70, marginLeft:260}}>Dinner</Text>
-      <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:40, marginTop:-25, marginBottom: 10, marginRight:80}}>This Week</Text>
+      <Text style = {{fontFamily: "fontLogo", color:"white", fontSize:40, marginTop:-25, marginBottom: 10, marginRight:80}}>This Week</Text>
       <View style = {{...styles.rectangle2, marginTop: 10, marginRight:250}}>
-        <Text style = {{marginTop:20, marginLeft: 135, color:"black", fontFamily:"AdidogDemo", fontSize:10}}>Sunday</Text>
+        <Text style = {{marginTop:20, marginLeft: 135, color:"black", fontFamily:"fontRegular", fontSize:10}}>Sunday</Text>
         <View style = {{...styles.leftArrow, marginTop:30}}>
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'black'}/>
         </View>
@@ -48,7 +48,7 @@ export default function Diet({ navigation }) {
         <Text style = {{marginVertical:50, marginTop: -66, marginLeft: 160, fontSize:13}}>Lunch</Text>
         <Text style = {{marginVertical:50, marginTop: -66, marginLeft: 260, fontSize:13}}>Dinner</Text>
       </View>
-    <Text style = {{fontFamily: "BandarBold", color:"white", fontSize:35, marginTop: 20}}>Cheats</Text>
+    <Text style = {{fontFamily: "fontLogo", color:"white", fontSize:35, marginTop: 20}}>Cheats</Text>
     <View style = {{marginTop:10, marginBottom:-15}}>
       <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={100}  onPress={() => navigation.navigate("Breakfast")}/>
     </View>

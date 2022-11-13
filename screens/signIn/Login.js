@@ -5,9 +5,6 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import { useAuth } from "../../config/authContext"
 
 export default function Login ({ navigation }) {
-  const [loaded] = useFonts({
-    BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
-  });
   const [email, onChangeEmail] = useState()
   const [password, onChangePassword] = useState()
   const [isLoading, setIsLoading] = useState(false)
@@ -20,11 +17,6 @@ export default function Login ({ navigation }) {
     setErrorText()
 
   }, [email, password])
-  
-
-  if (!loaded) {
-    return null;
-  }
   
   // TODO Improve Alert and add input validation
   const handleSubmit = async () => {
@@ -85,7 +77,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 50,
     color:"white",
-    fontFamily:"BandarBold"
+    fontFamily:"fontLogo"
   },
   textInput: {
     padding: 10,

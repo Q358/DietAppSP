@@ -6,9 +6,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../../config/authContext";
 
 export default function ForgotPassword() {
-  const [loaded] = useFonts({
-    BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
-  });
   const [email, onChangeEmail] = useState()
   const [sent, setSent] = useState()
   const [isLoading, setIsLoading] = useState(false)
@@ -69,7 +66,7 @@ const styles = StyleSheet.create({
     text:{
       fontSize: 40,
       color:"white",
-      fontFamily:"BandarBold",
+      fontFamily:"fontLogo",
       marginBottom:10
     },
     sentText: {
