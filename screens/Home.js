@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
-import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight, faWalking } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight, faWalking, faPersonSwimming } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress, makeStyles, useTheme } from "@rneui/themed";
@@ -11,7 +11,7 @@ import Onboarding from 'react-native-onboarding-swiper';
 
 export default function Home({ navigation }) {
   const [exercisePage, setExercisePage] = useState(0)
-  const exercises = [[faDumbbell,faBiking,faPersonRunning], [faDumbbell,faPersonWalking,faBiking], [faPersonRunning, faBiking, faWalking]]
+  const exercises = [[faDumbbell,faBiking,faPersonRunning], [faDumbbell,faPersonWalking,faBiking], [faPersonRunning, faBiking, faWalking], [faPersonSwimming]]
 
   const { user, userAvatar } = useAuth()
   const { width, height } = useWindowDimensions()
@@ -23,6 +23,13 @@ export default function Home({ navigation }) {
   const day = new Date().getDay()
   const dayOfWeek = day == 0 ? "Sunday" : day == 1 ? "Monday" : day == 2 ? "Tuesday" : day == 3 ? "Wednesday" : day == 4 ? "Thursday" : day == 5 ?
     "Friday" : day == 6 ? "Saturday" : null
+
+  const handleCarousel = (direction) => {
+    let length = exercises.length
+    direction == "left" ?
+      (exercisePage == 0 ? setExercisePage(length - 1) : setExercisePage(exercisePage - 1))
+      : (exercisePage == length - 1 ? setExercisePage(0) : setExercisePage(exercisePage + 1))
+  }
   return (
     <View style={{...styles.container, justifyContent:"space-evenly", alignItems: 'center'}}>
       <StatusBar  translucent backgroundColor={"transparent"}/>
@@ -67,17 +74,17 @@ export default function Home({ navigation }) {
         <TouchableOpacity style = {{...styles.weeklyProgressButton, marginVertical:15}} onPress = {() => navigation.navigate("Workout")}>
           <Text style = {styles.boxText}>Today's Workout</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", height:"90%"}}>
-            <TouchableOpacity style={{...styles.workoutButton, marginBottom:0}} onPress={() => setExercisePage(exercisePage - 1)}>
+            <TouchableOpacity style={{...styles.workoutButton, marginBottom:0}} onPress={() => handleCarousel("left")}>
               <FontAwesomeIcon icon={faAngleLeft} size={size}/>
             </TouchableOpacity>
             {exercises[exercisePage][0] ? (
             <>
-              <FontAwesomeIcon icon={exercises[exercisePage][0]} size={size}/>
-              <FontAwesomeIcon icon={exercises[exercisePage][1]} size={size}/>
-              <FontAwesomeIcon icon={exercises[exercisePage][2]} size={size}/>
+              <FontAwesomeIcon icon={exercises[exercisePage][0]} size={size} color={theme.colors.textSecondary}/>
+              {exercises[exercisePage][1] && <FontAwesomeIcon icon={exercises[exercisePage][1]} size={size} color={theme.colors.textSecondary}/>}
+              {exercises[exercisePage][1] && <FontAwesomeIcon icon={exercises[exercisePage][2]} size={size} color={theme.colors.textSecondary}/>}
             </>
             ) : (null)}
-            <TouchableOpacity style={styles.workoutButton} onPress={() => setExercisePage(exercisePage + 1)}>
+            <TouchableOpacity style={styles.workoutButton} onPress={() => handleCarousel("right")}>
               <FontAwesomeIcon icon={faAngleRight} size={size}/>
             </TouchableOpacity>
           </View>
