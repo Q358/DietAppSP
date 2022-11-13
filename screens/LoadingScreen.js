@@ -1,4 +1,5 @@
 import { StackActions } from "@react-navigation/native";
+import { makeStyles } from "@rneui/themed";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -15,6 +16,7 @@ export default function LoadingScreen({ navigation }) {
     })
 
     const { user } = useAuth()
+    const styles = useStyles()
 
     useEffect(() => {
 
@@ -29,16 +31,21 @@ export default function LoadingScreen({ navigation }) {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontFamily:"fontLogo", fontSize:70}}>nutri</Text>
+        <Text style={styles.logo}>nutri</Text>
       </View>
     )
   }
   
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-  });
+const useStyles = makeStyles((theme) => ({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo:{
+    fontFamily:"fontLogo",
+    fontSize:70,
+    color: theme.colors.textSecondary
+  }
+}))

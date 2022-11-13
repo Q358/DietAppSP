@@ -32,7 +32,7 @@ export default function SettingsModal({ visible, setVisible }) {
     } catch (error) {
       console.log("Failed to set Dark Mode")
     }
-    console.log("Set theme to ", await AsyncStorage.getItem("appTheme"))
+    console.log("Set theme to", await AsyncStorage.getItem("appTheme"))
   }
 
   const handleNotificationsSwitch = () => {
@@ -54,8 +54,8 @@ export default function SettingsModal({ visible, setVisible }) {
       <SettingsBar label={"Notifications"} onPress={handleNotificationsSwitch}/>
       <SettingsBar label={"Zen Music"} onPress={handleMusicSwitch}/>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={{color:"red", marginHorizontal:10}}>Logout</Text>
-        <FontAwesomeIcon icon={faRightFromBracket} color="red"/>
+        <Text style={styles.logoutText}>Logout</Text>
+        <FontAwesomeIcon style={{marginTop:2}} icon={faRightFromBracket} color="red" size={18}/>
       </TouchableOpacity>
     </Overlay>
   )
@@ -73,7 +73,7 @@ function SettingsBar({ label, onPress, state }) {
 
   return(
     <TouchableOpacity style={styles.settingsBar} onPress={handleChange}>
-      <Text style={{flex:5,fontFamily:"fontBold", fontSize:20, color:theme.colors.textSecondary, marginRight:10, textShadowColor:"black", shadowOpacity:3, shadowColor:"black"}}>{label}</Text>
+      <Text style={styles.settingsBarLabel}>{label}</Text>
       <Switch value={checked} style={{flex:1,transform:[{scale:1.5}]}} trackColor={{ false: "lightgray", true: "green" }} thumbColor={!checked ? "white" : "green"}
         onValueChange={handleChange} />
     </TouchableOpacity>
@@ -101,7 +101,8 @@ const useStyles = makeStyles((theme, props) => ({
   },
   logoutButton:{
     borderRadius:50,
-    padding:15,
+    paddingVertical:10,
+    paddingHorizontal:15,
     width: 170,
     marginHorizontal:8,
     marginVertical:10,
@@ -110,7 +111,13 @@ const useStyles = makeStyles((theme, props) => ({
     flexDirection:"row",
     borderColor:"red",
     borderWidth:2,
-    borderStyle:"dotted"
+    borderStyle:"solid"
+  },
+  logoutText:{
+    color:"red",
+    marginRight:15,
+    fontSize:20,
+    fontFamily:"fontRegular"
   },
   settingsBar:{
     alignItems: 'center',
@@ -123,5 +130,15 @@ const useStyles = makeStyles((theme, props) => ({
     padding:3, 
     paddingHorizontal:20,
     backgroundColor:theme.colors.secondary
+  },
+  settingsBarLabel:{
+    flex:5,
+    fontFamily:"fontBold",
+    fontSize:20,
+    color:theme.colors.textSecondary,
+    marginRight:10,
+    textShadowColor:"black",
+    shadowOpacity:3,
+    shadowColor:"black"
   }
 }));
