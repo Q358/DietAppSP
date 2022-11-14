@@ -6,9 +6,6 @@ import { Alert, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View }
 import { useAuth } from "../../config/authContext";
 
 export default function SignUp({ navigation }) {
-  const [loaded] = useFonts({
-    BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
-  });
   const [email, onChangeEmail] = useState()
   const [name, onChangeName] = useState()
   const [password, onChangePassword] = useState()
@@ -22,11 +19,6 @@ export default function SignUp({ navigation }) {
   
   }, [email, name, password])
   
-
-  if (!loaded) {
-    return null;
-  }
-
   const handleSubmit = async () => {
 
     if (!email || !name || !password) {
@@ -39,6 +31,10 @@ export default function SignUp({ navigation }) {
     }
     if(!(password.length >= 8)){
       setErrorText("Password must be longer than 8 characters")
+      return 0
+    }
+    if(name.length >= 30){
+      setErrorText("Name must be shorter than 30 characters")
       return 0
     }
 
@@ -80,15 +76,14 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor:"#b0fe8d"
+      backgroundColor:"#9ce979"
     },
     text: {
       fontSize: 50,
       color:"white",
-      fontFamily:"BandarBold",
+      fontFamily:"fontLogo",
 
     },
     underText: {
