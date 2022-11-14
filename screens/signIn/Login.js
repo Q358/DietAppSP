@@ -1,15 +1,10 @@
-import { CommonActions, StackActions } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import ErrorMessage from "../../components/ErrorMessage";
-import { useAuth } from "../../config/authContext";
+import { CommonActions, StackActions } from "@react-navigation/native"
+import { useFonts } from "expo-font"
+import { useEffect, useState } from "react"
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { useAuth } from "../../config/authContext"
 
 export default function Login ({ navigation }) {
-  const [loaded] = useFonts({
-    BandarBold: require('../../assets/fonts/BandarBold-1GZ2g.ttf'),
-  });
   const [email, onChangeEmail] = useState()
   const [password, onChangePassword] = useState()
   const [isLoading, setIsLoading] = useState(false)
@@ -23,15 +18,10 @@ export default function Login ({ navigation }) {
 
   }, [email, password])
   
-
-  if (!loaded) {
-    return null;
-  }
-  
   // TODO Improve Alert and add input validation
   const handleSubmit = async () => {
     if (!email || !password) {
-      setIncomplete("Please fill out all fields")
+      setErrorText("Please fill out all fields")
       return 0
     }
     if(!email.match(/\S+@\S+\.\S+/)){
@@ -79,7 +69,6 @@ export default function Login ({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor:"lightgreen",
@@ -88,7 +77,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 50,
     color:"white",
-    fontFamily:"BandarBold"
+    fontFamily:"fontLogo"
   },
   textInput: {
     padding: 10,
