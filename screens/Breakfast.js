@@ -20,23 +20,23 @@ export default function Breakfast({ navigation }) {
       <View style = {{marginRight: 280, marginTop: 30}}>
       <FontAwesomeIcon icon={faBreadSlice} size = {55} color = {'brown'}/>
       </View>
-      <Text style = {{color:"white", fontFamily:"fontRegular", fontSize:9, marginTop:-25, marginLeft:60}}>A slice of multigrain toast.</Text>
+      <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginLeft:60}}>A slice of multigrain toast.</Text>
       <View style = {{marginRight: 280, marginTop: 50}}>
       <FontAwesomeIcon icon = {faAppleWhole} size = {60} color = {'red'}/>
       </View>
-      <Text style = {{color:"white", fontFamily:"fontRegular", fontSize:9, marginTop:-25, marginRight:70}}>Whole apple</Text>
+      <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:70}}>Whole apple</Text>
       <View style = {{marginRight: 280, marginTop: 50}}>
       <FontAwesomeIcon icon = {faMugSaucer} size = {70} color = {'purple'}/>
       </View>
-      <Text style = {{color:"white", fontFamily:"fontRegular", fontSize:9, marginTop:-30, marginLeft:30}}>A cup of black coffee</Text>
+      <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-30, marginLeft:30}}>A cup of black coffee</Text>
       <View style = {{marginRight: 280, marginTop: 50}}>
       <FontAwesomeIcon icon = {faEgg} size = {60} color = {'blue'}/>
       </View>
-      <Text style = {{color:"white", fontFamily:"fontRegular", fontSize:9, marginTop:-25, marginRight:60}}>A boiled egg</Text>
+      <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:60}}>A boiled egg</Text>
       <View style = {{marginRight: 280, marginTop: 50}}>
       <FontAwesomeIcon icon = {faCarrot} size = {60} color = {'orange'}/>
       </View>
-      <Text style = {{color:"white", fontFamily:"fontRegular", fontSize:9, marginTop:-25, marginRight:30}}>Two carrot slices</Text>
+      <Text style = {{color:"white", fontFamily:"AdidogDemo", fontSize:9, marginTop:-25, marginRight:30}}>Two carrot slices</Text>
       
       
       <TouchableOpacity>
