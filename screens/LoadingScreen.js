@@ -1,15 +1,25 @@
 import { StackActions } from "@react-navigation/native";
+import { makeStyles } from "@rneui/themed";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../config/authContext";
+import  Constants  from "expo-constants";
 
 export default function LoadingScreen({ navigation }) {
     const [loaded] = useFonts({
-      BandarBold: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
+      fontLogo: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
     });
+    useFonts({ 
+      fontBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
+      fontRegular: require('../assets/fonts/Ubuntu-Regular.ttf'),
+      fontMedium: require('../assets/fonts/Ubuntu-Medium.ttf')
+    })
+
+    //console.log(Constants.manifest.extra.apiKey);
 
     const { user } = useAuth()
+    const styles = useStyles()
 
     useEffect(() => {
 
@@ -24,16 +34,21 @@ export default function LoadingScreen({ navigation }) {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontFamily:"BandarBold", fontSize:70}}>nutri</Text>
+        <Text style={styles.logo}>nutri</Text>
       </View>
     )
   }
   
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-  });
+const useStyles = makeStyles((theme) => ({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo:{
+    fontFamily:"fontLogo",
+    fontSize:70,
+    color: theme.colors.textSecondary
+  }
+}))
