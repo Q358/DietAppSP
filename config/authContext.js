@@ -10,6 +10,7 @@ import {
   signInWithPopup,
   updateProfile
 } from "firebase/auth"
+import defaultAvatar from "../assets/nutriIcon.jpg"
 
 const userAuthContext = createContext()
 
@@ -19,10 +20,12 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState()
+  const [userAvatar, setUserAvatar] = useState(user?.photoURL ?? defaultAvatar)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user)
+      setUserAvatar(user?.photoURL ? {uri: user?.photoURL} : defaultAvatar)
     })
 
     return unsubscribe
@@ -52,6 +55,8 @@ export function AuthProvider({ children }) {
   
   const value = {
     user,
+    userAvatar,
+    setUserAvatar,
     register,
     login,
     googleSignIn,
