@@ -10,11 +10,11 @@ export default function FoodBlock({ icons, style, size, onPress }) {
   switch (icon) {
     case "apple":
       iconName = faAppleWhole
-      color = "red" 
+      color = "#f02c24" 
       break;
     case "carrot":
       iconName = faCarrot
-      color = "orange" 
+      color = "#f09b24" 
       break;
     case "cheese":
       iconName = faCheese
@@ -26,15 +26,15 @@ export default function FoodBlock({ icons, style, size, onPress }) {
       break;
     case "fish":
       iconName = faFish
-      color = "blue" 
+      color = "#43ccc5" 
       break;
     case "meat":
       iconName = faDrumstickBite
-      color = "pink" 
+      color = "#cc4343" 
       break;
     case "wine":
       iconName = faWineGlass
-      color = "purple" 
+      color = "purple"
       break;
     case "smoke":
       iconName = faSmoking
