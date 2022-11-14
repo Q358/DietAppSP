@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, ScrollView, SafeAreaView} from "react-native";
-import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-export default function Cheats({ navigation }) {
-  
+export default function Cheats() {
     return (
+      <View style={styles.container}>
         <Text>Cheats</Text>
-
+      </View>
     )
-
-}
+  }
+  
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+});
