@@ -13,20 +13,20 @@ export default function Diet({ navigation }) {
           <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:40, marginTop:-15, marginBottom: 10}}>Today's Meals</Text>
+      <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:35, marginTop:-15, marginBottom: 10}}>Today's Meals</Text>
       <View style = {{marginTop: 10, marginRight:250}}>
         <FoodBlock icons={["apple", "cookie", "bread"]} size={110} onPress={() => navigation.navigate("Breakfast")}/>
       </View>
       <View style = {{marginTop: -110, alignItems:"center"}}>
-        <FoodBlock icons={["meat", "carrot", "bread"]} size={110} onPress={() => navigation.navigate("Breakfast")}/>
+        <FoodBlock icons={["meat", "carrot", "bread"]} size={110} onPress={() => navigation.navigate("Lunch")}/>
       </View>
       <View style = {{marginTop: -110, marginLeft:250}}>
-        <FoodBlock icons={["fish", "carrot", "bread"]} size={110} onPress={() => navigation.navigate("Breakfast")}/>
+        <FoodBlock icons={["fish", "carrot", "bread"]} size={110} onPress={() => navigation.navigate("Dinner")}/>
       </View>
       <Text style = {{marginVertical:50, marginTop: 10, marginRight:260}}>Breakfast</Text>
       <Text style = {{marginVertical:50, marginTop: -70, alignItems: "center"}}>Lunch</Text>
       <Text style = {{marginVertical:50, marginTop: -70, marginLeft:260}}>Dinner</Text>
-      <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:40, marginTop:-25, marginBottom: 10, marginRight:80}}>This Week</Text>
+      <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:35, marginTop:-25, marginBottom: 10, marginRight:80}}>This Week</Text>
       <View style = {{...styles.rectangle2, marginTop: 10, marginRight:250}}>
         <Text style = {{marginTop:20, marginLeft: 135, color:"black", fontFamily:"AdidogDemo", fontSize:10}}>Sunday</Text>
         <View style = {{...styles.leftArrow, marginTop:30}}>
@@ -38,10 +38,10 @@ export default function Diet({ navigation }) {
         <FoodBlock icons={["apple", "cookie", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")}/>
         </View>
         <View style = {{marginLeft:-320, marginTop:-80, alignItems: "center"}}>
-          <FoodBlock icons={["meat", "carrot", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")}/>
+          <FoodBlock icons={["meat", "carrot", "bread"]} size={80} onPress={() => navigation.navigate("Lunch")}/>
         </View>
         <View style = {{marginLeft: -80, marginTop:-80}}>
-          <FoodBlock icons={["fish", "carrot", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")}/>
+          <FoodBlock icons={["fish", "carrot", "bread"]} size={80} onPress={() => navigation.navigate("Dinner")}/>
         </View>
         </View>
         <Text style = {{marginVertical:50, marginTop: 5, marginLeft: 40, fontSize:13}}>Breakfast</Text>
