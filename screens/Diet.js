@@ -50,7 +50,7 @@ export default function Diet({ navigation }) {
       </View>
     <Text style = {{fontFamily: "UbuntuBold", color:"white", fontSize:35, marginTop: 20}}>Cheats</Text>
     <View style = {{marginTop:10, marginBottom:-15}}>
-      <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={100}  onPress={() => navigation.navigate("Breakfast")}/>
+      <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={100}  onPress={() => navigation.navigate("Cheats")}/>
     </View>
     <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
     <View style = {{...styles.houseButton, marginRight:200, marginTop: 50}}>
