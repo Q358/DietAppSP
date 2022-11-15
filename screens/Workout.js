@@ -1,8 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Image, Dimensions, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Image, Dimensions, TouchableOpacity, Alert, SafeAreaView, StatusBar } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBiking, faDumbbell, faFaceGrinBeamSweat, faPersonBiking, faPersonRunning, faPersonShelter, faPersonWalking, faTrophy, faWalking} from '@fortawesome/free-solid-svg-icons';
+import { faBiking, faAngleLeft, faCheckSquare, faDumbbell, faFaceGrinBeamSweat, faPersonBiking, faPersonRunning, faPersonShelter, faPersonWalking, faSquare, faTrophy, faWalking, faX} from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from "expo-font";
 import { useState } from "react";
 import WorkoutDB from "../components/WorkoutDB";
@@ -11,73 +11,38 @@ import { ListItem } from "@rneui/base";
 
 
 export default function Workout({ navigation }) {
-  const [loaded] = useFonts({
-    Ubuntu : require('../assets/fonts/Ubuntu-Medium.ttf'),
-  });
-
-  if (!loaded) {
-    return null
-  }
-
-  var completedMessage = () => {
-    Alert.alert("Completed");
-  }
-
-
-
-  const iconNames = new Map();
-  iconNames.set(1, faPersonRunning);
-  iconNames.set(2, faDumbbell);
-  iconNames.set(3, faBiking);
-  iconNames.set(4, faPersonWalking);
-
-  const titleNames = new Map();
-  titleNames.set(1, 'Running');
-  titleNames.set(2, 'Dumbbell Press');
-  titleNames.set(3, 'Station Bike');
-  titleNames.set(4, 'Walking');
-  
-  const subtitleNames = new Map();
-  subtitleNames.set(1, '3 miles');
-  subtitleNames.set(2, '3x10 reps');
-  subtitleNames.set(3, '30 Mins');
-  subtitleNames.set(4, '3x10 Mins');
-
-
+  const exercises = WorkoutDB(["Running", "Indoor Biking", "Dumbell Press", "Pushups"])
   return (
-    <View style={styles.container}>
-      <Onboarding bottomBarColor= {"white"}
-      //onSkip={() => navigation.navigate("Home")}
-      onDone= {() => navigation.navigate("Home")}
-      
-      pages={[
-        {
-          backgroundColor: '#fff',
-          image:  <TouchableOpacity onPress={completedMessage}>
-          <FontAwesomeIcon icon = {iconNames.get(1)} size = {100} color ={'#BC62FF'}/> 
-        </TouchableOpacity>,
-          title : <Text style={{fontFamily:"Ubuntu", fontSize:40, marginTop:-40}}>{titleNames.get(1)}</Text>,
-          subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:25, marginTop:20}}>{subtitleNames.get(1)}</Text>,
-        },
-        {
-          backgroundColor: '#fff',
-          image: <FontAwesomeIcon icon = {iconNames.get(2)} size = {100} color = {'#BC62FF'} style = {styles.secondIconStyle}></FontAwesomeIcon>,
-          title: <Text style={{fontFamily:"Ubuntu", fontSize:40, marginTop:-40, marginLeft:(Dimensions.get('window').width)/4.5}}>{titleNames.get(2)}</Text>,
-          subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:25, marginTop:20, marginLeft:(Dimensions.get('window').width)/4.5}}>{subtitleNames.get(2)}</Text>, 
-        },
-        {
-          backgroundColor: '#fff',
-          image: <FontAwesomeIcon icon = {iconNames.get(3)} size = {100} color = {'#BC62FF'} style = {styles.thirdIconStyle}></FontAwesomeIcon>,
-          title: <Text style={{fontFamily:"Ubuntu", fontSize:40, marginTop:-40, marginLeft:(Dimensions.get('window').width)/2.75}}>{titleNames.get(3)}</Text>,
-          subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:25, marginTop:20, marginLeft:(Dimensions.get('window').width)/2.75}}>{subtitleNames.get(3)}</Text>,
-        },
-        {
-          backgroundColor: '#fff',
-          image: <FontAwesomeIcon icon = {iconNames.get(4)} size = {100} color = {'#BC62FF'} style = {styles.fourthIconStyle}></FontAwesomeIcon>,
-          title : <Text style={{fontFamily:"Ubuntu", fontSize:40, marginTop:-40, marginRight: (Dimensions.get('window').width)/8}}>{titleNames.get(4)}</Text>,
-          subtitle: <Text style={{fontFamily:"Ubuntu", fontSize:25, marginTop:20, marginRight: (Dimensions.get('window').width)/8}}> {subtitleNames.get(4)}</Text>
-        },
-      ]}/>
+    <SafeAreaView style={styles.container}>
+      <StatusBar translucent/>
+      <View style={{flexDirection:"row", alignItems:"center", marginTop:20, width:"85%", justifyContent:"space-between"}}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <FontAwesomeIcon icon={faAngleLeft} color="gray" size={30}/>
+        </TouchableOpacity>
+        <Text style={{color:"white", fontFamily:"UbuntuBold", fontSize:30}}>Workouts</Text>
+        <FontAwesomeIcon icon={faAngleLeft} color="lightgreen" />
+      </View>
+      {exercises.map((item, key)=>
+        <WorkoutItem exercise={item} key={key} size={30}/>
+      )}
+    </SafeAreaView>
+  )
+}
+
+function WorkoutItem({ exercise, size }){
+  const [done, setDone] = useState(false)
+  return(
+    <View style={{...styles.exerciseBox, backgroundColor:done ? "lightgray" : "white"}} >
+      <View style={{backgroundColor:done ? "#39E53D" : "#BC62FF", padding:5, borderRadius:10 }}>
+        <FontAwesomeIcon icon={exercise.iconName} color={"white"} size={size}/>
+      </View>
+      <View style={{width:"70%"}}>
+        <Text style={{...styles.exerciseTitle, fontSize:size*0.6}}>{exercise.title}</Text>
+        <Text style={{...styles.exerciseSubtitle, fontSize:size*0.4, color:"gray"}}>{exercise.subtitle}</Text>
+      </View>
+      <TouchableOpacity onPress={() => setDone(!done)}>
+        <FontAwesomeIcon icon={done ? faCheckSquare : faSquare} color={done ? "#39E53D" : null} size={size}/>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -85,30 +50,28 @@ export default function Workout({ navigation }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: 'lightgreen',
       alignItems: 'center',
-      justifyContent: 'center',
+      paddingVertical:30
     },
-    secondIconStyle: {
-      flex:1,
-      backgroundColor:'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginLeft: (Dimensions.get('window').width)/5 ,
+    exerciseBox:{
+      borderRadius:20,
+      backgroundColor:"white",
+      flexDirection:"row",
+      paddingHorizontal:15,
+      paddingVertical:20,
+      alignItems:"center",
+      justifyContent:"space-between",
+      marginVertical:20,
+      width:"85%"
     },
-    thirdIconStyle: {
-      flex:1,
-      backgroundColor:'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginLeft: (Dimensions.get('window').width)/2.75 ,
+    exerciseTitle:{
+      marginHorizontal:5,
+      fontFamily:"UbuntuMedium"
     },
-    fourthIconStyle: {
-      flex:1,
-      backgroundColor:'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginRight: (Dimensions.get('window').width)/8 ,
+    exerciseSubtitle:{
+      marginHorizontal:5,
+      justifyContent: "space-between",
+      fontFamily:"Ubuntu"
     },
-
 });
