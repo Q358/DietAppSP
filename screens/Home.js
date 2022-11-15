@@ -14,7 +14,8 @@ export default function Home({ navigation }) {
   const [loaded] = useFonts({
     AdidogDemo: require('../assets/fonts/AdidogDemo-RpqMo.otf'),
     UbuntuBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
-    Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf')
+    Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuMedium: require('../assets/fonts/Ubuntu-Medium.ttf'),
   });
 
   const { user, userAvatar } = useAuth()

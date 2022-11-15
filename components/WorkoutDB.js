@@ -6,16 +6,10 @@ import Onboarding from "react-native-onboarding-swiper";
 import { text } from "@fortawesome/fontawesome-svg-core";
 
 
-export default function WorkoutDB({workouts, onPress}){
-  
-  //dataNames = ["Running", "Biking", "Dumbbell Press"]
-
-  var completedMessage = () => {
-    Alert.alert("Completed");
-  }
-  var WorkoutDBList;
-    return (WorkoutDBList = workouts?.map(( Exercise ) => {
-        let color;
+export default function WorkoutDB(workouts){
+    return (workouts?.map(( Exercise ) => 
+    {
+        let backgroundColor, iconName, color, title, subtitle;
         switch(Exercise){
         case "Running":
           backgroundColor = '#fff'
