@@ -12,7 +12,7 @@ import SettingsModal from "./SettingsModal"
 
 export default function Profile({ navigation }) {
   const { user, userAvatar, setUserAvatar } = useAuth()
-  const creationDate = new Date(user.metadata.creationTime)
+  const creationDate = new Date(user?.metadata.creationTime)
   const accountDate = `${creationDate.getMonth()}/${creationDate.getDate()}/${creationDate.getFullYear()}` // May need to change this based on locale if targeting international audience
   const [isLoading, setIsLoading] = useState(false)
   const [errorText, setErrorText] = useState()
@@ -132,7 +132,7 @@ export default function Profile({ navigation }) {
       <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height-60}} onPress={() => setSettingsVisible(true)}>
         <FontAwesomeIcon icon={faCog} color="#808180" size={45}></FontAwesomeIcon>
       </TouchableOpacity>
-      <SettingsModal visible={settingsVisible} setVisible={setSettingsVisible}/>
+      <SettingsModal visible={settingsVisible} setVisible={setSettingsVisible} navigation={navigation}/>
     </SafeAreaView>
   )
 }

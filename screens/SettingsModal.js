@@ -6,7 +6,7 @@ import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../config/authContext";
 
-export default function SettingsModal({ visible, setVisible }) {
+export default function SettingsModal({ visible, setVisible, navigation }) {
   const { logout } = useAuth()
   const { updateTheme, theme } = useTheme()
   const styles = useStyles()

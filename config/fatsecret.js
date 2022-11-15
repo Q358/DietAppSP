@@ -91,8 +91,8 @@ export async function getFoodData(foodId) {
 
 export async function getFood(barcode){
   var foodId = await getFoodId(barcode)
-  console.log(foodId.food_id.value)
-  return await getFoodData(foodId.food_id.value)
+  console.log(foodId?.food_id.value)
+  return await getFoodData(foodId?.food_id.value)
 }
 
 
