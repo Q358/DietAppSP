@@ -7,11 +7,16 @@ import { useFonts } from "expo-font";
 import { useState } from "react";
 import WorkoutDB from "../components/WorkoutDB";
 import { ListItem } from "@rneui/base";
+import { makeStyles, useTheme } from "@rneui/themed";
 
 
 
 export default function Workout({ navigation }) {
   const exercises = WorkoutDB(["Running", "Indoor Biking", "Dumbell Press", "Pushups"])
+
+  const { theme } = useTheme()
+  const styles = useStyles()
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent/>
@@ -19,8 +24,8 @@ export default function Workout({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <FontAwesomeIcon icon={faAngleLeft} color="gray" size={30}/>
         </TouchableOpacity>
-        <Text style={{color:"white", fontFamily:"UbuntuBold", fontSize:30}}>Workouts</Text>
-        <FontAwesomeIcon icon={faAngleLeft} color="lightgreen" />
+        <Text style={{color:"white", fontFamily:"fontBold", fontSize:30}}>Workouts</Text>
+        <FontAwesomeIcon icon={faAngleLeft} color={theme.colors.primary} size={30}/>
       </View>
       {exercises.map((item, key)=>
         <WorkoutItem exercise={item} key={key} size={30}/>
@@ -31,8 +36,10 @@ export default function Workout({ navigation }) {
 
 function WorkoutItem({ exercise, size }){
   const [done, setDone] = useState(false)
+  const { theme } = useTheme()
+  const styles = useStyles()
   return(
-    <View style={{...styles.exerciseBox, backgroundColor:done ? "lightgray" : "white"}} >
+    <View style={{...styles.exerciseBox, backgroundColor:done ? "lightgray" : theme.colors.secondary}} >
       <View style={{backgroundColor:done ? "#39E53D" : "#BC62FF", padding:5, borderRadius:10 }}>
         <FontAwesomeIcon icon={exercise.iconName} color={"white"} size={size}/>
       </View>
@@ -41,22 +48,22 @@ function WorkoutItem({ exercise, size }){
         <Text style={{...styles.exerciseSubtitle, fontSize:size*0.4, color:"gray"}}>{exercise.subtitle}</Text>
       </View>
       <TouchableOpacity onPress={() => setDone(!done)}>
-        <FontAwesomeIcon icon={done ? faCheckSquare : faSquare} color={done ? "#39E53D" : null} size={size}/>
+        <FontAwesomeIcon icon={done ? faCheckSquare : faSquare} color={done ? "#39E53D" : theme.colors.textSecondary} size={size}/>
       </TouchableOpacity>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
     container: {
       flex: 1,
-      backgroundColor: 'lightgreen',
+      backgroundColor: theme.colors.primary,
       alignItems: 'center',
       paddingVertical:30
     },
     exerciseBox:{
       borderRadius:20,
-      backgroundColor:"white",
+      backgroundColor: theme.colors.secondary,
       flexDirection:"row",
       paddingHorizontal:15,
       paddingVertical:20,
@@ -67,11 +74,12 @@ const styles = StyleSheet.create({
     },
     exerciseTitle:{
       marginHorizontal:5,
-      fontFamily:"UbuntuMedium"
+      fontFamily:"fontMedium",
+      color: theme.colors.textSecondary
     },
     exerciseSubtitle:{
       marginHorizontal:5,
       justifyContent: "space-between",
-      fontFamily:"Ubuntu"
+      fontFamily:"fontRegular"
     },
-});
+}));
