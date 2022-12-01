@@ -3,12 +3,12 @@ import { useAuth } from "../config/authContext";
 import { getData, setData } from "../config/firebase";
 
 export default function Lunch() {
-  const { user } = useAuth()
+  const { user, userData } = useAuth()
   const d = new Date()
   const day = d.getDay()
   const week = (d.getMonth() + 1) + '_' + (d.getDate() - day) + '_' + d.getFullYear()
   console.log(week)
-  const lunchMeals = getData(`diet`, week, user)
+  const lunchMeals = userData.dietWeekly
   console.log(lunchMeals)
   return (
     <View style={styles.container}>

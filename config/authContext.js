@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
 
   async function loadUserData(){
     const d = new Date()
-    const day = new Date(d.setDate(d.getDate() - d.getDay())).getDate()
+    const day = new Date(d.setDate(d.getDate() - d.getDay())).getDate() // Gets first day of week
     const week = (d.getMonth() + 1) + '_' + (day) + '_' + d.getFullYear()
     console.log(week + " || " + d.getDate())
     const dietWeekly = await getData('diet', week, user)
