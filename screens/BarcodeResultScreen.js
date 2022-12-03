@@ -1,7 +1,8 @@
 import { Divider, makeStyles, useTheme } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import FatSecretBadge from "../components/FatSecretBadge";
 import LoadingModal from "../components/LoadingModal";
 import { getFood } from "../config/fatsecret";
 
@@ -46,12 +47,15 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
             <Text style={{ fontFamily:"fontBold", fontSize:30, marginVertical:5, color: theme.colors.textSecondary }}>{data?.brand_name} {data?.food_name}</Text>
             <Divider width={3} style={{marginVertical:5}}/>
             <Text style={{color: theme.colors.textSecondary}}>Per serving, this food contains:</Text>
-            {servings && Object.keys(servings).map(function(key){return <Text style={{color: theme.colors.textSecondary}} key={key}>- {key.replace(/_/g, " ")}: {servings[key]} </Text>})}
+            <ScrollView>
+              {servings && Object.keys(servings).map(function(key){return <Text style={{color: theme.colors.textSecondary}} key={key}>- {key.replace(/_/g, " ")}: {servings[key]} </Text>})}
+            </ScrollView>
             <Divider width={3} style={{marginVertical:7}}/>
             <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Food added!")}>
               <Text style={{ fontFamily:"fontBold", fontSize:20, textAlign:"center", color: theme.colors.textPrimary }}>Add Food</Text>
             </TouchableOpacity>
           </View>
+          <FatSecretBadge />
         </View>
       </Modal>
     )
@@ -76,7 +80,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:15,
     justifyContent:'center',
     padding:10,
-    margin:10,
+    margin:4,
+    height:"95%",
     backgroundColor: theme.colors.secondary
   },
   button:{

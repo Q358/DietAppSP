@@ -47,7 +47,7 @@ function WorkoutItem({ exercise, size }){
         <Text style={{...styles.exerciseTitle, fontSize:size*0.6}}>{exercise.title}</Text>
         <Text style={{...styles.exerciseSubtitle, fontSize:size*0.4, color:"gray"}}>{exercise.subtitle}</Text>
       </View>
-      <TouchableOpacity onPress={() => setDone(!done)}>
+      <TouchableOpacity style={{padding:2}} onPress={() => setDone(!done)}>
         <FontAwesomeIcon icon={done ? faCheckSquare : faSquare} color={done ? "#39E53D" : theme.colors.textSecondary} size={size}/>
       </TouchableOpacity>
     </View>

@@ -18,20 +18,13 @@ export default function Breakfast({ navigation }) {
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-
       <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/>
       <FoodItem icon={faAppleWhole} color="red" text="A whole apple"/>
       <FoodItem icon={faCoffee} color="purple" text="A cup of black coffee"/>
       <FoodItem icon={faEgg} color="blue" text="A boiled egg"/>
       <FoodItem icon={faCarrot} color="orange" text="Two carrot sticks"/>
-     
-      
-      <TouchableOpacity>
-      <View style={{...styles.rectangle}}>
-        <View style = {{alignItems:"center", marginTop:10}}>
+      <TouchableOpacity style={{...styles.addFoodButton}}>
         <FontAwesomeIcon icon = {faPlus} size = {40} color = {'white'}/>
-        </View>
-      </View>
       </TouchableOpacity>
     </View>
   )
@@ -41,14 +34,15 @@ const useStyles = makeStyles((theme) => ({
   container: {
     flex: 1,
     backgroundColor: 'lightgreen',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
-  rectangle: {
+  addFoodButton: {
     width: 300,
     height: 60,
     backgroundColor: 'grey',
     marginTop: 80,
     borderRadius: 12, 
+    paddingVertical:10,
+    alignItems:"center"
   },
 }))

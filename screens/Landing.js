@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useAuth } from '../config/authContext';
+import FatSecretBadge from '../components/FatSecretBadge';
 
 export default function Landing({ navigation }) {
   const [loaded] = useFonts({
@@ -27,6 +28,7 @@ export default function Landing({ navigation }) {
         </TouchableOpacity>
       </View>
       <StatusBar style="auto" />
+      <FatSecretBadge style={{marginTop:100}} size={8}/>
     </View>
   )
 }

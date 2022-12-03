@@ -43,9 +43,9 @@ export default function App() {
 
   const mainTheme = createTheme({
     lightColors: {
-      primary: 'lightgreen', // #68CC68?
+      primary: '#29a442', // #68CC68?
       secondary: 'white',
-      tertiary: "#29a442",
+      tertiary: "#68CC68",
       textPrimary: "white",
       textSecondary:"black"
     },

@@ -113,7 +113,7 @@ export default function Profile({ navigation }) {
           <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.primary}}>{streak}</Text>
         </View>
         <TouchableOpacity style={{backgroundColor:"#1E90FF", borderRadius:10, padding:5, position:"absolute", right:"5%", top:"5%"}} onPress={handleUpload}>
-          <FontAwesomeIcon icon={faPen} color={theme.colors.secondary} size={20}/>
+          <FontAwesomeIcon icon={faPen} color={theme.colors.primary} size={20}/>
         </TouchableOpacity>
       </Avatar>
       <Text style={{fontFamily:"fontBold", fontSize:35, marginBottom:5, marginTop:20, color:theme.mode === 'dark' ? theme.colors.textPrimary : theme.colors.primary}}>{user?.displayName}</Text>
@@ -126,11 +126,11 @@ export default function Profile({ navigation }) {
       </View>
       <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
         <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
-        <FontAwesomeIcon icon={faUserPlus} color={"white"} size={20}/>
+        <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
       </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
       <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height-60}} onPress={() => setSettingsVisible(true)}>
-        <FontAwesomeIcon icon={faCog} color="#808180" size={45}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faCog} color="#808180" size={45}/>
       </TouchableOpacity>
       <SettingsModal visible={settingsVisible} setVisible={setSettingsVisible} navigation={navigation}/>
     </SafeAreaView>

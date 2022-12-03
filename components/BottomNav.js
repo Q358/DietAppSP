@@ -3,21 +3,22 @@ import { StyleSheet, TouchableOpacity, View } from "react-native"
 import { faAppleWhole } from "@fortawesome/free-solid-svg-icons"
 import { faPersonRunning } from "@fortawesome/free-solid-svg-icons"
 import { faBarcode } from "@fortawesome/free-solid-svg-icons"
-import { makeStyles } from "@rneui/themed"
+import { makeStyles, useTheme } from "@rneui/themed"
 
 export default function BottomNav({ navigation }) {
   const styles = useStyles()
+  const { theme } = useTheme()
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Diet")}>
-        <FontAwesomeIcon icon={faAppleWhole} size={50} color="white"/>
+        <FontAwesomeIcon icon={faAppleWhole} size={50} color={theme.colors.textPrimary}/>
       </TouchableOpacity>
-      <TouchableOpacity style={{marginTop:5, borderRadius:50, backgroundColor:"white", padding:15, height:80}} onPress={()=>navigation.navigate("Barcode")}>
-        <FontAwesomeIcon icon={faBarcode} size={50} />
+      <TouchableOpacity style={{marginTop:5, borderRadius:50, backgroundColor:theme.colors.textPrimary, padding:15, height:80}} onPress={()=>navigation.navigate("Barcode")}>
+        <FontAwesomeIcon icon={faBarcode} size={50} color={theme.colors.textSecondary}/>
       </TouchableOpacity>
       <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Workout")}>
-        <FontAwesomeIcon icon={faPersonRunning} size={50} color="white"/>
+        <FontAwesomeIcon icon={faPersonRunning} size={50} color={theme.colors.textPrimary}/>
       </TouchableOpacity>
     </View>
   )

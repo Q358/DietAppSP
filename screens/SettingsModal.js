@@ -1,6 +1,7 @@
 import { faCog, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CommonActions } from "@react-navigation/native";
 import { makeStyles, Overlay, Switch, useTheme, withTheme } from "@rneui/themed";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -15,7 +16,12 @@ export default function SettingsModal({ visible, setVisible, navigation }) {
   const handleLogout = async () => {
     try {
       await logout()
-      navigation.navigate("Landing")
+      navigation.dispatch(CommonActions.reset(({ // Stops users from going back to Profile page
+        index: 0,
+        routes: [
+          { name: 'Landing' },
+        ],
+      })))
     } catch (error) {
       alert("Failed to logout:" + error)
     }

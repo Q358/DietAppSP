@@ -65,10 +65,10 @@ export default function Home({ navigation }) {
         <TouchableOpacity style = {{...styles.weeklyProgressButton, justifyContent:"space-between"}} onPress = {() => navigation.navigate("Diet")}>
           <Text style = {styles.boxText}>Today's Diet</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Diet")}/>
-            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Diet")}/>
-            <FoodBlock icons={["bread","carrot", "meat", "fish"]} size={80} onPress={() => navigation.navigate("Diet")}/>
-            <FoodBlock icons={["wine","smoke", "cheese", "cookie"]} size={60} onPress={() => navigation.navigate("Diet")}/>
+            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")} text="Breakfast"/>
+            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Lunch")} text="Lunch"/>
+            <FoodBlock icons={["bread","carrot", "meat", "fish"]} size={80} onPress={() => navigation.navigate("Dinner")} text="Dinner"/>
+            <FoodBlock icons={["wine","smoke", "cheese", "cookie"]} size={60} onPress={() => navigation.navigate("Diet")} text="Cheats" textStyle={{fontSize:10}}/>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, marginVertical:15}} onPress = {() => navigation.navigate("Workout")}>
