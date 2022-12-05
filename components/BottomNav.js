@@ -1,25 +1,41 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { StyleSheet, TouchableOpacity, View } from "react-native"
-import { faAppleWhole } from "@fortawesome/free-solid-svg-icons"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { faAppleWhole, faHouse, faUserFriends } from "@fortawesome/free-solid-svg-icons"
 import { faPersonRunning } from "@fortawesome/free-solid-svg-icons"
 import { faBarcode } from "@fortawesome/free-solid-svg-icons"
-import { makeStyles, useTheme } from "@rneui/themed"
+import { Avatar, Icon, makeStyles, useTheme } from "@rneui/themed"
+import { useAuth } from "../config/authContext"
 
-export default function BottomNav({ navigation }) {
+export default function BottomNav({ navigation, currentPage }) {
   const styles = useStyles()
   const { theme } = useTheme()
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Diet")}>
-        <FontAwesomeIcon icon={faAppleWhole} size={50} color={theme.colors.textPrimary}/>
+      <NavItem page="Friends" icon={faUserFriends} currentPage={currentPage} navigation={navigation}/>
+      <NavItem page="Diet" icon={faAppleWhole} currentPage={currentPage} navigation={navigation}/>
+      <NavItem page="Home" icon={faHouse} currentPage={currentPage} navigation={navigation}/>
+      <NavItem page="Workout" icon={faPersonRunning} currentPage={currentPage} navigation={navigation}/>
+      <NavItem page="Profile" currentPage={currentPage} navigation={navigation}/>
+    </View>
+  )
+}
+
+function NavItem({ page, icon, currentPage, navigation }){
+  const { userAvatar } = useAuth()
+  const styles = useStyles()
+  const { theme } = useTheme()
+
+  return(
+    <View style={styles.navButton}>
+      <TouchableOpacity onPress={() => navigation.navigate(page)}>
+        {page == 'Profile' ? (
+          <Avatar style={styles.avatar} size={"large"} rounded source={userAvatar}/>
+        ) : (
+          <FontAwesomeIcon icon={icon} size={40} color={theme.colors.textPrimary}/>
+        )}
       </TouchableOpacity>
-      <TouchableOpacity style={{marginTop:5, borderRadius:50, backgroundColor:theme.colors.textPrimary, padding:15, height:80}} onPress={()=>navigation.navigate("Barcode")}>
-        <FontAwesomeIcon icon={faBarcode} size={50} color={theme.colors.textSecondary}/>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton} onPress={()=>navigation.navigate("Workout")}>
-        <FontAwesomeIcon icon={faPersonRunning} size={50} color={theme.colors.textPrimary}/>
-      </TouchableOpacity>
+      <Icon type="ionicon" name="remove-outline" color={currentPage == page ? theme.colors.textPrimary : theme.colors.primary}/>
     </View>
   )
 }
@@ -32,11 +48,20 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.colors.tertiary,
       marginTop:20,
       width:"80%",
-      justifyContent:"center",
+      justifyContent:"space-between",
+      alignItems:"center",
       paddingVertical:3
     },
     navButton: {
-      marginVertical:20,
-      marginHorizontal:40
+      marginTop:10,
+      justifyContent:"center",
+      alignItems:"center"
+    },
+    avatar:{
+      width:40,
+      height:40,
+      borderRadius:20,
+      borderWidth:1,
+      borderColor:"white"
     }
   }))

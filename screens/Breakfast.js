@@ -14,7 +14,7 @@ export default function Breakfast({ navigation }) {
     <View style={{...styles.container}}>
       <Text style = {{marginTop: 45, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Breakfast</Text>
       <View style = {{marginRight: 300, marginTop: -30, marginBottom:10}}>
-      <TouchableOpacity onPress={()=>navigation.navigate("Diet")}>
+      <TouchableOpacity onPress={()=>navigation.goBack()}>
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>

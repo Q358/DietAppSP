@@ -2,13 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { Avatar, Divider, makeStyles, useTheme } from "@rneui/themed"
 import { Alert, SafeAreaView, useWindowDimensions } from "react-native"
 import { StyleSheet, Text, TouchableOpacity, Switch, View, Share } from "react-native"
-import { useAuth } from "../config/authContext"
+import { useAuth } from "../../config/authContext"
 import { faAppleWhole, faBreadSlice, faCarrot, faCog, faPen, faRightFromBracket, faUserPlus } from "@fortawesome/free-solid-svg-icons"
-import { upload } from "../config/firebase"
+import { upload } from "../../config/firebase"
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from "react"
-import LoadingModal from "../components/LoadingModal"
-import SettingsModal from "./SettingsModal"
+import LoadingModal from "../../components/LoadingModal"
+import SettingsModal from "../../components/SettingsModal"
 
 export default function Profile({ navigation }) {
   const { user, userAvatar, setUserAvatar } = useAuth()
@@ -118,20 +118,20 @@ export default function Profile({ navigation }) {
       </Avatar>
       <Text style={{fontFamily:"fontBold", fontSize:35, marginBottom:5, marginTop:20, color:theme.mode === 'dark' ? theme.colors.textPrimary : theme.colors.primary}}>{user?.displayName}</Text>
       <Text style={{fontFamily:"fontRegular", fontSize:15, color:"gray", marginBottom:10}}>living nutrifully since {accountDate}</Text>
+      <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
+        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
+        <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
+      </TouchableOpacity>
       {/* <Divider width={3} style={{marginVertical:5, width:"70%"}} color="lightgray"/> */}
       <View style={{backgroundColor:"#ACACAC50", borderRadius:20, paddingVertical:10, paddingHorizontal:20, justifyContent:"space-evenly", marginBottom:10}}>
         <ProfileRow statLabel={"Longest Streak"} statCount={112} icon={faCarrot} iconColor={"#f09b24"}/>
         <ProfileRow statLabel={"Total NutriScore"} statCount={9350} icon={faAppleWhole} iconColor={"#f02c24"} iconLeft/>
         <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"#906A19"}/>
       </View>
-      <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
-        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
-        <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
-      </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
-      <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height-60}} onPress={() => setSettingsVisible(true)}>
+      <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height * 0.85}} onPress={() => setSettingsVisible(true)}>
         <FontAwesomeIcon icon={faCog} color="#808180" size={45}/>
-      </TouchableOpacity>
+      </TouchableOpacity> 
       <SettingsModal visible={settingsVisible} setVisible={setSettingsVisible} navigation={navigation}/>
     </SafeAreaView>
   )
@@ -189,7 +189,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:20,
     backgroundColor:theme.colors.primary,
     flexDirection:"row",
-    alignItems:"center"
+    alignItems:"center", 
+    marginBottom:10
   }
 }))
 
