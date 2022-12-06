@@ -10,7 +10,7 @@ export default function LoadingScreen({ navigation }) {
     const [loaded] = useFonts({
       fontLogo: require('../assets/fonts/BandarBold-1GZ2g.ttf'),
     });
-    useFonts({ 
+    const [fontsLoaded] = useFonts({ 
       fontBold: require('../assets/fonts/Ubuntu-Bold.ttf'),
       fontRegular: require('../assets/fonts/Ubuntu-Regular.ttf'),
       fontMedium: require('../assets/fonts/Ubuntu-Medium.ttf')
@@ -23,8 +23,8 @@ export default function LoadingScreen({ navigation }) {
 
     useEffect(() => {
 
-      // If user is logged in, go to home, else go to landing page
-      user !== undefined ? navigation.dispatch(user ? StackActions.replace("Home") : StackActions.replace("Landing")) : null
+      if(fontsLoaded) // After fonts load, if user is logged in, go to home, else go to landing page
+        user !== undefined ? navigation.dispatch(user ? StackActions.replace("Main") : StackActions.replace("Landing")) : null
 
     }, [user])
  

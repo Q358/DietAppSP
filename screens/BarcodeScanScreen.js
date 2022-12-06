@@ -28,7 +28,7 @@ export default function BarcodeScanSceen({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.errorText}>Requesting camera permission...</Text>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -38,7 +38,7 @@ export default function BarcodeScanSceen({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.errorText}>No access to camera. Please allow access to use the barcode scanner.</Text>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -84,7 +84,7 @@ export default function BarcodeScanSceen({ navigation }) {
       <View style={{ backgroundColor:"black", width:"100%", height: "100%", alignItems:"center" }}>
         <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={{...StyleSheet.absoluteFillObject, height:"100%", width:"115%"}}/>
         <Text style={{...styles.topText, bottom:height - 40}}>Looking for barcode...</Text>
-        <TouchableOpacity style={{...styles.cancelButton, position:"absolute", top:height - 25}} onPress={() => navigation.navigate("Home")}> 
+        <TouchableOpacity style={{...styles.cancelButton, position:"absolute", top:height - 25}} onPress={() => navigation.goBack()}> 
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
