@@ -24,7 +24,7 @@ export default function Workout({ navigation }) {
       <View style={{width:width, position:"absolute",top:-height * 0.2}}>
         <Image style={{ width:"100%" }} source={LeafBorder} resizeMode="contain"/>
       </View>
-      <Text style={{color:"white", fontFamily:"fontBold", fontSize:30, marginTop:30}}>Workouts</Text>
+      <Text style={{color:"white", fontFamily:"fontBold", fontSize:30, marginTop:80}}>Workouts</Text>
       <View>
       {exercises.map((item, key)=>
         <WorkoutItem exercise={item} key={key} size={30}/>

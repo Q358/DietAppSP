@@ -74,9 +74,11 @@ export default function MainPages({ navigation }){
           <Avatar style={styles.avatar} size={"large"} rounded source={userAvatar}/>
         )
       )}
+      indicatorStyle={{ backgroundColor: 'white' }}
     />
   )
-
+  
+   // onStartShouldSetResponderCapture = false stops issue with buttons being tapped when swiping
   return(
     <TabView navigationState={{ index, routes }} renderScene={renderScene} onIndexChange={setIndex} 
       initialLayout={{ width: layout.width }} tabBarPosition='bottom' renderTabBar={renderTabBar}/>

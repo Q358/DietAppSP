@@ -110,24 +110,24 @@ export default function Profile({ navigation }) {
       <View style={{marginTop:30}}/>
       <Avatar source={{...userAvatar, cache: "reload"}} size={170} rounded>
         <View style={styles.streakCounter}>
-          <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.primary}}>{streak}</Text>
+          <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.tertiary}}>{streak}</Text>
         </View>
         <TouchableOpacity style={{backgroundColor:"#1E90FF", borderRadius:10, padding:5, position:"absolute", right:"5%", top:"5%"}} onPress={handleUpload}>
-          <FontAwesomeIcon icon={faPen} color={theme.colors.primary} size={20}/>
+          <FontAwesomeIcon icon={faPen} color={theme.colors.textPrimary} size={20}/>
         </TouchableOpacity>
       </Avatar>
       <Text style={{fontFamily:"fontBold", fontSize:35, marginBottom:5, marginTop:20, color:theme.mode === 'dark' ? theme.colors.textPrimary : theme.colors.primary}}>{user?.displayName}</Text>
       <Text style={{fontFamily:"fontRegular", fontSize:15, color:"gray", marginBottom:10}}>living nutrifully since {accountDate}</Text>
-      <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
-        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
-        <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
-      </TouchableOpacity>
       {/* <Divider width={3} style={{marginVertical:5, width:"70%"}} color="lightgray"/> */}
       <View style={{backgroundColor:"#ACACAC50", borderRadius:20, paddingVertical:10, paddingHorizontal:20, justifyContent:"space-evenly", marginBottom:10}}>
         <ProfileRow statLabel={"Longest Streak"} statCount={112} icon={faCarrot} iconColor={"#f09b24"}/>
         <ProfileRow statLabel={"Total NutriScore"} statCount={9350} icon={faAppleWhole} iconColor={"#f02c24"} iconLeft/>
         <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"#906A19"}/>
       </View>
+      <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
+        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
+        <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
+      </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
       <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height * 0.85}} onPress={() => setSettingsVisible(true)}>
         <FontAwesomeIcon icon={faCog} color="#808180" size={45}/>
@@ -136,9 +136,9 @@ export default function Profile({ navigation }) {
     </SafeAreaView>
   )
 }
-
+//width:"80%", alignItems:"center" "#1E90FF"
 function ProfileRow({ statLabel, statCount, icon, iconColor, iconLeft}) {
-  const size = 55
+  const size = 40
   const { theme } = useTheme()
   return(
     <View style={{flexDirection:"row", alignItems:"center"}}>
@@ -147,9 +147,9 @@ function ProfileRow({ statLabel, statCount, icon, iconColor, iconLeft}) {
           <FontAwesomeIcon icon={icon} size={size} color="white"/>
         </View>
       )}
-      <View style={{backgroundColor:"#1E90FF", borderRadius:40, padding:15, paddingHorizontal:20, marginVertical:15}}>
-        <Text style={{fontFamily:"fontRegular", fontSize:20, color:"white", textAlign:"center"}}>{statLabel}</Text>
-        <Text style={{fontFamily:"fontBold", fontSize:35, color:theme.colors.primary, textAlign:"center"}}>{statCount}</Text>
+      <View style={{backgroundColor:theme.colors.tertiary, borderRadius:40, padding:15, paddingHorizontal:20, marginVertical:15}}>
+        <Text style={{fontFamily:"fontRegular", fontSize:size * 0.4, color:"white", textAlign:"center"}}>{statLabel}</Text>
+        <Text style={{fontFamily:"fontBold", fontSize:size * 0.6, color:theme.colors.textPrimary, textAlign:"center"}}>{statCount}</Text>
       </View>
       {!iconLeft && (
       <View style={{backgroundColor:iconColor, padding:10, borderRadius:15, marginLeft:20}}>
@@ -187,7 +187,7 @@ const useStyles = makeStyles((theme) => ({
     paddingHorizontal:20,
     paddingVertical:10,
     borderRadius:20,
-    backgroundColor:theme.colors.primary,
+    backgroundColor:"#1E90FF",
     flexDirection:"row",
     alignItems:"center", 
     marginBottom:10
