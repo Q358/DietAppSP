@@ -41,12 +41,7 @@ export default function SignUp({ navigation }) {
     try {
       setIsLoading(true)
       await register(email, password, name)
-      navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
-        index: 0,
-        routes: [
-          { name: 'Registration' }, // TODO This should go to a diet customization set up process
-        ],
-      })))
+      navigation.navigate("Registration")
     } catch (error) {
       setIsLoading(false)
       setErrorText( 
