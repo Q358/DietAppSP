@@ -61,15 +61,9 @@ export default function Registration ({navigation}) {
         <RegistrationTitle title="Height" icon={faRulerVertical}/>
         <RegistrationTitle title="Gender" icon={faPerson}/>
           <View style = {{...styles.midButtonRow}}>
-            <TouchableOpacity style={{...styles.button, flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", marginTop:windowHeight/32, backgroundColor: "#0096D6", marginLeft: -windowWidth/3}} onPress={() => navigation.navigate("Home")}>
-              <Text style={{...styles.mediumButtonText, flexDirection: "row", marginTop:windowHeight/48}}> Male</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{...styles.button, flexDirection: "row", justifyContent:"space-evenly", flexWrap: "wrap", backgroundColor: "#FF00BF", marginTop:windowHeight/32,}} onPress={() => navigation.navigate("Home")}>
-              <Text style={{...styles.mediumButtonText, flexDirection: "row", marginTop:windowHeight/48, marginLeft:-windowWidth/800}}>Female</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{...styles.button, flexDirection: "row", justifyContent:"space-evenly", flexWrap: "wrap", backgroundColor: "#F46D25", marginTop:-windowHeight/16, marginLeft: windowWidth/1.75 }} onPress={() => navigation.navigate("Home")}>
-              <Text style={{...styles.mediumButtonText, flexDirection: "row", marginTop:windowHeight/48, marginLeft:windowWidth/800}}>Other</Text>
-            </TouchableOpacity>
+            <SelectButtons title = "Male"/>
+            <SelectButtons title= "Female"/>
+            <SelectButtons title = "Other"/>
           </View>
       </View>
       <View style={styles.slide}>
@@ -87,6 +81,14 @@ export default function Registration ({navigation}) {
           <Text style={{...styles.titleText}}>Diet</Text>
           <RegistrationTitle title="Number of Meals" icon={faUtensils} />
           <RegistrationTitle title="Restrictions" icon={faCancel} />
+          <View style = {{...styles.midButtonRow}}>
+                <SelectButtons title = "Vegan"/>
+                <SelectButtons title = "Vegetarian"/>
+                <SelectButtons title = "Gluten Free"/>
+                <SelectButtons title = "Peanut-Free"/>
+                <SelectButtons title = "Dairy-Free"/>
+                <SelectButtons title = "Nut-Free"/>
+            </View>
       </View>
       <View style={styles.slide}>
         <View style = {{...styles.titleBar, marginLeft: windowWidth/3.33}}>
@@ -134,6 +136,20 @@ function RegSections ({title, icon}){
   )
 
 };
+/*
+function RegistrationTitles({icon, title, children}){
+  return (
+    <View style = {{justifyContent:"space-between", width:"100%", alignItems:"center"}}>
+      <View style = {styles.regTitle}>
+        <FontAwesomeIcon icon = {icon} color = {'#F4F0E0'} size = {50}/>
+        <Text style = {styles.regTitleText}>{title}</Text>
+      </View>
+      {children}
+    </View>
+
+  )
+};
+*/
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -215,7 +231,7 @@ const styles = StyleSheet.create({
     borderRadius:50,
     paddingHorizontal:10,
     marginHorizontal: 5,
-    marginVertical:10,
+    marginVertical:5,
     paddingVertical: 15,
     alignItems:"center",
     justifyContent: 'center',
