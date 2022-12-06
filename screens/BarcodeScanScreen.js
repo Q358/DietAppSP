@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     width:"70%"
   },
   cancelButtonText:{
-    fontFamily:"UbuntuBold",
+    fontFamily:"fontBold",
     fontSize:20, 
     color:"white"
   },
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     borderRadius:15,
     paddingVertical:5,
     paddingHorizontal:10,
-    fontFamily:"UbuntuBold"
+    fontFamily:"fontBold"
   },
   container:{
     flex: 1,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     padding:30,
   },
   errorText:{
-    fontFamily:"UbuntuBold",
+    fontFamily:"fontBold",
     fontSize:30, 
     marginBottom:20,
     textAlign:"center"

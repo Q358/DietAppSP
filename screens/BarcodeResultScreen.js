@@ -1,4 +1,4 @@
-import { Divider } from "@rneui/themed";
+import { Divider, makeStyles, useTheme } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -12,6 +12,8 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
   // const [food, setFood] = useState()
   // const [servings, setServings] = useState()
   const servings = data?.servings?.serving
+  const styles = useStyles()
+  const { theme } = useTheme()
 
   useEffect(() => {
   
@@ -40,14 +42,14 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
         <StatusBar backgroundColor="lightgreen"/>
         <View style={styles.container}>
           <View style={styles.innerContainer}>
-            <Text style={{ fontFamily:"UbuntuBold", fontSize:20 }}>Item scanned!</Text>
-            <Text style={{ fontFamily:"UbuntuBold", fontSize:30, marginVertical:5 }}>{data?.brand_name} {data?.food_name}</Text>
+            <Text style={{ fontFamily:"fontBold", fontSize:20, color: theme.colors.textSecondary }}>Item scanned!</Text>
+            <Text style={{ fontFamily:"fontBold", fontSize:30, marginVertical:5, color: theme.colors.textSecondary }}>{data?.brand_name} {data?.food_name}</Text>
             <Divider width={3} style={{marginVertical:5}}/>
-            <Text>Per serving, this food contains:</Text>
-            {servings && Object.keys(servings).map(function(key){return <Text key={key}>- {key.replace(/_/g, " ")}: {servings[key]} </Text>})}
+            <Text style={{color: theme.colors.textSecondary}}>Per serving, this food contains:</Text>
+            {servings && Object.keys(servings).map(function(key){return <Text style={{color: theme.colors.textSecondary}} key={key}>- {key.replace(/_/g, " ")}: {servings[key]} </Text>})}
             <Divider width={3} style={{marginVertical:7}}/>
             <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Food added!")}>
-              <Text style={{ fontFamily:"UbuntuBold", fontSize:20, textAlign:"center" }}>Add Food</Text>
+              <Text style={{ fontFamily:"fontBold", fontSize:20, textAlign:"center", color: theme.colors.textPrimary }}>Add Food</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -61,11 +63,10 @@ export default function BarcodeResult({ data, visible, setVisible, setScanned, i
   }
 }
   
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
   container: {
-    ...StyleSheet.absoluteFillObject,
     flex: 1,
-    backgroundColor: 'lightgreen',
+    backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     height:"100%"
@@ -76,12 +77,12 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     padding:10,
     margin:10,
-    backgroundColor:'white'
+    backgroundColor: theme.colors.secondary
   },
   button:{
-    backgroundColor:"green",
+    backgroundColor: theme.colors.tertiary,
     borderRadius:15,
     paddingVertical:7,
     marginTop:5
   }
-});
+}))
