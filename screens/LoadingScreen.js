@@ -18,13 +18,28 @@ export default function LoadingScreen({ navigation }) {
 
     //console.log(Constants.manifest.extra.apiKey);
 
-    const { user } = useAuth()
+    const { user, userData, loadUserData } = useAuth()
     const styles = useStyles()
 
     useEffect(() => {
 
-      if(fontsLoaded) // After fonts load, if user is logged in, go to home, else go to landing page
-        user !== undefined ? navigation.dispatch(user ? StackActions.replace("Main") : StackActions.replace("Landing")) : null
+    // After fonts load, if user is logged in, go to home, else go to landing page
+    const load = async() => {
+      if(user !== undefined){
+        if(user){
+          await loadUserData()
+          navigation.dispatch(StackActions.replace("Main"))
+        }
+        else{
+          navigation.dispatch(StackActions.replace("Landing"))
+        }
+      }
+      else{
+        null
+      }
+    }
+    if(fontsLoaded)
+      load()
 
     }, [user])
  
