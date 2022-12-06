@@ -44,7 +44,7 @@ export default function SignUp({ navigation }) {
       navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
         index: 0,
         routes: [
-          { name: 'Home' }, // TODO This should go to a diet customization set up process
+          { name: 'Registration' }, // TODO This should go to a diet customization set up process
         ],
       })))
     } catch (error) {
