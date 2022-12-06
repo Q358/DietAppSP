@@ -81,7 +81,7 @@ const Trophies = ({navigation}) => {
         {...panResponder1.panHandlers}
       >
         <View style={{flexDirection:"row"}}>
-          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size} icon={faRadiation}/>
+          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Registration")} size={size} icon={faRadiation}/>
           <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size}/>
           <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size}/>
         </View>
