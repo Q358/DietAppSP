@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TouchableOpacity } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function FoodBlock({ icons, style, size, onPress, horizontal }) {
+export default function FoodBlock({ icons, style, size, onPress, horizontal, text, textStyle }) {
 
   const iconsList = icons?.map(( icon ) => {
   let color;
@@ -59,10 +59,16 @@ export default function FoodBlock({ icons, style, size, onPress, horizontal }) {
   })
 
   return (
-    <TouchableOpacity style = {{...styles.box, width: horizontal ? null : size, height: horizontal ? null : size, paddingVertical: size * 0.03, paddingHorizontal: size * 0.03, flexWrap: horizontal ? "nowrap" : "wrap",  style}} 
-      onPress ={onPress}>
-      {iconComponents}
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity style = {{...styles.box, width: horizontal ? null : size, height: horizontal ? null : size, 
+        paddingVertical: size * 0.03, paddingHorizontal: size * 0.03, flexWrap: horizontal ? "nowrap" : "wrap",  ...style
+      }}
+        onPress ={onPress}>
+        {iconComponents}
+
+      </TouchableOpacity>
+      {text && <Text style={{textAlign:"center",fontFamily:"fontBold", fontSize: size * 0.12, ...textStyle}}>{text}</Text>}
+    </View>
   )
 }
   

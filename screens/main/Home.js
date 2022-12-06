@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import { Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView, useWindowDimensions, StatusBar, Image } from 'react-native';
 import { faTrophy, faUserGroup, faPersonRunning, faBiking, faPersonWalking, faDumbbell, faAngleLeft, faAngleRight, faWalking, faPersonSwimming } from '@fortawesome/free-solid-svg-icons';
-import BottomNav from "../components/BottomNav";
+import BottomNav from "../../components/BottomNav";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Avatar, LinearProgress, makeStyles, useTheme } from "@rneui/themed";
-import FoodBlock from "../components/FoodBlock"
-import { useAuth } from '../config/authContext';
+import FoodBlock from "../../components/FoodBlock"
+import { useAuth } from '../../config/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Onboarding from 'react-native-onboarding-swiper';
+import LeafBorder from "../../assets/leaf_border.png"
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, jumpTo }) {
   const [exercisePage, setExercisePage] = useState(0)
   const exercises = [[faDumbbell,faBiking,faPersonRunning], [faDumbbell,faPersonWalking,faBiking], [faPersonRunning, faBiking, faWalking], [faPersonSwimming]]
 
-  const { user, userAvatar } = useAuth()
+  const { user } = useAuth()
   const { width, height } = useWindowDimensions()
   const { theme } = useTheme()
   const styles = useStyles()
@@ -30,27 +30,18 @@ export default function Home({ navigation }) {
       (exercisePage == 0 ? setExercisePage(length - 1) : setExercisePage(exercisePage - 1))
       : (exercisePage == length - 1 ? setExercisePage(0) : setExercisePage(exercisePage + 1))
   }
+
   return (
-    <View style={{...styles.container, justifyContent:"space-evenly", alignItems: 'center'}}>
+    <View style={{...styles.container, justifyContent:"space-evenly", alignItems: 'center', height:"100%"}}>
       <StatusBar  translucent backgroundColor={"transparent"}/>
-      <SafeAreaView style={{...styles.container, flex:0, width:"90%", justifyContent:"center", alignItems:"center"}}>
-        <View style={{flexDirection:"row", width:"100%", marginTop:13, justifyContent:"space-between"}}>
-          <View style={{flexDirection:"row"}}>
-            <TouchableOpacity style = {styles.friendsButton} onPress={()=>navigation.navigate("Friends")}>
-              <FontAwesomeIcon icon = {faUserGroup} size = {20} color ={"white"}/> 
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.trophyButton} onPress={()=>navigation.navigate("Trophies")}>
-              <FontAwesomeIcon icon = {faTrophy} size = {20} color ={"white"}/> 
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-            <Avatar style={{width:40,height:40, borderRadius:20, borderWidth:1, borderColor:"white"}} size={"large"} rounded source={userAvatar}/>
-          </TouchableOpacity>
-        </View>
+      <View style={{width:width, position:"absolute",top:-height * 0.2}}>
+        <Image style={{ width:"100%" }} source={LeafBorder} resizeMode="contain"/>
+      </View>
+      <SafeAreaView style={{ flex:0, width:"90%", justifyContent:"center", alignItems:"center"}}>
         <Text style={styles.welcomeText}>Happy {dayOfWeek}, {user?.displayName}</Text>
       </SafeAreaView>
-      <ScrollView style={{backgroundColor: theme.colors.tertiary, padding:10, borderRadius:15}}>
-        <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Diet")}>
+      <ScrollView style={{backgroundColor: theme.colors.tertiary, padding:10, borderRadius:15, flexGrow:0}} >
+        <TouchableOpacity style = {{...styles.weeklyProgressButton, height:null}} onPress = {() => navigation.navigate("Progress")}>
           <View style={{flexDirection:"row", alignItems:"center"}}>
             <View style={{marginBottom:5, justifyContent:"space-between"}}>
           <Text style = {styles.boxText}>Weekly Goal Progress </Text>
@@ -62,16 +53,16 @@ export default function Home({ navigation }) {
         </TouchableOpacity>
         <View style = {{...styles.divider, marginHorizontal:width/20, marginVertical:height/80}}/>
         <Text style = {{fontFamily: "fontBold", color:theme.colors.textPrimary, fontSize:25, marginBottom:height/80}}>Daily Breakdown</Text>
-        <TouchableOpacity style = {{...styles.weeklyProgressButton, justifyContent:"space-between"}} onPress = {() => navigation.navigate("Diet")}>
+        <TouchableOpacity style = {{...styles.weeklyProgressButton, justifyContent:"space-between"}} onPress = {() => jumpTo('diet')}>
           <Text style = {styles.boxText}>Today's Diet</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Diet")}/>
-            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Diet")}/>
-            <FoodBlock icons={["bread","carrot", "meat", "fish"]} size={80} onPress={() => navigation.navigate("Diet")}/>
-            <FoodBlock icons={["wine","smoke", "cheese", "cookie"]} size={60} onPress={() => navigation.navigate("Diet")}/>
+            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")} text="Breakfast"/>
+            <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Lunch")} text="Lunch"/>
+            <FoodBlock icons={["bread","carrot", "meat", "fish"]} size={80} onPress={() => navigation.navigate("Dinner")} text="Dinner"/>
+            <FoodBlock icons={["wine","smoke", "cheese", "cookie"]} size={60} onPress={() => jumpTo("diet")} text="Cheats" textStyle={{fontSize:10}}/>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style = {{...styles.weeklyProgressButton, marginVertical:15}} onPress = {() => navigation.navigate("Workout")}>
+        <TouchableOpacity style = {{...styles.weeklyProgressButton, marginTop:15}} onPress = {() => jumpTo("workout")}>
           <Text style = {styles.boxText}>Today's Workout</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", height:"90%"}}>
             <TouchableOpacity style={{...styles.workoutButton, marginBottom:0}} onPress={() => handleCarousel("left")}>
@@ -90,7 +81,6 @@ export default function Home({ navigation }) {
           </View>
         </TouchableOpacity>
       </ScrollView>
-      <BottomNav navigation={navigation}/>
     </View>
   )
 }
@@ -123,8 +113,8 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "fontBold",
     color: theme.colors.textPrimary,
     fontSize:35,
-    marginTop:10,
-    marginBottom:10,
+    marginTop:30,
+    marginBottom:20,
     textShadowOffset: {width: 1, height: 2},
     textShadowRadius:20,
     paddingHorizontal:10
@@ -155,7 +145,6 @@ const useStyles = makeStyles((theme) => ({
     width:300
   },
   workoutButton:{
-
     borderRadius:10,
     padding:3
   }

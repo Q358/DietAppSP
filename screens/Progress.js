@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Friends() {
+export default function Progress({ navigation }) {
     return (
       <View style={styles.container}>
-        <Text>Friends</Text>
+        <Text>Progress</Text>
       </View>
     )
   }

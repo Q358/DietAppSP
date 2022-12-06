@@ -1,12 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useAuth } from "../config/authContext";
+import { getData, setData } from "../config/firebase";
 
 export default function Lunch() {
-    return (
-      <View style={styles.container}>
-        <Text>Lunch</Text>
-      </View>
-    )
-  }
+  const { user, userData } = useAuth()
+  const d = new Date()
+  const day = d.getDay()
+  const week = (d.getMonth() + 1) + '_' + (d.getDate() - day) + '_' + d.getFullYear()
+  console.log(week)
+  const lunchMeals = userData.dietWeekly.data
+  console.log(lunchMeals)
+  return (
+    <View style={styles.container}>
+      <Text>Lunch</Text>
+      <Text>{JSON.stringify(lunchMeals)}</Text>
+      <TouchableOpacity onPress={() => setData(`diet`,week,{lunch:{food:['sandwich', 'chips']}},user)}>
+        <Text>Add Data</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
   
 const styles = StyleSheet.create({
     container: {
