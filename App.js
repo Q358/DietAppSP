@@ -18,6 +18,7 @@ import Breakfast from './screens/Breakfast'
 import Cheats from './screens/Cheats'
 import Lunch from './screens/Lunch'
 import Dinner from './screens/Dinner'
+import Registration from './screens/Registration'
 import { createTheme, ThemeConsumer, ThemeProvider, useTheme } from '@rneui/themed'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useColorScheme } from 'react-native'
@@ -85,6 +86,7 @@ export default function App() {
               <Stack.Screen name="Cheats" component={Cheats}/>
               <Stack.Screen name="Lunch" component={Lunch}/>
               <Stack.Screen name="Dinner" component={Dinner}/>
+              <Stack.Screen name="Registration" component={Registration}/>
             </Stack.Navigator>
           </NavigationContainer>
           )}

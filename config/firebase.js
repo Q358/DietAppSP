@@ -36,4 +36,5 @@ export async function upload(file, currentUser, setIsLoading, fileType){
 }
 
 export const auth = firebaseAuth
+
 export default app
