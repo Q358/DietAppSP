@@ -49,6 +49,7 @@ export default function SignUp({ navigation }) {
           : error.code === "auth/invalid-email" ? "Please enter a valid email address"
             : "There was a problem signing up. Please try again later"
       )
+      console.log(error)
     }
   }
 

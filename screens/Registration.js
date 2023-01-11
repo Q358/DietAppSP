@@ -1,12 +1,12 @@
-import { faArrowUp, faBullseye, faCalendar, faPerson, faUtensils, faWeightScale, faX, faExclamationCircle, faRulerVertical, faCancel, faGenderless, faMale, faChild, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faBullseye, faCalendar, faPerson, faUtensils, faWeightScale, faX, faExclamationCircle, faRulerVertical, faCancel, faGenderless, faMale, faChild, faCalendarCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Icon, Input } from '@rneui/themed';
 import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, Dimensions} from 'react-native';
 import Swiper from 'react-native-swiper';
 import BottomNav from "../components/BottomNav";
 import RegistrationTitles from '../components/RegistrationTitles';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { CommonActions } from '@react-navigation/native';
 
 
 export default function Registration ({navigation}) {
@@ -23,7 +23,6 @@ export default function Registration ({navigation}) {
   const [dateOpen, setDateOpen] = useState(false)
 
   const handleSelectDate = () => {
-
     setDateOpen(false)
     console.log(userData.dob, dateOpen)
   }
@@ -33,6 +32,15 @@ export default function Registration ({navigation}) {
     setUserData({...userData, dob: selectedDate.toISOString().split("T")[0].replace(/-/g,'/') || mydate})
     setDateOpen(false)
     console.log(userData.dob, dateOpen)
+  }
+
+  const handleSubmit = () => {
+    navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
+      index: 0,
+      routes: [
+        { name: 'Main' }, // TODO This should go to a diet customization set up process
+      ],
+    })))
   }
 
   const windowWidth = Dimensions.get('window').width;
@@ -53,23 +61,39 @@ export default function Registration ({navigation}) {
         {dateOpen ? (
           <RNDateTimePicker
             value={mydate}
-            display="default"
+            display="spinner"
             onChange={changeSelectedDate}
           />
           ) : (null)
         }
-        <RegistrationTitle title="Height" icon={faRulerVertical}/>
-        <RegistrationTitle title="Gender" icon={faPerson}/>
+        <RegistrationTitle title="Height" icon={faRulerVertical}>
+          <TextInput style={styles.textInput} onChangeText={() => setUserData({...userData, height})} value={userData.height} placeholder="feet"/>
+        </RegistrationTitle>
+        <RegistrationTitle title="Gender" icon={faPerson}>
           <View style = {{...styles.midButtonRow}}>
-            <SelectButtons title = "Male"/>
-            <SelectButtons title= "Female"/>
-            <SelectButtons title = "Other"/>
+            <SelectButtons title="Male" color="#0096D6" style={{paddingHorizontal:20, borderWidth:2}}/>
+            <SelectButtons title="Female" color="#FF00BF"/>
+            <SelectButtons title="..." color="gray" style={{paddingHorizontal:10, borderWidth:2,paddingVertical:0 }}/>
+            <FontAwesomeIcon icon={faEllipsis} />
           </View>
+        </RegistrationTitle>
       </View>
       <View style={styles.slide}>
         <Text style={{...styles.titleText}}>Weight</Text>
-        <RegistrationTitle title="Current Weight" icon={faWeightScale}/>
-        <RegistrationTitle title="Target Weight" icon={faBullseye}/>
+        <RegistrationTitle title="Current Weight" icon={faWeightScale}>
+          <View style={{flexDirection:"row", alignItems:"center"}}>
+            <TextInput style={{...styles.textInput, width:100}} onChangeText={() => setUserData({...userData, currentWeight})} 
+              value={userData.currentWeight} placeholder="weight"/>
+            <Text style={{marginLeft:10,fontFamily:"fontRegular", color:secondaryColor, fontSize:20}}>lb</Text>
+          </View>
+        </RegistrationTitle>
+        <RegistrationTitle title="Target Weight" icon={faBullseye}>
+          <View style={{flexDirection:"row"}}>
+            <TextInput style={styles.textInput} onChangeText={() => setUserData({...userData, height})} 
+              value={userData.currentWeight} placeholder="weight"/>
+            <Text style={{fontFamily:"fontRegular"}}>lb</Text>
+          </View>
+        </RegistrationTitle>
         <RegistrationTitle title="Goal Date" icon={faCalendar} children={
           <TouchableOpacity onPress={() => setDateOpen(true)} style={styles.dateInput}>
             <FontAwesomeIcon icon={faCalendar} size={40} color={"#F4F0E0"}/>
@@ -80,27 +104,25 @@ export default function Registration ({navigation}) {
       <View style={styles.slide}>
           <Text style={{...styles.titleText}}>Diet</Text>
           <RegistrationTitle title="Number of Meals" icon={faUtensils} />
-          <RegistrationTitle title="Restrictions" icon={faCancel} />
-          <View style = {{...styles.midButtonRow}}>
-                <SelectButtons title = "Vegan"/>
-                <SelectButtons title = "Vegetarian"/>
-                <SelectButtons title = "Gluten Free"/>
-                <SelectButtons title = "Peanut-Free"/>
-                <SelectButtons title = "Dairy-Free"/>
-                <SelectButtons title = "Nut-Free"/>
+          <RegistrationTitle title="Restrictions" icon={faCancel}>
+            <View style = {{...styles.midButtonRow}}>
+              <SelectButtons title = "Vegan"/>
+              <SelectButtons title = "Vegetarian"/>
+              <SelectButtons title = "Gluten Free"/>
+              <SelectButtons title = "Peanut-Free"/>
+              <SelectButtons title = "Dairy-Free"/>
             </View>
+          </RegistrationTitle>
       </View>
       <View style={styles.slide}>
-        <View style = {{...styles.titleBar, marginLeft: windowWidth/3.33}}>
-          <Text style={{...styles.titleText}}>All Set!</Text>
-        </View>
-          <View style = {styles.buttonLocation}>
-          <TouchableOpacity style={{...styles.button, backgroundColor:"#1DB954"}} onPress={() => navigation.navigate("Home")}>
-            <Text style={{...styles.text}}>Begin</Text>
-          </TouchableOpacity>
-          </View>
+        <Text style={{...styles.titleText}}>All Set!</Text>
+        <View style = {styles.buttonLocation}>
+        <TouchableOpacity style={{...styles.button, backgroundColor:"#1DB954"}} onPress={handleSubmit}>
+          <Text style={{...styles.text}}>Begin</Text>
+        </TouchableOpacity>
       </View>
-   </Swiper>
+    </View>
+  </Swiper>
     );
 }
 
@@ -119,10 +141,10 @@ function RegistrationTitle({icon, title, children}) {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-function SelectButtons ({title}){
+function SelectButtons ({title, color, style}){
     return (
-      <TouchableOpacity style = {{...styles.button}}>
-      <Text style = {{...styles.mediumButtonText}}>{title}</Text>
+      <TouchableOpacity style = {{...styles.button, backgroundColor:color, ...style}}>
+        <Text style = {{...styles.mediumButtonText}}>{title}</Text>
       </TouchableOpacity>
     )
 };
@@ -150,19 +172,25 @@ function RegistrationTitles({icon, title, children}){
   )
 };
 */
-
+const secondaryColor = '#F4F0E0'
 const styles = StyleSheet.create({
   wrapper: {
   },
   regTitle:{
     flexDirection:"row",
     alignItems:"center",
-    borderColor:'#F4F0E0',
+    borderColor: secondaryColor,
     borderWidth:5,
     borderRadius:10,
     padding:10,
     width:"80%",
     marginBottom:10
+  },
+  textInput: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor:"white"
   },
   regTitleText:{
     fontFamily:"fontBold",
@@ -199,7 +227,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     //flexWrap: 'wrap',
-    marginTop: windowWidth/6.5,
   },
   mediumButtonText: {
     color: '#F4F0E0',
@@ -235,10 +262,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems:"center",
     justifyContent: 'center',
-    borderWidth:4,
+    borderWidth:3,
     borderColor:'#F4F0E0',
-    flexDirection: "row",
-    alignContent: 'center',
+    flexDirection: "row"
   },
   topButton:{
     borderRadius:10,
@@ -274,7 +300,7 @@ const styles = StyleSheet.create({
   midButtonRow:{
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     width: "99%",
     height:75,
     backgroundColor: "#00704A",
