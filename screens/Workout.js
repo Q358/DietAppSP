@@ -8,12 +8,14 @@ import { useState } from "react";
 import WorkoutDB from "../components/WorkoutDB";
 import { ListItem } from "@rneui/base";
 import { makeStyles, useTheme } from "@rneui/themed";
+import { useAuth } from "../config/authContext";
 
 
 
 export default function Workout({ navigation }) {
-  const exercises = WorkoutDB(["Running", "Indoor Biking", "Dumbell Press", "Pushups"])
-
+  //const exercises = WorkoutDB(["Running", "Indoor Biking", "Dumbell Press", "Pushups"])
+  const { userData } = useAuth()
+  const exercises = userData?.exerciseWeekly
   const { theme } = useTheme()
   const styles = useStyles()
 
