@@ -7,6 +7,8 @@ import BottomNav from "../components/BottomNav";
 import RegistrationTitles from '../components/RegistrationTitles';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { CommonActions } from '@react-navigation/native';
+import { setRegistrationData } from '../config/firebase';
+import { useAuth } from '../config/authContext';
 
 
 export default function Registration ({navigation}) {
@@ -18,9 +20,10 @@ export default function Registration ({navigation}) {
     goalWeight: null,
     goalDate: null,
     numMeals: null,
-    restrictions: [],
+    restriction: null, // Can be made an array for multiple
   })
   const [dateOpen, setDateOpen] = useState(false)
+  const { user } = useAuth()
 
   const handleSelectDate = () => {
     setDateOpen(false)
@@ -34,7 +37,8 @@ export default function Registration ({navigation}) {
     console.log(userData.dob, dateOpen)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    await setRegistrationData(userData, user)
     navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
       index: 0,
       routes: [
@@ -71,10 +75,10 @@ export default function Registration ({navigation}) {
         </RegistrationTitle>
         <RegistrationTitle title="Gender" icon={faPerson}>
           <View style = {{...styles.midButtonRow}}>
-            <SelectButtons title="Male" color="#0096D6" style={{paddingHorizontal:20, borderWidth:2}}/>
-            <SelectButtons title="Female" color="#FF00BF"/>
+            <SelectButtons title="Male" color="#0096D6" style={{paddingHorizontal:20, borderWidth:2}} onSelect={()=>setUserData({...userData, gender:"male"})}/>
+            <SelectButtons title ="Female" color="#FF00BF" onSelect={()=>setUserData({...userData, gender:"female"})}/>
             <SelectButtons title="..." color="gray" style={{paddingHorizontal:10, borderWidth:2,paddingVertical:0 }}/>
-            <FontAwesomeIcon icon={faEllipsis} />
+            <FontAwesomeIcon icon={faEllipsis}  onSelect={()=>setUserData({...userData, gender:"female"})}/>
           </View>
         </RegistrationTitle>
       </View>
@@ -102,17 +106,18 @@ export default function Registration ({navigation}) {
         }/>
       </View>
       <View style={styles.slide}>
-          <Text style={{...styles.titleText}}>Diet</Text>
-          <RegistrationTitle title="Number of Meals" icon={faUtensils} />
-          <RegistrationTitle title="Restrictions" icon={faCancel}>
-            <View style = {{...styles.midButtonRow}}>
-              <SelectButtons title = "Vegan"/>
-              <SelectButtons title = "Vegetarian"/>
-              <SelectButtons title = "Gluten Free"/>
-              <SelectButtons title = "Peanut-Free"/>
-              <SelectButtons title = "Dairy-Free"/>
-            </View>
-          </RegistrationTitle>
+        <Text style={{...styles.titleText}}>Diet</Text>
+        <RegistrationTitle title="Number of Meals" icon={faUtensils} />
+        <RegistrationTitle title="Restrictions" icon={faCancel} />
+        <View style = {{...styles.midButtonRow}}>
+          <SelectButtons title = "Vegan" onSelect={()=>setUserData({...userData, restriction:"vegan"})}/>
+          <SelectButtons title = "Vegetarian" onSelect={()=>setUserData({...userData, restriction:"vegetarian"})}/>
+          <SelectButtons title = "Gluten Free" onSelect={()=>setUserData({...userData, restriction:"gluten_free"})}/>
+          <SelectButtons title = "Peanut Free" onSelect={()=>setUserData({...userData, restriction:"peanut_free"})}/>
+          <SelectButtons title = "Dairy Free" onSelect={()=>setUserData({...userData, restriction:"dairy_free"})}/>
+          <SelectButtons title = "Tree Nut Free" onSelect={()=>setUserData({...userData, restriction:"tree_nut_free"})}/>
+          <SelectButtons title = "None" onSelect={()=>setUserData({...userData, restriction:"none"})}/>
+        </View>
       </View>
       <View style={styles.slide}>
         <Text style={{...styles.titleText}}>All Set!</Text>
@@ -141,10 +146,10 @@ function RegistrationTitle({icon, title, children}) {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-function SelectButtons ({title, color, style}){
+function SelectButtons ({title, color, style, onSelect}){
     return (
-      <TouchableOpacity style = {{...styles.button, backgroundColor:color, ...style}}>
-        <Text style = {{...styles.mediumButtonText}}>{title}</Text>
+      <TouchableOpacity style = {{...styles.button, backgroundColor:color, ...style}} onPress={onSelect}>
+          <Text style = {{...styles.mediumButtonText}}>{title}</Text>
       </TouchableOpacity>
     )
 };

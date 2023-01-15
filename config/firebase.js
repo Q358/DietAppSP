@@ -67,6 +67,15 @@ export async function setData(folder, docName, data, currentUser){
   }
 }
 
+export async function setRegistrationData(data, currentUser){ // Could be combined with setData
+  const document = doc(db,"users", currentUser.uid)
+  try {
+    await setDoc(document,{data})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const auth = firebaseAuth
 
 export default app
