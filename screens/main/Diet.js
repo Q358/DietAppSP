@@ -42,7 +42,7 @@ export default function Diet({ navigation }) {
           <SpeedDial.Action
             icon={{ name: 'search', color: theme.colors.tertiary }}
             title="Search Food"
-            onPress={() => console.log('Add Something')}
+            onPress={() => console.log("Add something")}
           />
           <SpeedDial.Action
             icon={{ name: 'barcode-scan', type: 'material-community', color: theme.colors.tertiary }}
@@ -81,6 +81,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent:"space-between",
       width:"100%",
       marginBottom:10
-    }
+    } 
 }))
 
