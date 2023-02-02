@@ -5,12 +5,17 @@ import FoodBlock from "../../components/FoodBlock"
 import React, { useState } from "react";
 import { makeStyles, SpeedDial, useTheme } from "@rneui/themed";
 import LeafBorder from "../../assets/leaf_border.png"
+import SearchModal from "../../components/Search";
+
 
 export default function Diet({ navigation }) {
   const { width, height } = useWindowDimensions()
   const { theme } = useTheme()
   const styles = useStyles()
   const [open, setOpen] = useState()
+  const [visible, setVisible] = useState(false)
+  const [searchVisible, setSearchVisible] = useState(false)
+
   return (
     <SafeAreaView style={{...styles.container, justifyContent:"space-evenly"}}>
       <View style={{width:width, position:"absolute",top:-height * 0.2}}>
@@ -42,7 +47,7 @@ export default function Diet({ navigation }) {
           <SpeedDial.Action
             icon={{ name: 'search', color: theme.colors.tertiary }}
             title="Search Food"
-            onPress={() => console.log("Add something")}
+            onPress={() => setSearchVisible(true)}
           />
           <SpeedDial.Action
             icon={{ name: 'barcode-scan', type: 'material-community', color: theme.colors.tertiary }}
@@ -53,6 +58,7 @@ export default function Diet({ navigation }) {
             }}
           />
       </SpeedDial>
+      <SearchModal visible={searchVisible} setVisible={setSearchVisible}/>
     </SafeAreaView>
   )
 }
