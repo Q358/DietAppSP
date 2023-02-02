@@ -3,6 +3,8 @@ import { BarCodeScanner } from "expo-barcode-scanner"
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, useWindowDimensions } from "react-native"
 import { getFood } from "../config/fatsecret"
 import BarcodeResult from "./BarcodeResultScreen"
+import LoadingModal from "../components/LoadingModal"
+import { StackActions } from "@react-navigation/native"
 
 export default function BarcodeScanSceen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
@@ -22,6 +24,12 @@ export default function BarcodeScanSceen({ navigation }) {
     
     getBarCodeScannerPermissions()
   }, [])
+
+  useEffect(() => {
+    
+    (isLoading || errorText) ? setVisible(true) : setVisible(false)
+
+  }, [isLoading, errorText])
 
   // TODO Make into dialogs
   if (hasPermission === null) {
@@ -48,6 +56,7 @@ export default function BarcodeScanSceen({ navigation }) {
   const handleAPICall = async (data) => {
     try {
       setIsLoading(true)
+      setErrorText(null)
       var foodData = await getFood(data)
       setIsLoading(false)
     } catch (error) {
@@ -67,14 +76,13 @@ export default function BarcodeScanSceen({ navigation }) {
     }
   }
 
-  // TODO Query FatSecret API with code number, navigate user to loading page
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true)
     console.log("Barcode:", data)
     setVisible(true)
-    setFood(await handleAPICall(data))
-
-    // alert(`Bar code with type ${type} and data ${data} has been scanned! This is a ${food.brand_name} ${food.food_name}.`)
+    let res = await handleAPICall(data)
+    if(!errorText)
+      navigation.dispatch(StackActions.replace("BarcodeResult", {data: res}))
   }
   
   // Added absolute to cancel button to make it overlay over camera view
@@ -88,8 +96,7 @@ export default function BarcodeScanSceen({ navigation }) {
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
-      <BarcodeResult data={food} visible={visible} setVisible={setVisible} setScanned={setScanned} isLoading={isLoading} errorText={errorText}
-       setErrorText={setErrorText}/>
+      <LoadingModal visible={visible} setVisible={setVisible} isLoading={isLoading} errorText={errorText} setErrorText={setErrorText}/>
     </>
   )
 }
