@@ -17,7 +17,7 @@ return (
         <TextInput editable multiline numberOfLines={4} maxLength={40} onChangeText={text=> onChangeText(text)} value={value} style={{padding: 10}}/>
     </View> */}
     <TextInput style = {styles.input} placeholder= "Search for a food product." editable multiline numberOfLines={4} maxLength={40} onChangeText={text=> onChangeText(text)} value={value}/>
-    <TouchableOpacity style = {styles.searchButton} onPress={()=> Linking.openURL('https://www.fatsecret.com/calories-nutrition/search?q={value}')}> 
+    <TouchableOpacity style = {styles.searchButton} onPress={()=> Linking.openURL('https://www.fatsecret.com/calories-nutrition/search?q=' + value)}> 
     <Text style = {{fontFamily:"fontBold", color:"white", fontSize: 15}}>Submit</Text> 
     </TouchableOpacity>
 </Overlay>
