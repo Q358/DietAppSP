@@ -89,6 +89,7 @@ export async function getFoodData(foodId) {
   return response.json()
 }
 
+
 export async function getFood(barcode){
   var foodId = await getFoodId(barcode)
   console.log(foodId?.food_id.value)

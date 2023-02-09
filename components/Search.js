@@ -3,11 +3,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import { makeStyles, Overlay, Switch, useTheme, withTheme } from "@rneui/themed";
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, TextInput} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Linking} from "react-native";
 
 export default function SearchModal({ visible, setVisible }) {
     const styles = useStyles()
     const [value, onChangeText] = useState(true)
+    
 
 
 return (
@@ -16,8 +17,8 @@ return (
         <TextInput editable multiline numberOfLines={4} maxLength={40} onChangeText={text=> onChangeText(text)} value={value} style={{padding: 10}}/>
     </View> */}
     <TextInput style = {styles.input} placeholder= "Search for a food product." editable multiline numberOfLines={4} maxLength={40} onChangeText={text=> onChangeText(text)} value={value}/>
-    <TouchableOpacity style = {styles.searchButton} onPress={() => console.log(value)}> 
-       <Text style = {{fontFamily:"fontBold", color:"white", fontSize: 15}}>Submit</Text> 
+    <TouchableOpacity style = {styles.searchButton} onPress={()=> Linking.openURL('https://www.fatsecret.com/calories-nutrition/search?q={value}')}> 
+    <Text style = {{fontFamily:"fontBold", color:"white", fontSize: 15}}>Submit</Text> 
     </TouchableOpacity>
 </Overlay>
  )
