@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useColorScheme } from 'react-native'
 import { useEffect, useState } from "react"
 import MainPages from './screens/main/MainPages'
+import BarcodeResult from './screens/BarcodeResultScreen'
 
 
 const Stack = createNativeStackNavigator();
@@ -74,6 +75,7 @@ export default function App() {
               <Stack.Screen name="Main" component={MainPages}/>
               <Stack.Screen name="Trophies" component={Trophies}/>
               <Stack.Screen name="Barcode" component={BarcodeScanSceen}/>
+              <Stack.Screen name="BarcodeResult" component={BarcodeResult}/>
               <Stack.Screen name="Forgot" component={ForgotPassword}/>
               <Stack.Screen name="Breakfast" component={Breakfast}/>
               <Stack.Screen name="Cheats" component={Cheats}/>
