@@ -8,11 +8,14 @@ export default function Lunch() {
   const day = d.getDay()
   const week = (d.getMonth() + 1) + '_' + (d.getDate() - day) + '_' + d.getFullYear()
   console.log(week)
-  const lunchMeals = userData?.dietWeekly?.data
+  const lunchMeals = userData?.dietWeekly[day]?.lunch
   console.log(lunchMeals)
   return (
     <View style={styles.container}>
       <Text>Lunch</Text>
+      {Object.keys(lunchMeals).map((val, idx) => 
+        <Text key={idx}>{val} - {lunchMeals[val]}</Text>
+      )}
       <Text>{JSON.stringify(lunchMeals)}</Text>
       <TouchableOpacity onPress={() => setData(`diet`,week,{lunch:{food:['sandwich', 'chips']}},user)}>
         <Text>Add Data</Text>

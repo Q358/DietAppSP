@@ -38,15 +38,16 @@ export async function upload(file, currentUser, setIsLoading, fileType){
 }
 
 const db = getFirestore(app)
-export async function getData(folder, document, currentUser){
+export async function getData(path, document){
   // let userCollection = collection(db, "users/" + currentUser.uid + "/" + folder)
   // let userSnapshot = await getDocs(userCollection)
   // return userSnapshot.docs.map(doc => doc.data)
-  /////
-  const docRef = doc(db,`users/${(currentUser.uid).toString()}/${folder.toString()}`, document.toString())
+  
+  const docRef = doc(db, path, document.toString())
+  // const docRef = doc(db,`users/${(currentUser.uid).toString()}/${folder.toString()}`, document.toString())
   try {
     const docSnap = await getDoc(docRef)
-    console.log("//"+docSnap.data())
+    console.log("//"+JSON.stringify(docSnap.data()))
     if(!docSnap.exists)
       console.log("Document not found.")
     else
@@ -78,12 +79,49 @@ export async function setRegistrationData(data, currentUser){ // Could be combin
   }
 }
 
-export async function getDiet(path)
+export async function getDiet(dietName, currentUser)
 {
-  const querySnapshot = await getDocs(collection(db, diets))
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data())
-  })
+  // const docSnap = await getDoc(doc(db, dietName, currentUser.toString()))
+  // console.log("&&&"+JSON.stringify(docSnap.json()))
+  // const docs = []
+  
+  // const col = collection(db, `diets/${dietName}/${collection}`).get()
+  // console.log(col)
+        // const doc = getDocs(col)
+        // console.log(doc)
+  // const doc1 =  doc(db, 'diets', dietName)
+  // console.log(0, await getDoc(doc1))
+  // await getDoc(doc1).then((querySnapshot)=>{
+  //   console.log(1, querySnapshot)
+  //   querySnapshot.forEach((collection) => {
+  //     console.log(2)
+  //     const col = collection(db, `diets/${dietName}/${collection}`).get()
+  //     console.log(3, col)
+  //     const doc = getDocs(col)
+  //     console.log(4)
+  //     docs.push(doc)
+  //   })
+  // })
+  // return docs
+  // const querySnapshot = await getDocs(collection(db, diets))
+  // querySnapshot.forEach((doc) => {
+  //   console.log(doc.id, "=>", doc.data())
+  // })
+  const dietWeekly = []
+  for(let i = 1; i < 8; i++)
+  {
+    const path = `diets/${dietName}/day${i}`
+    let day = {
+      breakfast: await getData(path, 'breakfast'),
+      morning_snack: await getData(path, 'morning_snack'),
+      lunch: await getData(path, 'lunch'),
+      afternoon_snack: await getData(path, 'afternoon_snack'),
+      dinner: await getData(path, 'dinner'),
+      daily_totals: await getData(path, 'daily_totals')
+    }
+    dietWeekly.push(day)
+  }
+  return dietWeekly
 }
 
 export const auth = firebaseAuth

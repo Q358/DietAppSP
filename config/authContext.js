@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react"
-import { auth, getData } from "./firebase.js"
+import { auth, getData, getDiet } from "./firebase.js"
 import {
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -62,27 +62,34 @@ export function AuthProvider({ children }) {
 
   async function loadUserData(){
     const d = new Date()
-    const day = new Date(d.setDate(d.getDate() - d.getDay())).getDate() // Gets first day of week
-    const week = (d.getMonth() + 1) + '_' + (day) + '_' + d.getFullYear()
-    console.log(week + " || " + d.getDate())
+    // const day = new Date(d.setDate(d.getDate() - d.getDay())).getDate() // Gets first day of week
+    // const week = (d.getMonth() + 1) + '_' + (day) + '_' + d.getFullYear()
+    // console.log(week + " || " + d.getDate())
     //setUserData(await getData("", user))
-    const dietWeekly = await getData('diets', week, user)
+    const databaseInfo = await getData('users', user.uid)
+    console.log(JSON.stringify(databaseInfo))
+    setUserData({...userData, databaseInfo})
+    console.log('====', d, d.getDay(), d.getDay() + 1)
+    // const dietWeekly = await getData(`diets/${databaseInfo.data.diet}/day${(d.getDay() + 1)}`, `lunch`, user)
+    // const test = await getData(`diets/${databaseInfo.data.diet}/day${(d.getDay() + 1)}`)
+    const dietWeekly = await getDiet(databaseInfo.data.diet, user)
     //const dietWeekly = await getData("diets", userData.diet)
     console.log(dietWeekly)
-    const exerciseWeekly = await getData('exercise', week, user)
+    // const exerciseWeekly = await getData('exercise', week, user)
+    const exerciseWeekly = null
     console.log("!!!!!!!" + dietWeekly + "!!!!!!!" + exerciseWeekly)
     await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
-      console.log(error);
+      console.log(error)
     })
     await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
-      console.log(error);
+      console.log(error)
     })
     setUserData({
       dietWeekly: JSON.parse(await AsyncStorage.getItem('dietWeekly').catch(error => {
-        console.log(error);
+        console.log(error)
       })),
       exerciseWeekly: JSON.parse(await AsyncStorage.getItem('exerciseWeekly').catch(error => {
-        console.log(error);
+        console.log(error)
       }))
     })
   }

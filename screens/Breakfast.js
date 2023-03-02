@@ -11,6 +11,8 @@ export default function Breakfast({ navigation }) {
 
   const {userData} = useAuth()
   const styles = useStyles()
+  const day = new Date().getDay()
+  const lunchMeals = userData?.dietWeekly[day]?.breakfast
 
   return (
     <View style={{...styles.container}}>
@@ -20,11 +22,14 @@ export default function Breakfast({ navigation }) {
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/>
-      <FoodItem icon={faAppleWhole} color="red" text="A whole apple"/>
+      {Object.keys(lunchMeals).map((val, idx) => 
+        <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={lunchMeals[val]} key={idx}/>
+      )}
+      {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}
+      {/* <FoodItem icon={faAppleWhole} color="red" text="A whole apple"/>
       <FoodItem icon={faCoffee} color="purple" text="A cup of black coffee"/>
       <FoodItem icon={faEgg} color="blue" text="A boiled egg"/>
-      <FoodItem icon={faCarrot} color="orange" text="Two carrot sticks"/>
+      <FoodItem icon={faCarrot} color="orange" text="Two carrot sticks"/> */}
       <TouchableOpacity style={{...styles.addFoodButton}}>
         <FontAwesomeIcon icon = {faPlus} size = {40} color = {'white'}/>
       </TouchableOpacity>
