@@ -62,28 +62,28 @@ export function AuthProvider({ children }) {
 
   async function loadUserData(){
     const d = new Date()
-    // const day = new Date(d.setDate(d.getDate() - d.getDay())).getDate() // Gets first day of week
-    // const week = (d.getMonth() + 1) + '_' + (day) + '_' + d.getFullYear()
-    // console.log(week + " || " + d.getDate())
-    //setUserData(await getData("", user))
+    // Get user data from DB
     const databaseInfo = await getData('users', user.uid)
-    console.log(JSON.stringify(databaseInfo))
     setUserData({...userData, databaseInfo})
-    console.log('====', d, d.getDay(), d.getDay() + 1)
-    // const dietWeekly = await getData(`diets/${databaseInfo.data.diet}/day${(d.getDay() + 1)}`, `lunch`, user)
-    // const test = await getData(`diets/${databaseInfo.data.diet}/day${(d.getDay() + 1)}`)
-    const dietWeekly = await getDiet(databaseInfo.data.diet, user)
-    //const dietWeekly = await getData("diets", userData.diet)
-    console.log(dietWeekly)
-    // const exerciseWeekly = await getData('exercise', week, user)
-    const exerciseWeekly = null
-    console.log("!!!!!!!" + dietWeekly + "!!!!!!!" + exerciseWeekly)
-    await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
-      console.log(error)
-    })
-    await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
-      console.log(error)
-    })
+
+    const dietVersion = (await getData('diets', databaseInfo.data.diet)).version
+    console.log(dietVersion)
+
+    // If diet has changed, query to get weeklyDiet and store locally
+    if(dietVersion !== JSON.parse(await AsyncStorage.getItem('dietVersion'))){
+      var dietWeekly = await getDiet(databaseInfo.data.diet, user)
+      console.log(dietWeekly)
+      // const exerciseWeekly = null
+      await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
+        console.log(error)
+      })
+      await AsyncStorage.setItem('dietVersion', JSON.stringify(dietVersion)).catch(error => {
+        console.log(error)
+      })
+    // await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
+    //   console.log(error)
+    // })
+    }
     setUserData({
       dietWeekly: JSON.parse(await AsyncStorage.getItem('dietWeekly').catch(error => {
         console.log(error)

@@ -57,13 +57,13 @@ export default function LoadingScreen({ navigation }) {
 const useStyles = makeStyles((theme) => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor:theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo:{
     fontFamily:"fontLogo",
     fontSize:70,
-    color: theme.colors.textSecondary
+    color: "white"
   }
 }))

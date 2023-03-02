@@ -50,74 +50,30 @@ export default function Registration ({navigation}) {
     })))
   }
   
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
   function Demography(){
-    let userGender = ""
+    let age = 2023 - (new Date(userData.dob).getFullYear())
+    let userWeightMetric = userData.currentWeight*0.453592
+    let userHeightMetric = userData.height*2.54
+    let restingCalories = 0
+    let userCondition = ""
     if (userData.gender == "male"){
-      userGender = "male"
+      restingCalories = Math.floor(88.362 + (13.397*userWeightMetric) + (4.799*userHeightMetric) - (5.677*age))
+      userCondition = restingCalories < 2000 ? "strict"
+        : restingCalories > 3000 ? "heavy"
+          : "regular"
     }
-    else if (userData.gender == "female"){
-      userGender = "female"
+    else {
+      resting_Calories = Math.floor(447.593 + (9.247*userWeightMetric) + (3.098*userHeightMetric) - (4.330*age))
+      userCondition = restingCalories < 1600 ? "strict"
+      : restingCalories > 2400 ? "heavy"
+        : "regular"
     }
-    let userRestriction = ""
-    if (userData.restriction == "vegan"){
-      userRestriction = "vegan"
-    }
-    else if (userData.restriction == "gluten_free"){
-      userRestriction = "gluten_free"
-    }
-    else if (userData.restriction == "vegetarian"){
-      userRestriction = "vegetarian"
-    }
-    else{
-      userRestriction = "none"
-    }
-    let dob_year = new Date(userData.dob).getFullYear();
-    //let currentYear = new Date().getFullYear();
-    let age = 2023 - dob_year;
-    let userWeight = userData.currentWeight*0.453592;
-    let resting_Calories = 0;
-    let user_height = userData.height*2.54;
-    if (userGender == "male"){
-      resting_Calories = 88.362 + (13.397*userWeight) + (4.799*user_height) - (5.677*age);
-    }
-    else if (userGender == "female"){
-      resting_Calories = 447.593 + (9.247*userWeight) + (3.098*user_height) - (4.330*age);
-    }
-    Math.floor(resting_Calories);
-    let user_condition = ""
-    if (userGender == "male"){
-      if (resting_Calories<2000){
-        user_condition = "strict"
-      }
-      else if (resting_Calories>3000){
-        user_condition = "heavy"
-      }
-      else {
-        user_condition = "regular"
-      }
-    }
-    if (userGender == "female"){
-      if (resting_Calories<1600){
-        user_condition = "strict"
-      }
-      else if (resting_Calories>2400){
-        user_condition = "heavy"
-      }
-      else {
-        user_condition = "regular"
-      }
-    }
-    let user_diet = `${userGender}_${userRestriction}_${user_condition}`
+    let user_diet = `${userData.gender}_${userData.restriction}_${userCondition}`
     console.log(user_diet)
     return user_diet
-    //setUserData({...userData , diet:user_diet})
     /*
-  
       Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 
       Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
-  
     */
   }
   
@@ -215,74 +171,6 @@ function RegistrationTitle({icon, title, children}) {
     </View>
   )
 }
-
-//function Demography(userData){
-  /*let userGender = ""
-  if (userData.gender == "male"){
-    userGender = "male"
-  }
-  else if (userData.gender == "female"){
-    userGender = "female"
-  }
-  let userRestriction = ""
-  if (userData.restriction == "vegan"){
-    userRestriction = "vegan"
-  }
-  else if (userData.restriction == "gluten_free"){
-    userRestriction = "gluten_free"
-  }
-  else if (userData.restriction == "vegetarian"){
-    userRestriction = "vegetarian"
-  }
-  else{
-    userRestriction = "none"
-  }
-  let dob_year = new Date(userData.dob).getFullYear();
-  //let currentYear = new Date().getFullYear();
-  let age = 2023 - dob_year;
-  let userWeight = userData.currentWeight*0.453592;
-  let resting_Calories = 0;
-  let user_height = userData.height*2.54;
-  if (userGender == "male"){
-    resting_Calories = 88.362 + (13.397*userWeight) + (4.799*user_height) - (5.677*age);
-  }
-  else if (userGender == "female"){
-    resting_Calories = 447.593 + (9.247*userWeight) + (3.098*user_height) - (4.330*age);
-  }
-  Math.floor(resting_Calories);
-  let user_condition = ""
-  if (userGender == "male"){
-    if (resting_Calories<2000){
-      user_condition = "strict"
-    }
-    else if (resting_Calories>3000){
-      user_condition = "heavy"
-    }
-    else {
-      user_condition = "regular"
-    }
-  }
-  if (userGender == "female"){
-    if (resting_Calories<1600){
-      user_condition = "strict"
-    }
-    else if (resting_Calories>2400){
-      user_condition = "heavy"
-    }
-    else {
-      user_condition = "regular"
-    }
-  }
-  //userData.diet = userGender+"_"+userRestriction+"_"+user_condition
-  setUserData({...userData , diet:userGender+"_"+userRestriction+"_"+user_condition})
-  
-
-    Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 
-    Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
-
-  */
-//}
-
 
 
 const windowWidth = Dimensions.get('window').width;
