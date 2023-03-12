@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react"
-import { auth, getData, getDiet, getWorkout } from "./firebase.js"
+import { auth, getData, getDiet } from "./firebase.js"
 import {
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
     console.log('====', d, d.getDay(), d.getDay() + 1)
     const dietWeekly = await getDiet(databaseInfo.data.diet, user)
     console.log(dietWeekly)
-    const exerciseWeekly = await getWorkout(databaseInfo.data.condition, user)
+    const exerciseWeekly = null
     console.log(exerciseWeekly)
     console.log("!!!!!!!" + dietWeekly + "!!!!!!!" + exerciseWeekly)
     await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
