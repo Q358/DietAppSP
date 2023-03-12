@@ -12,7 +12,7 @@ export default function Breakfast({ navigation }) {
   const {userData} = useAuth()
   const styles = useStyles()
   const day = new Date().getDay()
-  const lunchMeals = userData?.dietWeekly[day]?.breakfast
+  const breakfastMeals = userData?.dietWeekly[day]?.breakfast
 
   return (
     <View style={{...styles.container}}>
@@ -22,8 +22,8 @@ export default function Breakfast({ navigation }) {
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      {Object.keys(lunchMeals).map((val, idx) => 
-        <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={lunchMeals[val]} key={idx}/>
+      {Object.keys(breakfastMeals).map((val, idx) => 
+        <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={breakfastMeals[val]} key={idx}/>
       )}
       {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}
       {/* <FoodItem icon={faAppleWhole} color="red" text="A whole apple"/>
