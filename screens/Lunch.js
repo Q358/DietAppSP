@@ -1,34 +1,55 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, ScrollView, SafeAreaView} from "react-native";
+import { useFonts } from 'expo-font';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faAngleLeft, faAppleWhole, faBreadSlice, faCarrot, faCoffee, faEgg, faMugSaucer, faPlus } from "@fortawesome/free-solid-svg-icons";
+import FoodBlock from "../components/FoodBlock"
+import { makeStyles } from "@rneui/themed";
+import FoodItem from "../components/FoodItem";
 import { useAuth } from "../config/authContext";
-import { getData, setData } from "../config/firebase";
 
-export default function Lunch() {
-  const { user, userData } = useAuth()
-  const d = new Date()
-  const day = d.getDay()
-  const week = (d.getMonth() + 1) + '_' + (d.getDate() - day) + '_' + d.getFullYear()
-  console.log(week)
+export default function Lunch({ navigation }) {
+
+  const {userData} = useAuth()
+  const styles = useStyles()
+  const day = new Date().getDay()
   const lunchMeals = userData?.dietWeekly[day]?.lunch
-  console.log(lunchMeals)
+
   return (
-    <View style={styles.container}>
-      <Text>Lunch</Text>
+    <View style={{...styles.container}}>
+      <Text style = {{marginTop: 45, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Lunch</Text>
+      <View style = {{marginRight: 300, marginTop: -30, marginBottom:10}}>
+      <TouchableOpacity onPress={()=>navigation.goBack()}>
+        <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
+      </TouchableOpacity>
+      </View>
       {Object.keys(lunchMeals).map((val, idx) => 
-        <Text key={idx}>{val} - {lunchMeals[val]}</Text>
+        <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={lunchMeals[val]} key={idx}/>
       )}
-      <Text>{JSON.stringify(lunchMeals)}</Text>
-      <TouchableOpacity onPress={() => setData(`diet`,week,{lunch:{food:['sandwich', 'chips']}},user)}>
-        <Text>Add Data</Text>
+      {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}
+      {/* <FoodItem icon={faAppleWhole} color="red" text="A whole apple"/>
+      <FoodItem icon={faCoffee} color="purple" text="A cup of black coffee"/>
+      <FoodItem icon={faEgg} color="blue" text="A boiled egg"/>
+      <FoodItem icon={faCarrot} color="orange" text="Two carrot sticks"/> */}
+      <TouchableOpacity style={{...styles.addFoodButton}}>
+        <FontAwesomeIcon icon = {faPlus} size = {40} color = {'white'}/>
       </TouchableOpacity>
     </View>
   )
 }
-  //diets/diet/day1/lunch
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-});
+  
+const useStyles = makeStyles((theme) => ({
+  container: {
+    flex: 1,
+    backgroundColor: 'lightgreen',
+    alignItems: 'center'
+  },
+  addFoodButton: {
+    width: 300,
+    height: 60,
+    backgroundColor: 'grey',
+    marginTop: 80,
+    borderRadius: 12, 
+    paddingVertical:10,
+    alignItems:"center"
+  },
+}))

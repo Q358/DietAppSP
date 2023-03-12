@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react"
-import { auth, getData, getDiet } from "./firebase.js"
+import { auth, getData, getDiet, getWorkout } from "./firebase.js"
 import {
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -62,28 +62,23 @@ export function AuthProvider({ children }) {
 
   async function loadUserData(){
     const d = new Date()
-    // Get user data from DB
     const databaseInfo = await getData('users', user.uid)
+    console.log(JSON.stringify(databaseInfo))
     setUserData({...userData, databaseInfo})
+    console.log('====', d, d.getDay(), d.getDay() + 1)
+    const dietWeekly = await getDiet(databaseInfo.data.diet, user)
+    console.log(dietWeekly)
+    const exerciseWeekly = await getWorkout(databaseInfo.data.condition, user)
+    console.log(exerciseWeekly)
+    console.log("!!!!!!!" + dietWeekly + "!!!!!!!" + exerciseWeekly)
+    await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
+      
+      console.log(error)
+    })
+    await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
 
-    const dietVersion = (await getData('diets', databaseInfo.data.diet)).version
-    console.log(dietVersion)
-
-    // If diet has changed, query to get weeklyDiet and store locally
-    if(dietVersion !== JSON.parse(await AsyncStorage.getItem('dietVersion'))){
-      var dietWeekly = await getDiet(databaseInfo.data.diet, user)
-      console.log(dietWeekly)
-      // const exerciseWeekly = null
-      await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
-        console.log(error)
-      })
-      await AsyncStorage.setItem('dietVersion', JSON.stringify(dietVersion)).catch(error => {
-        console.log(error)
-      })
-    // await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
-    //   console.log(error)
-    // })
-    }
+      console.log(error)
+    })
     setUserData({
       dietWeekly: JSON.parse(await AsyncStorage.getItem('dietWeekly').catch(error => {
         console.log(error)
