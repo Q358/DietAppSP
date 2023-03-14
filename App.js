@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useColorScheme } from 'react-native'
 import { useEffect, useState } from "react"
 import MainPages from './screens/main/MainPages'
+import SearchResult from './screens/SearchResultsScreen'
 
 
 const Stack = createNativeStackNavigator();
@@ -52,7 +53,7 @@ export default function App() {
       secondary: '#013220',
       tertiary: '#1a2421',
       textPrimary:"white",
-      textSecondary:"white"
+      textSecondary:"#d5d5d5"
     },
     mode: mode,
   });
@@ -81,6 +82,7 @@ export default function App() {
               <Stack.Screen name="Dinner" component={Dinner}/>
               <Stack.Screen name="Registration" component={Registration}/>
               <Stack.Screen name="Progress" component={Progress}/>
+              <Stack.Screen name="SearchResult" component={SearchResult}/>
             </Stack.Navigator>
           </NavigationContainer>
           )}

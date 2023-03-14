@@ -58,7 +58,7 @@ export default function Diet({ navigation }) {
             }}
           />
       </SpeedDial>
-      <SearchModal visible={searchVisible} setVisible={setSearchVisible}/>
+      <SearchModal visible={searchVisible} setVisible={setSearchVisible} navigation={navigation}/>
     </SafeAreaView>
   )
 }

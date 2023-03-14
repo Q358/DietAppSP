@@ -42,19 +42,20 @@ function signRequest(queryParams, httpMethod = 'GET') {
   return encodeURIComponent(hmacsha1(signatureKey, signatureBaseString));
 }
 
-export async function searchFood(query, maxResults = 8) {
-  const method = 'foods.search';
+export async function searchFood(query, maxResults = 5) {
+  const method = 'foods.search'
   const queryParams = [
     ...getOauthParameters(),
     ['format', 'json'].join('='),
     ['max_results', maxResults].join('='),
     ['method', method].join('='),
     ['search_expression', encodeURIComponent(query)].join('='),
-  ].sort((a, b) => a.localeCompare(b));
-  const sha = signRequest(queryParams);
-  queryParams.push(['oauth_signature', sha].join('='));
-  const response = await fetch(`${API_PATH}?${queryParams.join('&')}`);
-  return response.json();
+  ].sort((a, b) => a.localeCompare(b))
+  const sha = signRequest(queryParams)
+  queryParams.push(['oauth_signature', sha].join('='))
+  const response = await fetch(`${API_PATH}?${queryParams.join('&')}`)
+  console.log("Response:", JSON.stringify(response))
+  return response.json()
 }
 
 export async function getFoodId(barcode) {
@@ -69,7 +70,7 @@ export async function getFoodId(barcode) {
   const sha = signRequest(queryParams)
   queryParams.push(['oauth_signature', sha].join('='))
   const response = await fetch(`${API_PATH}?${queryParams.join('&')}`)
-  console.log(JSON.stringify(response))
+  console.log("Response:", JSON.stringify(response))
   return response.json()
 }
 
@@ -85,10 +86,9 @@ export async function getFoodData(foodId) {
   const sha = signRequest(queryParams)
   queryParams.push(['oauth_signature', sha].join('='))
   const response = await fetch(`${API_PATH}?${queryParams.join('&')}`)
-  console.log(JSON.stringify(response))
+  console.log("Response:", JSON.stringify(response))
   return response.json()
 }
-
 
 export async function getFood(barcode){
   var foodId = await getFoodId(barcode)
@@ -96,6 +96,22 @@ export async function getFood(barcode){
   return await getFoodData(foodId?.food_id.value)
 }
 
+export async function autocomplete(query, maxResults=3) {
+  const method = 'foods.autocomplete'
+//   await authorize()
+  const queryParams = [
+    ...getOauthParameters(),
+    ['format', 'json'].join('='),
+    ['max_results', maxResults].join('='),
+    ['method', method].join('='),
+    ['expression', encodeURIComponent(query)].join('='),
+  ].sort((a, b) => a.localeCompare(b))
+  const sha = signRequest(queryParams)
+  queryParams.push(['oauth_signature', sha].join('='))
+  const response = await fetch(`${API_PATH}?${queryParams.join('&')}`)
+  console.log("Response:", JSON.stringify(response))
+  return response.json()
+}
 
 // OpenFoodData API
 
