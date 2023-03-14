@@ -13,7 +13,7 @@ export default function Lunch({ navigation }) {
   const styles = useStyles()
   const day = new Date().getDay()
   const lunchMeals = userData?.dietWeekly[day]?.lunch
-
+  
   return (
     <View style={{...styles.container}}>
       <Text style = {{marginTop: 45, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Lunch</Text>

@@ -40,9 +40,11 @@ export default function Registration ({navigation}) {
 
   const handleSubmit = async () => {
     let user_diet = user_diet()
+    console.log(user_diet)
     let user_workout = user_workout()
-    await setRegistrationData({...userData, diet:user_diet}, user)
-    syncUserData({...userData, diet:user_diet})
+    console.log(1)
+    await setRegistrationData({...userData, diet:user_diet, condition: user_workout}, user)
+    syncUserData({...userData, diet:user_diet, user_workout})
     navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
       index: 0,
       routes: [
@@ -50,6 +52,40 @@ export default function Registration ({navigation}) {
       ],
     })))
   }
+
+  function user_workout(){
+    let age = 2023 - (new Date(userData.dob).getFullYear())
+    console.log("age")
+    let userWeightMetric = userData.currentWeight*0.453592
+    console.log("weight")
+    let userHeightMetric = userData.height*2.54
+    console.log("height")
+    let restingCalories = 0
+    let userCondition = ""
+    if (userData.gender == "male"){
+      restingCalories = Math.floor(88.362 + (13.397*userWeightMetric) + (4.799*userHeightMetric) - (5.677*age))
+      userCondition = restingCalories < 2000 ? "strict"
+        : restingCalories > 3000 ? "heavy"
+          : "regular"
+    }
+    else {
+      resting_Calories = Math.floor(447.593 + (9.247*userWeightMetric) + (3.098*userHeightMetric) - (4.330*age))
+      userCondition = restingCalories < 1600 ? "strict"
+      : restingCalories > 2400 ? "heavy"
+        : "regular"
+    }
+    console.log(`${userData.gender}_${userCondition}`)
+    let user_workout = `${userData.gender}_${userCondition}`
+    console.log("user_workout")
+    console.log(user_workout)
+    return user_workout
+    /*
+      Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 
+      Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
+    */
+  }
+
+
   
   function user_diet(){
     let age = 2023 - (new Date(userData.dob).getFullYear())
@@ -77,33 +113,7 @@ export default function Registration ({navigation}) {
       Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
     */
   }
-
-  function user_workout(){
-    let age = 2023 - (new Date(userData.dob).getFullYear())
-    let userWeightMetric = userData.currentWeight*0.453592
-    let userHeightMetric = userData.height*2.54
-    let restingCalories = 0
-    let userCondition = ""
-    if (userData.gender == "male"){
-      restingCalories = Math.floor(88.362 + (13.397*userWeightMetric) + (4.799*userHeightMetric) - (5.677*age))
-      userCondition = restingCalories < 2000 ? "strict"
-        : restingCalories > 3000 ? "heavy"
-          : "regular"
-    }
-    else {
-      resting_Calories = Math.floor(447.593 + (9.247*userWeightMetric) + (3.098*userHeightMetric) - (4.330*age))
-      userCondition = restingCalories < 1600 ? "strict"
-      : restingCalories > 2400 ? "heavy"
-        : "regular"
-    }
-    let user_workout = `${userData.gender}_${userCondition}`
-    console.log(user_workout)
-    return user_workout
-    /*
-      Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 
-      Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
-    */
-  }
+  
   
     return (
     <Swiper style={styles.wrapper} showsButtons={true} loop={false} >

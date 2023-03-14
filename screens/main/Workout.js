@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, Button, Image, Dimensions, TouchableOpacity, Alert, SafeAreaView, StatusBar, useWindowDimensions } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBiking, faAngleLeft, faCheckSquare, faDumbbell, faFaceGrinBeamSweat, faPersonBiking, faPersonRunning, faPersonShelter, faPersonWalking, faSquare, faTrophy, faWalking, faX} from '@fortawesome/free-solid-svg-icons';
+import { faBiking, faAngleLeft, faCheckSquare, faDumbbell, faFaceGrinBeamSweat, faPersonBiking, faPersonRunning, faPersonShelter, faPersonWalking, faSquare, faTrophy, faWalking, faX, faRunning} from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from "expo-font";
 import { useState } from "react";
 import WorkoutDB from "../../components/WorkoutDB";
@@ -10,42 +10,46 @@ import { ListItem } from "@rneui/base";
 import { makeStyles, useTheme } from "@rneui/themed";
 import BottomNav from "../../components/BottomNav";
 import LeafBorder from "../../assets/leaf_border.png"
+import { useAuth } from "../../config/authContext";
 
 export default function Workout({ navigation }) {
-  const exercises = WorkoutDB(["Running", "Indoor Biking", "Dumbell Press", "Pushups"])
+  
 
   const { width, height } = useWindowDimensions()
   const { theme } = useTheme()
+  const {userData} = useAuth()
   const styles = useStyles()
-
+  const day = new Date().getDay()
+  const exercises = userData?.exerciseWeekly[day].workout
+  console.log("Exercises: " , exercises)
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent/>
       <View style={{width:width, position:"absolute",top:-height * 0.2}}>
         <Image style={{ width:"100%" }} source={LeafBorder} resizeMode="contain"/>
       </View>
-      <Text style={{color:"white", fontFamily:"fontBold", fontSize:30, marginTop:80}}>Workouts</Text>
+      <Text style={{color:"white", fontFamily:"fontBold", fontSize:30, marginTop:80}}>Workout</Text>
       <View>
-      {exercises.map((item, key)=>
-        <WorkoutItem exercise={item} key={key} size={30}/>
+      {Object.keys(exercises).map((val, idx)=>
+        <WorkoutItem exercise={val} key = {idx} reps={exercises[val]} size={30}/>
       )}
       </View>
     </SafeAreaView>
   )
 }
-
-function WorkoutItem({ exercise, size }){
+//{Object.keys(dinnerMeals).map((val, idx) => <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={dinnerMeals[val]} key={idx}/>}
+function WorkoutItem({ exercise, size, reps }){
   const [done, setDone] = useState(false)
   const { theme } = useTheme()
   const styles = useStyles()
   return(
     <View style={{...styles.exerciseBox, backgroundColor:done ? "lightgray" : theme.colors.secondary}}>
       <View style={{backgroundColor:done ? "#39E53D" : "#BC62FF", padding:5, borderRadius:10 }}>
-        <FontAwesomeIcon icon={exercise.iconName} color={"white"} size={size}/>
+        <FontAwesomeIcon icon={faRunning} color={"white"} size={size}/>
       </View>
       <View style={{width:"70%"}}>
-        <Text style={{...styles.exerciseTitle, fontSize:size*0.6}}>{exercise.title}</Text>
-        <Text style={{...styles.exerciseSubtitle, fontSize:size*0.4, color:"gray"}}>{exercise.subtitle}</Text>
+        <Text style={{...styles.exerciseTitle, fontSize:size*0.6}}>{exercise}</Text>
+        <Text style={{...styles.exerciseSubtitle, fontSize:size*0.4, color:"gray"}}>{reps}</Text>
       </View>
       <TouchableOpacity style={{padding:2}} onPress={() => setDone(!done)}>
         <FontAwesomeIcon icon={done ? faCheckSquare : faSquare} color={done ? "#39E53D" : theme.colors.textSecondary} size={size}/>
