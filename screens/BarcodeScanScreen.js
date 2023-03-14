@@ -72,9 +72,9 @@ export default function BarcodeScanSceen({ navigation }) {
     setScanned(true)
     console.log("Barcode:", data)
     setVisible(true)
-    setFood(await handleAPICall(data))
-
-    // alert(`Bar code with type ${type} and data ${data} has been scanned! This is a ${food.brand_name} ${food.food_name}.`)
+    let res = await handleAPICall(data)
+    if(!errorText)
+      navigation.dispatch(StackActions.replace("BarcodeResult", {data: res, scan: true}))
   }
   
   // Added absolute to cancel button to make it overlay over camera view
