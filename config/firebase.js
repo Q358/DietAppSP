@@ -45,7 +45,7 @@ export async function getData(path, document){
   // return userSnapshot.docs.map(doc => doc.data)
   
   const docRef = doc(db, path, document.toString())
-  console.log(path)
+  console.log("Getting data from " + path + "...")
   // const docRef = doc(db,`users/${(currentUser.uid).toString()}/${folder.toString()}`, document.toString())
   try {
     const docSnap = await getDoc(docRef)
@@ -58,12 +58,9 @@ export async function getData(path, document){
     console.log(error)
   }
 }
-console.log("end of getData (diet)")
 
 export async function getWorkoutData(workout_path, document){
-  console.log("HIIIIII")
   const docRef_workout = doc(db, workout_path, document.toString())
-  console.log(workout_path)
   try {
     const docSnap_workout = await getDoc(docRef_workout)
     console.log("//"+JSON.stringify(docSnap_workout.data()))
@@ -98,43 +95,46 @@ export async function setRegistrationData(data, currentUser){ // Could be combin
   }
 }
 
-export async function getDiet(dietName, currentUser)
+export async function getDiet(dietName)
 {
-  
+  // If diet has changed, query to get weeklyDiet and store locally
+  const version = (await getData('diets', dietName)).version
   const dietWeekly = []
-  for(let i = 1; i < 8; i++)
-  {
-    //console.log("1 "+ dietName)
-    const path = `diets/${dietName}/day${i}`
-    let day = {
-      breakfast: await getData(path, 'breakfast'),
-      morning_snack: await getData(path, 'morning_snack'),
-      lunch: await getData(path, 'lunch'),
-      afternoon_snack: await getData(path, 'afternoon_snack'),
-      dinner: await getData(path, 'dinner'),
-      daily_totals: await getData(path, 'daily_totals')
+  if(version !== await AsyncStorage.getItem('dietVersion')){
+    for(let i = 1; i < 8; i++)
+    {
+      const path = `diets/${dietName}/day${i}`
+      let day = {
+        breakfast: await getData(path, 'breakfast'),
+        morning_snack: await getData(path, 'morning_snack'),
+        lunch: await getData(path, 'lunch'),
+        afternoon_snack: await getData(path, 'afternoon_snack'),
+        dinner: await getData(path, 'dinner'),
+        daily_totals: await getData(path, 'daily_totals')
+      }
+      dietWeekly.push(day)
     }
-    dietWeekly.push(day)
+    version && await AsyncStorage.setItem('dietVersion', version)
   }
-  //console.log("3 "+ JSON.stringify(dietWeekly))
   return dietWeekly
 }
 
-export async function getWorkout(workoutName, currentUser)
+export async function getWorkout(workoutName)
 {
-  
-  const exerciseWeekly = []
-  for(let i = 1; i < 8; i++)
-  {
-    console.log("2 "+ workoutName)
-    const workout_path = `workouts/${workoutName}/workouts`
-    console.log(workout_path)
-    let workout_days = {
-      workout: await getWorkoutData(workout_path, `workout${i}`)
+  // If diet has changed, query to get weeklyDiet and store locally
+  const version = (await getData('workouts', workoutName)).version
+  const exerciseWeekly = [] // Should this be workoutWeekly for consistency?
+  if(version !== await AsyncStorage.getItem('workoutVersion')){
+    for(let i = 1; i < 8; i++)
+    {
+      const workout_path = `workouts/${workoutName}/workouts`
+      let workout_day = {
+        workout: await getData(workout_path, `workout${i}`)
+      }
+      exerciseWeekly.push(workout_day)
     }
-    exerciseWeekly.push(workout_days)
+    version && await AsyncStorage.setItem('workoutVersion', version)
   }
-  console.log("444 "+ JSON.stringify(exerciseWeekly))
   return exerciseWeekly
 }
 

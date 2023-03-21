@@ -3,7 +3,7 @@ import { Avatar, Divider, makeStyles, useTheme } from "@rneui/themed"
 import { Alert, SafeAreaView, useWindowDimensions } from "react-native"
 import { StyleSheet, Text, TouchableOpacity, Switch, View, Share } from "react-native"
 import { useAuth } from "../../config/authContext"
-import { faAppleWhole, faBreadSlice, faCarrot, faCog, faPen, faRightFromBracket, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faAppleWhole, faBreadSlice, faCarrot, faCog, faPen, faRightFromBracket, faTrophy, faUserPlus } from "@fortawesome/free-solid-svg-icons"
 import { upload } from "../../config/firebase"
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from "react"
@@ -129,9 +129,14 @@ export default function Profile({ navigation }) {
         <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
       </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
-      <TouchableOpacity style={{position:"absolute", left:width-70, bottom:height * 0.85}} onPress={() => setSettingsVisible(true)}>
-        <FontAwesomeIcon icon={faCog} color="#808180" size={45}/>
-      </TouchableOpacity> 
+      <View style={{position:"absolute", left:width-70, bottom:height * 0.80}}>
+        <TouchableOpacity style={{marginBottom:10}} onPress={() => setSettingsVisible(true)}>
+          <FontAwesomeIcon icon={faCog} color="#808180" size={45}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Trophies")}>
+          <FontAwesomeIcon icon={faTrophy} color="gold" size={45}/>
+        </TouchableOpacity>
+      </View>
       <SettingsModal visible={settingsVisible} setVisible={setSettingsVisible} navigation={navigation}/>
     </SafeAreaView>
   )
