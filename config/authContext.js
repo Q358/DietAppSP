@@ -70,13 +70,13 @@ export function AuthProvider({ children }) {
       console.log(JSON.stringify(databaseInfo))
       setUserData({...userData, databaseInfo})
       const dietWeekly = await getDiet(databaseInfo.data.diet, user)
-      console.log(dietWeekly)
+      console.log(dietWeekly ?? "Diets already synced")
       const exerciseWeekly = await getWorkout(databaseInfo.data.condition, user)
-      console.log(exerciseWeekly)
-      dietWeekly.length > 0 && await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
+      console.log(exerciseWeekly  ?? "Workouts already synced")
+      dietWeekly && await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
         console.error(new Error(error))
       })
-      exerciseWeekly.length > 0 && await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
+      exerciseWeekly && await AsyncStorage.setItem('exerciseWeekly', JSON.stringify(exerciseWeekly)).catch(error => {
         console.error(new Error(error))
       })
     }
@@ -90,14 +90,27 @@ export function AuthProvider({ children }) {
     })
   }
 
-  function syncUserData(data){
+  function updateUserData(data){
     setUserData(data)
+  }
+
+  async function syncUserData(){
+    try {
+      await AsyncStorage.setItem('dietVersion', "0.0.0")
+      await AsyncStorage.setItem('workoutVersion', "0.0.0")
+      await loadUserData()
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+    return true
   }
   
   const value = {
     user,
     userAvatar,
     userData,
+    updateUserData,
     syncUserData,
     loadUserData,
     setUserAvatar,

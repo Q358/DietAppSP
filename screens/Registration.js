@@ -24,7 +24,7 @@ export default function Registration ({navigation}) {
     //diet: null,
   })
   const [dateOpen, setDateOpen] = useState(false)
-  const { user, syncUserData } = useAuth()
+  const { user, updateUserData } = useAuth()
 
   const handleSelectDate = () => {
     setDateOpen(false)
@@ -44,7 +44,7 @@ export default function Registration ({navigation}) {
     let user_workout = user_workout()
     console.log(1)
     await setRegistrationData({...userData, diet:user_diet, condition: user_workout}, user)
-    syncUserData({...userData, diet:user_diet, user_workout})
+    updateUserData({...userData, diet:user_diet, user_workout})
     navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
       index: 0,
       routes: [

@@ -59,20 +59,6 @@ export async function getData(path, document){
   }
 }
 
-export async function getWorkoutData(workout_path, document){
-  const docRef_workout = doc(db, workout_path, document.toString())
-  try {
-    const docSnap_workout = await getDoc(docRef_workout)
-    console.log("//"+JSON.stringify(docSnap_workout.data()))
-    if(!docSnap_workout.exists)
-      console.log("Document not found.")
-    else
-      return docSnap_workout.data()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export async function setData(folder, docName, data, currentUser){
   // AsyncStorage.setItem(localKey, data)
   const document = doc(db,`users/${(currentUser.uid).toString()}/${folder.toString()}`, docName.toString())
@@ -115,10 +101,14 @@ export async function getDiet(dietName)
       dietWeekly.push(day)
     }
     version && await AsyncStorage.setItem('dietVersion', version)
+    return dietWeekly
   }
-  return dietWeekly
+  else{
+    return null
+  }
 }
 
+// Could this be combined with above function?
 export async function getWorkout(workoutName)
 {
   // If diet has changed, query to get weeklyDiet and store locally
@@ -134,8 +124,11 @@ export async function getWorkout(workoutName)
       exerciseWeekly.push(workout_day)
     }
     version && await AsyncStorage.setItem('workoutVersion', version)
+    return exerciseWeekly
   }
-  return exerciseWeekly
+  else {
+    return null
+  }
 }
 
 

@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, ScrollView, SafeAreaView} from "react-native";
-import { useFonts } from 'expo-font';
+import { Text, View, TouchableOpacity, ScrollView, SafeAreaView} from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft, faAppleWhole, faBreadSlice, faCarrot, faCoffee, faEgg, faMugSaucer, faPlus } from "@fortawesome/free-solid-svg-icons";
 import FoodBlock from "../components/FoodBlock"
@@ -22,7 +21,7 @@ export default function Lunch({ navigation }) {
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      {Object.keys(lunchMeals).map((val, idx) => 
+      {lunchMeals && Object.keys(lunchMeals).map((val, idx) => 
         <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={lunchMeals[val]} key={idx}/>
       )}
       {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}

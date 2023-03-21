@@ -1,153 +1,134 @@
-import { faRadiation, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faCookieBite, faFire, faGrinBeamSweat, faRadiation, faSearch, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import React, { useRef, useEffect, useFonts } from "react";
-import { Animated, StyleSheet, View, PanResponder, LogBox, TouchableOpacity, Dimensions, useWindowDimensions } from "react-native";
-import TrophiesDB from "../components/TrophiesDB";
+import { makeStyles, Overlay } from "@rneui/themed";
+import React, { useRef, useEffect } from "react";
+import { useState } from "react";
+import { Animated, View, PanResponder, LogBox, TouchableOpacity, Text } from "react-native";
 
-
-
-
-var  trophyColorSymbols;
-var trophy1Color, trophy2Color;
-
-trophyColorSymbols = "0123456789ABCDEF";
-trophy1Color = "#";
-trophy2Color = "#";
-
-for (var i=0; i<6; i++)
-{
-	trophy1Color += trophyColorSymbols[Math.floor(Math.random()*16)];
-  trophy2Color += trophyColorSymbols[Math.floor(Math.random()*16)];
-}
-
-var leftMarginMovementTrophy2;
-leftMarginMovementTrophy2 = Math.floor(Math.random()*200);
-var bottomMarginmovementTrophy2;
-bottomMarginmovementTrophy2 = Math.floor(Math.random()*200);
-
-var horizontalMarginMovementTrophy3;
-horizontalMarginMovementTrophy3 = Math.floor(Math.random()*100);
-var topMarginmovementTrophy3;
-topMarginmovementTrophy3 = Math.floor(Math.random()*100);
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-
-const Trophies = ({navigation}) => {
+export default function Trophies ({navigation}) {
   
-  
-
-  var completedMessage = () => {
-    Alert.alert("Completed");
-  }
+  const [visible, setVisible] = useState(false)
+  const [selected, setSelected] = useState()
+  const styles = useStyles()
   
   useEffect(() => {
     LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }, [])
+
   const pan = useRef(new Animated.ValueXY()).current;
   const touchThreshold = 20;
-  const panResponder1 = useRef(
+  const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder : () => false,
-    onMoveShouldSetPanResponder : (e, {dx, dy} ) => {
+      onMoveShouldSetPanResponder : (e, {dx, dy} ) => {
         // const = gestureState;
 
         return (Math.abs(dx) > touchThreshold) || (Math.abs(dy) > touchThreshold);
-    },
+      },
       onPanResponderMove: Animated.event([
         null,
         { dx: pan.x, dy: pan.y }
       ], {useNativeDriver: false}
       ),
-    
       onPanResponderRelease: () => {
         Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
       }
-      
     })
-  
   ).current;
 
-  const size = 80
+  const trophies = [
+    {title: "Determined", details: "Reach a 30 day streak", progress: 3, goal: 30, completed: false, background: "red", iconColor: "orange", icon: faFire},
+    {title: "Gains", details: "Complete 100 workouts", progress: 25, goal: 100, completed: false, background:"lightgreen", icon: faGrinBeamSweat}, 
+    {title: "Full", details: "Eat 100 foods", progress: 3, goal: 30, completed: false, background: "lightblue",iconColor: "#906A19", icon: faCookieBite},
+    {title: "Free Thinker", details: "Record 50 foods with the barcode scanner or search", progress: 5, goal: 50, completed: false, icon: faSearch}, 
+    {title: "Determined", details: "Reach a 30 day streak", progress: 3, goal: 30, completed: false},
+    {title: "Determined", details: "Reach a 30 day streak", progress: 3, goal: 30, completed: false},
+    {title: "Determined", details: "Reach a 30 day streak", progress: 3, goal: 30, completed: false},
+    {title: "Determined", details: "Reach a 30 day streak", progress: 3, goal: 30, completed: false}
+  ]
+
+  const handlePress = (trophy) => {
+    setSelected(trophy)
+    setVisible(true)
+  }
+
   return (
     <View style={styles.container}>
-
-      
       <Animated.View
         style={{
           ...styles.firstTrophyRow , transform: [{ translateX: pan.x }, { translateY: pan.y }]
         }}
-        {...panResponder1.panHandlers}
+        {...panResponder.panHandlers}
       >
-        <View style={{flexDirection:"row"}}>
-          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Registration")} size={size} icon={faRadiation}/>
-          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Registration")} size={size}/>
-          <Trophy background="green" color="yellow" onPress={()=> navigation.navigate("Diet")} size={size}/>
-        </View>
-        <View style={{flexDirection:"row"}}>
-          <Trophy background="orange" color="green" onPress={()=> navigation.navigate("Diet")} size={size}/>
-          <Trophy background="orange" color="green" onPress={()=> navigation.navigate("Diet")} size={size}/>
-          <Trophy background="orange" color="green" onPress={()=> navigation.navigate("Diet")} size={size}/>
-        </View>
-        <View style={{flexDirection:"row"}}>
-          <Trophy background="black" color="white" onPress={()=> navigation.navigate("Diet")} size={size}/>
-          <Trophy background="black" color="white" onPress={()=> navigation.navigate("Diet")} size={size}/>
-          <Trophy background="black" color="white" onPress={()=> navigation.navigate("Diet")} size={size}/>
-        </View>
+        {trophies.map((val, idx) => (
+          <TouchableOpacity key={idx} onPress={() => handlePress(val)} style={{backgroundColor:val.background || "green", borderRadius:50, padding:10, margin:10}}>
+            <FontAwesomeIcon icon={val.icon || faTrophy} size={80} color={val.iconColor || "yellow"}/>
+          </TouchableOpacity>
+        ))}
       </Animated.View>
+      <TrophyDetails visible={visible} setVisible={setVisible} trophy={selected}/>
     </View>
   );
 }
 
+function TrophyDetails({ visible, setVisible, trophy }){
+  const styles = useStyles()
+  return(
+    <Overlay overlayStyle={{...styles.detailBox, borderColor: "gold", borderWidth: trophy?.completed ? 2 : 0}} isVisible={visible} 
+      onBackdropPress={() => setVisible(false)} animationType="fade">
+      <Text style={styles.trophyTitle}>{trophy?.title}</Text>
+      <Text style={styles.trophyDetails}>{trophy?.details}</Text>
+      {/* <Text style={styles.trophyProgress}>{trophy?.completed ? "Completed" : "Not Completed"}</Text> */}
+      <View style={{borderRadius: 150, backgroundColor: "white", padding: 10, justifyContent: "center", alignItems:"center"}}>
+        <Text style={styles.trophyProgress}>{trophy?.progress}/{trophy?.goal}</Text>
+      </View>
+    </Overlay>
+  )
+}
   
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop:windowHeight/4, 
-    margin: 17.5
+    padding: 5
   },
-
   titleText: {
     fontSize: 14,
     lineHeight: 24,
     fontWeight: "bold"
   },
   firstTrophyRow: {
+    flex: 1,
     alignItems: "center",
-    alignContent: "center",
+    justifyContent: "center",
     justifyContent: "space-between",
-       
-  },
-
-  secondTrophyRow: {
-    marginTop: windowHeight/6,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between"    
   },
-  
-  thirdTrophyRow: {
-    marginTop:0,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between"
-
+  detailBox: {
+    borderRadius: 7,
+    backgroundColor: theme.colors.primary,
+    alignItems: "center",
+    justifyContent: "center",
+    padding:25,
+    width: "75%"
   },
-
-
-  });
-
-  export default Trophies;
-
-function Trophy({ background, color, onPress, size, icon }) {
-  return(
-    <TouchableOpacity onPress={onPress ? () => onPress() : null} style={{backgroundColor:background, color:color, borderRadius:50, padding:10, margin:10}}>
-      <FontAwesomeIcon icon={icon ? icon : faTrophy} size={size} color={color}/>
-    </TouchableOpacity>
-  )
-}
+  trophyTitle: {
+    fontFamily: "fontBold",
+    fontSize: 25,
+    color: theme.colors.textPrimary
+  },
+  trophyDetails: {
+    fontFamily: "fontRegular",
+    fontSize: 20,
+    marginVertical: 20,
+    color: theme.colors.textPrimary
+  },
+  trophyProgress: {
+    fontFamily: "fontBold",
+    fontSize: 22,
+    color: theme.colors.textSecondary
+  }
+  }))

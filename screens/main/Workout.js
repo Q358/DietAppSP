@@ -1,27 +1,22 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Image, Dimensions, TouchableOpacity, Alert, SafeAreaView, StatusBar, useWindowDimensions } from "react-native";
-import Onboarding from "react-native-onboarding-swiper";
+import { Text, View, Button, Image, Dimensions, TouchableOpacity, Alert, SafeAreaView, StatusBar, useWindowDimensions } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBiking, faAngleLeft, faCheckSquare, faDumbbell, faFaceGrinBeamSweat, faPersonBiking, faPersonRunning, faPersonShelter, faPersonWalking, faSquare, faTrophy, faWalking, faX, faRunning} from '@fortawesome/free-solid-svg-icons';
-import { useFonts } from "expo-font";
 import { useState } from "react";
-import WorkoutDB from "../../components/WorkoutDB";
 import { ListItem } from "@rneui/base";
 import { makeStyles, useTheme } from "@rneui/themed";
-import BottomNav from "../../components/BottomNav";
 import LeafBorder from "../../assets/leaf_border.png"
 import { useAuth } from "../../config/authContext";
 
 export default function Workout({ navigation }) {
   
-
   const { width, height } = useWindowDimensions()
   const { theme } = useTheme()
   const {userData} = useAuth()
   const styles = useStyles()
   const day = new Date().getDay()
   const exercises = userData?.exerciseWeekly[day].workout
-  // console.log("Exercises: " , exercises)
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent/>
@@ -37,7 +32,7 @@ export default function Workout({ navigation }) {
     </SafeAreaView>
   )
 }
-//{Object.keys(dinnerMeals).map((val, idx) => <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={dinnerMeals[val]} key={idx}/>}
+
 function WorkoutItem({ exercise, size, reps }){
   const [done, setDone] = useState(false)
   const { theme } = useTheme()

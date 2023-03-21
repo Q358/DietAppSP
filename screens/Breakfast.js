@@ -21,7 +21,7 @@ export default function Breakfast({ navigation }) {
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      {Object.keys(breakfastMeals).map((val, idx) => 
+      {breakfastMeals && Object.keys(breakfastMeals).map((val, idx) => 
         <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={breakfastMeals[val]} key={idx}/>
       )}
       {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}

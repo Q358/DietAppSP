@@ -1,16 +1,17 @@
-import { faCog, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faRightFromBracket, faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
-import { makeStyles, Overlay, Switch, useTheme, withTheme } from "@rneui/themed";
+import { makeStyles, Overlay, Switch, useTheme } from "@rneui/themed";
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../config/authContext";
 
 export default function SettingsModal({ visible, setVisible, navigation }) {
-  const { logout } = useAuth()
+  const { logout, syncUserData } = useAuth()
   const { updateTheme, theme } = useTheme()
   const styles = useStyles()
+  const [isLoading, setIsLoading] = useState(false)
 
   // TODO Add "Logout?" confirmation popup
   const handleLogout = async () => {
@@ -48,6 +49,11 @@ export default function SettingsModal({ visible, setVisible, navigation }) {
   const handleMusicSwitch = () => {
     console.log("Music!")
   }
+  const handleSync = async() => {
+    setIsLoading(true)
+    await syncUserData()
+    setIsLoading(false)
+  }
 
   return (
     <Overlay overlayStyle={styles.container} isVisible={visible} onBackdropPress={() => setVisible(false)} animationType="fade">
@@ -59,6 +65,14 @@ export default function SettingsModal({ visible, setVisible, navigation }) {
       <SettingsBar label={"Dark Mode"} onPress={handleDarkModeSwitch} state={theme.mode === 'dark'}/>
       <SettingsBar label={"Notifications"} onPress={handleNotificationsSwitch}/>
       <SettingsBar label={"Zen Music"} onPress={handleMusicSwitch}/>
+      <TouchableOpacity style={{...styles.logoutButton, borderColor: "blue", backgroundColor: "lightblue"}} onPress={handleSync}>
+        <Text style={{...styles.logoutText, color: "blue"}}>Sync Data</Text>
+        {isLoading ? (
+          <ActivityIndicator size="small" color="blue"/>
+        ) : (
+          <FontAwesomeIcon style={{marginTop:2}} icon={faRotate} color="blue" size={18}/>
+        )}
+      </TouchableOpacity>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutText}>Logout</Text>
         <FontAwesomeIcon style={{marginTop:2}} icon={faRightFromBracket} color="red" size={18}/>

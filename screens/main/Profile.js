@@ -129,8 +129,9 @@ export default function Profile({ navigation }) {
         <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
       </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
-      <View style={{position:"absolute", left:width-70, bottom:height * 0.80}}>
-        <TouchableOpacity style={{marginBottom:10}} onPress={() => setSettingsVisible(true)}>
+      {/* TODO: Make this more adaptable (place based on top of profile) */}
+      <View style={{position:"absolute", left:width-70, bottom:height * 0.78}}>
+        <TouchableOpacity style={{marginBottom:20}} onPress={() => setSettingsVisible(true)}>
           <FontAwesomeIcon icon={faCog} color="#808180" size={45}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Trophies")}>
