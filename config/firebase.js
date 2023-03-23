@@ -45,7 +45,7 @@ export async function getData(path, document){
   // return userSnapshot.docs.map(doc => doc.data)
   
   const docRef = doc(db, path, document.toString())
-  console.log(path)
+  //console.log(path)
   // const docRef = doc(db,`users/${(currentUser.uid).toString()}/${folder.toString()}`, document.toString())
   try {
     const docSnap = await getDoc(docRef)
@@ -61,9 +61,9 @@ export async function getData(path, document){
 console.log("end of getData (diet)")
 
 export async function getWorkoutData(workout_path, document){
-  console.log("HIIIIII")
+  //console.log("HIIIIII")
   const docRef_workout = doc(db, workout_path, document.toString())
-  console.log(workout_path)
+  //console.log(workout_path)
   try {
     const docSnap_workout = await getDoc(docRef_workout)
     console.log("//"+JSON.stringify(docSnap_workout.data()))
