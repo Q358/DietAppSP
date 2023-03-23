@@ -59,7 +59,7 @@ export default function Home({ navigation, jumpTo }) {
             <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Breakfast")} text="Breakfast"/>
             <FoodBlock icons={["apple","carrot", "fish", "bread"]} size={80} onPress={() => navigation.navigate("Lunch")} text="Lunch"/>
             <FoodBlock icons={["bread","carrot", "meat", "fish"]} size={80} onPress={() => navigation.navigate("Dinner")} text="Dinner"/>
-            <FoodBlock icons={["wine","smoke", "cheese", "cookie"]} size={60} onPress={() => jumpTo("diet")} text="Cheats" textStyle={{fontSize:10}}/>
+            <FoodBlock icons={["wine","egg", "cheese", "cookie"]} size={60} onPress={() => navigation.navigate("Snacks")} text="Snacks" textStyle={{fontSize:10}}/>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style = {{...styles.weeklyProgressButton, marginTop:15}} onPress = {() => jumpTo("workout")}>

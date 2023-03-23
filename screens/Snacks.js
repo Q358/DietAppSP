@@ -8,25 +8,34 @@ import FoodItem from "../components/FoodItem";
 import { useAuth } from "../config/authContext";
 import MealBlock from "../components/MealBlock";
 
-export default function Lunch({ navigation }) {
+export default function Snacks({ navigation }) {
 
   const {userData} = useAuth()
   const styles = useStyles()
   const day = new Date().getDay()
-  const lunchMeals = userData?.dietWeekly[day]?.lunch
+  const morning_snack = userData?.dietWeekly[day]?.morning_snack
+  const afternoon_snack = userData?.dietWeekly[day]?.afternoon_snack
   
   return (
     <View style={{...styles.container}}>
-      <Text style = {{marginTop: 75, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Lunch</Text>
+      <Text style = {{marginTop: 75, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Snacks</Text>
       <View style = {{marginRight: 300, marginTop: -30, marginBottom:10}}>
       <TouchableOpacity onPress={()=>navigation.goBack()}>
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
-      </View>
+    </View>
+    <Text style = {{marginBottom: 0, marginTop:20 ,color:'white', fontFamily:'fontBold', fontSize:30, marginRight:150}}>Morning</Text>
     <ScrollView contentContainerStyle={{backgroundColor:"white", alignItems:"center", borderColor:"white", flexGrow:1,
-      borderRadius:15, borderWidth:1, padding:5, paddingHorizontal:10, width:"80%", marginVertical:10, height:500}}>
-        {Object.keys(lunchMeals).map((val, idx) => 
-        <MealBlock backColor = "#00704A" icon={faAppleWhole} color="white" meal={val} portion={lunchMeals[val]} key={idx}/>
+      borderRadius:15, borderWidth:1, padding:5, paddingHorizontal:10, width:"80%", marginVertical:10, height:300}}>
+        {Object.keys(morning_snack).map((val, idx) => 
+        <MealBlock backColor = "#00704A" icon={faAppleWhole} color="white" meal={val} portion={morning_snack[val]} key={idx}/>
+        )}
+    </ScrollView>
+    <Text style = {{marginBottom: 0, marginTop:20 ,color:'white', fontFamily:'fontBold', fontSize:30, marginRight:150}}>Afternoon</Text>
+    <ScrollView contentContainerStyle={{backgroundColor:"white", alignItems:"center", borderColor:"white", flexGrow:1,
+      borderRadius:15, borderWidth:1, padding:5, paddingHorizontal:10, width:"80%", marginVertical:10, height:300}}>
+        {Object.keys(afternoon_snack).map((val, idx) => 
+        <MealBlock backColor = "#00704A" icon={faAppleWhole} color="white" meal={val} portion={afternoon_snack[val]} key={idx}/>
         )}
     </ScrollView>
       {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}

@@ -21,7 +21,7 @@ import { useColorScheme } from 'react-native'
 import { useEffect, useState } from "react"
 import MainPages from './screens/main/MainPages'
 import BarcodeResult from './screens/BarcodeResultScreen'
-
+import Snacks from './screens/Snacks'
 
 const Stack = createNativeStackNavigator();
 // registerRootComponent(App);
@@ -83,6 +83,7 @@ export default function App() {
               <Stack.Screen name="Dinner" component={Dinner}/>
               <Stack.Screen name="Registration" component={Registration}/>
               <Stack.Screen name="Progress" component={Progress}/>
+              <Stack.Screen name="Snacks" component={Snacks}/>
             </Stack.Navigator>
           </NavigationContainer>
           )}
