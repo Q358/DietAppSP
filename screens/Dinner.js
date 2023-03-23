@@ -6,6 +6,7 @@ import FoodBlock from "../components/FoodBlock"
 import { makeStyles } from "@rneui/themed";
 import FoodItem from "../components/FoodItem";
 import { useAuth } from "../config/authContext";
+import MealBlock from "../components/MealBlock";
 
 export default function Dinner({ navigation }) {
 
@@ -16,15 +17,18 @@ export default function Dinner({ navigation }) {
 
   return (
     <View style={{...styles.container}}>
-      <Text style = {{marginTop: 45, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Dinner</Text>
+      <Text style = {{marginTop: 75, textAlign: "center", marginLeft: 15, color:'white', fontFamily:'fontBold', fontSize:30}}>Today's Dinner</Text>
       <View style = {{marginRight: 300, marginTop: -30, marginBottom:10}}>
       <TouchableOpacity onPress={()=>navigation.goBack()}>
         <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
       </TouchableOpacity>
       </View>
-      {dinnerMeals && Object.keys(dinnerMeals).map((val, idx) => 
-        <FoodItem icon={faBreadSlice} color="brown" meal={val} portion={dinnerMeals[val]} key={idx}/>
-      )}
+    <ScrollView contentContainerStyle={{backgroundColor:"white", alignItems:"center", borderColor:"white", flexGrow:1,
+      borderRadius:15, borderWidth:1, padding:5, paddingHorizontal:10, width:"80%", marginVertical:10, height:800, flex:1}}>
+        {Object.keys(dinnerMeals).map((val, idx) => 
+        <MealBlock backColor = "#00704A" icon={faAppleWhole} color="white" meal={val} portion={dinnerMeals[val]} key={idx}/>
+        )}
+    </ScrollView>
       {/* <FoodItem icon={faBreadSlice} color="brown" text="A slice of multigrain toast"/> */}
       {/* <FoodItem icon={faAppleWhole} color="red" text="A whole apple"/>
       <FoodItem icon={faCoffee} color="purple" text="A cup of black coffee"/>

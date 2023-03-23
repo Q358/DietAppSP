@@ -1,4 +1,4 @@
-import { faAppleWhole, faBreadSlice, faCarrot, faCheese, faCookieBite, faDrumstickBite, faFish, faSmoking, faWineGlass } from "@fortawesome/free-solid-svg-icons";
+import { faAppleWhole, faBeer, faBreadSlice, faCarrot, faCheese, faCookieBite, faDrumstickBite, faEgg, faFish, faHollyBerry, faKiwiBird, faSmoking, faWineGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TouchableOpacity } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
@@ -44,6 +44,10 @@ export default function FoodBlock({ icons, style, size, onPress, horizontal, tex
       iconName = faCookieBite
       color = "#3C2000" 
       break;
+      case "egg":
+        iconName = faEgg
+        color = "#0080FB" 
+        break;  
     default:
       break;
   }

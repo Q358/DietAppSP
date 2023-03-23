@@ -16,7 +16,6 @@ export default function Workout({ navigation }) {
   const styles = useStyles()
   const day = new Date().getDay()
   const exercises = userData?.exerciseWeekly[day].workout
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent/>

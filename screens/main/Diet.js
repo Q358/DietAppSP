@@ -39,8 +39,8 @@ export default function Diet({ navigation }) {
             <FontAwesomeIcon icon={faAngleRight} size = {30} color = {'black'}/>
           </View>
         </View>
-        <Text style = {{fontFamily: "fontBold", color:"white", fontSize:35, marginTop: 20}}>Cheats</Text>
-        <FoodBlock icons={["wine", "smoke", "cheese", "cookie"]} size={125} style={{justifyContent:"space-evenly", width:"80%"}}  onPress={() => navigation.navigate("Cheats")} horizontal/>
+        <Text style = {{fontFamily: "fontBold", color:"white", fontSize:35, marginTop: 20}}>Snacks</Text>
+        <FoodBlock icons={["wine", "egg", "cheese", "cookie"]} size={125} style={{justifyContent:"space-evenly", width:"80%"}}  onPress={() => navigation.navigate("Snacks")} horizontal/>
       </View>
       <SpeedDial isOpen={open} icon={{ name: 'add', color: theme.colors.tertiary }} openIcon={{ name: 'close', color: theme.colors.tertiary }}
         onOpen={() => setOpen(!open)} onClose={() => setOpen(!open)} labelPressable style={{}}>
