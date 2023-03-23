@@ -21,7 +21,10 @@ import { useColorScheme } from 'react-native'
 import { useEffect, useState } from "react"
 import MainPages from './screens/main/MainPages'
 import BarcodeResult from './screens/BarcodeResultScreen'
+import SearchResult from './screens/SearchResultsScreen'
+import Morning_Snack from './screens/Morning_Snack'
 import Snacks from './screens/Snacks'
+
 
 const Stack = createNativeStackNavigator();
 // registerRootComponent(App);
@@ -53,7 +56,7 @@ export default function App() {
       secondary: '#013220',
       tertiary: '#1a2421',
       textPrimary:"white",
-      textSecondary:"white"
+      textSecondary:"#d5d5d5"
     },
     mode: mode,
   });
@@ -83,6 +86,8 @@ export default function App() {
               <Stack.Screen name="Dinner" component={Dinner}/>
               <Stack.Screen name="Registration" component={Registration}/>
               <Stack.Screen name="Progress" component={Progress}/>
+              <Stack.Screen name="SearchResult" component={SearchResult}/>
+              <Stack.Screen name="Morning_Snack" component={Morning_Snack}/>
               <Stack.Screen name="Snacks" component={Snacks}/>
             </Stack.Navigator>
           </NavigationContainer>

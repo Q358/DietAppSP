@@ -82,7 +82,7 @@ export default function BarcodeScanSceen({ navigation }) {
     setVisible(true)
     let res = await handleAPICall(data)
     if(!errorText)
-      navigation.dispatch(StackActions.replace("BarcodeResult", {data: res}))
+      navigation.dispatch(StackActions.replace("BarcodeResult", {data: res, scan: true}))
   }
   
   // Added absolute to cancel button to make it overlay over camera view

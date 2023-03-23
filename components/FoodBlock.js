@@ -64,12 +64,14 @@ export default function FoodBlock({ icons, style, size, onPress, horizontal, tex
 
   return (
     <View>
-      <TouchableOpacity style = {{...styles.box, width: horizontal ? null : size, height: horizontal ? null : size, 
-        paddingVertical: size * 0.03, paddingHorizontal: size * 0.03, flexWrap: horizontal ? "nowrap" : "wrap",  ...style
-      }}
-        onPress ={onPress}>
+      <TouchableOpacity  
+        style = {{
+        ...styles.box, width: horizontal ? null : size, height: horizontal ? null : size, 
+          paddingVertical: size * 0.03, paddingHorizontal: size * 0.03, flexWrap: horizontal ? "nowrap" : "wrap",  ...style
+        }} 
+        onPress ={onPress}
+      >
         {iconComponents}
-
       </TouchableOpacity>
       {text && <Text style={{textAlign:"center",fontFamily:"fontBold", fontSize: size * 0.12, ...textStyle}}>{text}</Text>}
     </View>
