@@ -24,7 +24,7 @@ export default function Registration ({navigation}) {
     //diet: null,
   })
   const [dateOpen, setDateOpen] = useState(false)
-  const { user, updateUserData } = useAuth()
+  const { user, syncUserData } = useAuth()
 
   const handleSelectDate = () => {
     setDateOpen(false)
@@ -40,11 +40,9 @@ export default function Registration ({navigation}) {
 
   const handleSubmit = async () => {
     let user_diet = user_diet()
-    console.log(user_diet)
     let user_workout = user_workout()
-    console.log(1)
     await setRegistrationData({...userData, diet:user_diet, condition: user_workout}, user)
-    updateUserData({...userData, diet:user_diet, user_workout})
+    syncUserData({...userData, diet:user_diet, user_workout})
     navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
       index: 0,
       routes: [
@@ -74,10 +72,8 @@ export default function Registration ({navigation}) {
       : restingCalories > 2400 ? "heavy"
         : "regular"
     }
-    console.log(`${userData.gender}_${userCondition}`)
     let user_workout = `${userData.gender}_${userCondition}`
     console.log("user_workout")
-    console.log(user_workout)
     return user_workout
     /*
       Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 

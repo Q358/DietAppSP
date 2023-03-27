@@ -125,7 +125,7 @@ export default function Profile({ navigation }) {
         <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"#906A19"}/>
       </View>
       <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
-        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Amigos</Text>
+        <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Friends</Text>
         <FontAwesomeIcon icon={faUserPlus} color={theme.colors.textPrimary} size={20}/>
       </TouchableOpacity>
       <LoadingModal visible={visible} setVisible={setVisible} errorText={errorText} setErrorText={setErrorText} isLoading={isLoading}/>
