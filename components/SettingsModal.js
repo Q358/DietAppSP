@@ -143,8 +143,5 @@ const useStyles = makeStyles((theme, props) => ({
     fontSize:20,
     color:theme.colors.textSecondary,
     marginRight:10,
-    textShadowColor:"black",
-    shadowOpacity:3,
-    shadowColor:"black"
   }
 }));
