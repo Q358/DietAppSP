@@ -34,7 +34,7 @@ export default function Login ({ navigation }) {
       navigation.dispatch(CommonActions.reset(({ // Stops users from going back to Login page
         index: 0,
         routes: [
-          { name: 'Registration' },
+          { name: 'Main' },
         ],
       })))
     } catch (error) {

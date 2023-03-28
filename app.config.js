@@ -27,7 +27,8 @@ export default {
       adaptiveIcon: {
         foregroundImage: "./assets/nutri_adaptive_icon.png",
         backgroundColor: "#FFFFFF"
-      }
+      },
+      package: "nutri.apk"
     },
     web: {
       favicon: "./assets/favicon.png"
@@ -40,7 +41,10 @@ export default {
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appId: process.env.APP_ID,
       consumerKey: process.env.CONSUMER_KEY,
-      consumerSecret: process.env.CONSUMER_SECRET
+      consumerSecret: process.env.CONSUMER_SECRET,
+      eas: {
+        projectId: "55a53fa6-5978-4842-bcd1-965fe4461668"
+      }
     }
   }
 };

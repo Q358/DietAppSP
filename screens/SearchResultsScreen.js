@@ -1,6 +1,6 @@
 import { Divider, makeStyles, useTheme } from "@rneui/themed";
 import { useEffect, useState } from "react";
-import { Text, TextInput, View, TouchableOpacity, ScrollView, KeyboardAvoidingView } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, ScrollView, KeyboardAvoidingView, useWindowDimensions, Alert } from "react-native";
 import { getFoodData, searchFood } from "../config/fatsecret";
 import LoadingModal from "../components/LoadingModal";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -11,6 +11,7 @@ export default function SearchResultsScreen({ route, navigation }) {
   const { query } = route.params
   const styles = useStyles()
   const { theme } = useTheme()
+
   const [value, setValue] = useState(query)
   const [results, setResults] = useState()
   const [isLoading, setIsLoading] = useState()
@@ -48,7 +49,8 @@ export default function SearchResultsScreen({ route, navigation }) {
   }
 
   const handleAddFood = (food) => {
-
+    Alert.alert("Food added!")
+    navigation.navigate("Main")
   }
 
   // Runs when the search button is pressed
@@ -82,7 +84,7 @@ export default function SearchResultsScreen({ route, navigation }) {
                   <Text style={{fontSize: 18, fontFamily:"fontRegular", color: theme.colors.textSecondary}}>{val.food_name}</Text>
                   <Text style={{fontSize: 12, fontFamily:"fontRegular", color: theme.colors.textSecondary}}>{val.food_description}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.addFoodButton} onPress={() => handle}>
+                <TouchableOpacity style={styles.addFoodButton} onPress={() => handleAddFood()}>
                   <FontAwesomeIcon icon={faPlus} color={theme.colors.textPrimary}/>
                 </TouchableOpacity>
               </View>
@@ -122,11 +124,8 @@ const useStyles = makeStyles((theme) => ({
       color: theme.colors.textSecondary
     },
     resultContainer: {
-
       backgroundColor: theme.colors.tertiary,
       alignItems: 'center',
-      height:200,
-
       paddingVertical: 5
     },
     resultBox: {
