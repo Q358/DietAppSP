@@ -9,7 +9,12 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+    "extra": {
+      "eas": {
+        "projectId": "55a53fa6-5978-4842-bcd1-965fe4461668"
+      }
+    }
     },
     "updates": {
       "fallbackToCacheTimeout": 0

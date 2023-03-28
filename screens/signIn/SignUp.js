@@ -41,7 +41,12 @@ export default function SignUp({ navigation }) {
     try {
       setIsLoading(true)
       await register(email, password, name)
-      navigation.navigate("Registration")
+      navigation.dispatch(CommonActions.reset(({ // Stops users from going back to Login page
+        index: 0,
+        routes: [
+          { name: 'Registration' },
+        ],
+      })))
     } catch (error) {
       setIsLoading(false)
       setErrorText( 
