@@ -44,7 +44,7 @@ export default function SearchResultsScreen({ route, navigation }) {
       // console.log(foodData)
       console.log(foodData?.food?.servings?.serving)
       if(!errorText)
-        navigation.dispatch(StackActions.replace("BarcodeResult", {data: foodData?.food}))
+        navigation.navigate("BarcodeResult", {data: foodData?.food})
     }
   }
 
