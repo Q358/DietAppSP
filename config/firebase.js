@@ -126,15 +126,14 @@ export async function getWorkout(workoutName, currentUser)
   const exerciseWeekly = []
   for(let i = 1; i < 8; i++)
   {
-    console.log("2 "+ workoutName)
     const workout_path = `workouts/${workoutName}/workouts`
-    console.log(workout_path)
+    
     let workout_days = {
       workout: await getWorkoutData(workout_path, `workout${i}`)
     }
     exerciseWeekly.push(workout_days)
   }
-  console.log("444 "+ JSON.stringify(exerciseWeekly))
+  
   return exerciseWeekly
 }
 

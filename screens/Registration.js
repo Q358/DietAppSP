@@ -40,7 +40,7 @@ export default function Registration ({navigation}) {
 
   const handleSubmit = async () => {
     let user_diet = user_diet()
-    console.log(user_diet)
+    //console.log(user_diet)
     let user_workout = user_workout()
     console.log(1)
     await setRegistrationData({...userData, diet:user_diet, condition: user_workout}, user)

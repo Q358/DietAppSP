@@ -67,10 +67,7 @@ export function AuthProvider({ children }) {
     setUserData({...userData, databaseInfo})
     console.log('====', d, d.getDay(), d.getDay() + 1)
     const dietWeekly = await getDiet(databaseInfo.data.diet, user)
-    //console.log(dietWeekly)
-    console.log("right before exerciseWeekly is defined")
     const exerciseWeekly = await getWorkout(databaseInfo.data.condition, user)
-    //console.log(exerciseWeekly)
     //console.log("!!!!!!!" + JSON.stringify(dietWeekly) + "!!!!!!!" + JSON.stringify(exerciseWeekly))
     await AsyncStorage.setItem('dietWeekly', JSON.stringify(dietWeekly)).catch(error => {
       

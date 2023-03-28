@@ -44,7 +44,7 @@ export default function Lunch({ navigation }) {
 const useStyles = makeStyles((theme) => ({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
+    backgroundColor: '#29a442',
     alignItems: 'center'
   },
   addFoodButton: {
