@@ -52,7 +52,7 @@ export default function App() {
       textSecondary:"black"
     },
     darkColors: {
-      primary: '#3c3c3c',
+      primary: '#161618',
       secondary: '#013220',
       tertiary: '#1a2421',
       textPrimary:"white",
