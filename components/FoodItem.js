@@ -24,7 +24,7 @@ export function BackButton({ navigation, title }){
   return(
     <View style={{flexDirection:"row", marginTop: 75, alignItems:"center", justifyContent:"space-between", width:"80%", marginBottom: 10}}>
       <TouchableOpacity onPress={()=>navigation.goBack()}>
-        <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'grey'}/>
+        <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {'lightgrey'}/>
       </TouchableOpacity>
       <Text style = {{textAlign: "center", color:'white', fontFamily:'fontBold', fontSize:30}}>{title}</Text>
       <FontAwesomeIcon icon={faAngleLeft} size = {30} color = {theme.colors.primary}/>
