@@ -75,13 +75,17 @@ export default function BarcodeResult({ route, navigation }) {
 
 function FactRow ({ title, value, unit, bold, indent, noPercent, lightPercent }) {
   // Calculates percentages of each value // TODO change based on diet + fix labeling of added sugars ("includes")
-  const dailyValues = {"Total Fat": 65, "Saturated Fat": 20, "Total Carbohydrate": 300, "Protein": 50, "Sodium": 2400, "Cholesterol": 300, "Dietary Fiber": 25,
+  const dailyValues = {"Total Fat": 78, "Saturated Fat": 20, "Total Carbohydrate": 275, "Protein": 50, "Sodium": 2300, "Cholesterol": 300, "Dietary Fiber": 28,
   "Vitamin D": 20, "Calcium": 1300, "Iron": 18, "Potassium": 4700, "Includes": 50}
   const dailyValue = Object.keys(dailyValues).find(key => key == title)
   const percent = Math.floor(value / dailyValues[dailyValue] * 100)
 
   // TODO Calculate highlighting based on "bad" elements and/or diet - also make colors lighter
-  const highlight = percent >= 40 ? "#ff969f" : percent >= 20 ? "#ffff97" : null
+  var highlight = null
+  const badValues = ["Total Fat", "Saturated Fat", "Sodium", "Cholesterol", "Includes"]
+  if(badValues.includes(title))
+    highlight = percent >= 40 ? "#ff969f" : percent >= 20 ? "#ffff97" : (title == "Trans Fat" & value > 0) ? "#ff969f" : null
+
   const size = 15
 
   return(
