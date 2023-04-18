@@ -6,9 +6,9 @@ export default function Lunch() {
   const { user, userData } = useAuth()
   const d = new Date()
   const day = d.getDay()
-  const week = (d.getMonth() + 1) + '_' + (d.getDate() - day) + '_' + d.getFullYear()
+  const week = d.getFullYear() + '_' + (d.getMonth() + 1) + '_' + (d.getDate() - day)
   console.log(week)
-  const lunchMeals = userData.dietWeekly.data
+  const lunchMeals = userData?.dietWeekly?.data
   console.log(lunchMeals)
   return (
     <View style={styles.container}>
