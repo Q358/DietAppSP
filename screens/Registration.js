@@ -1,9 +1,8 @@
 import { faArrowUp, faBullseye, faCalendar, faPerson, faUtensils, faWeightScale, faX, faExclamationCircle, faRulerVertical, faCancel, faGenderless, faMale, faChild, faCalendarCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, Dimensions} from 'react-native';
 import Swiper from 'react-native-swiper';
-import BottomNav from "../components/BottomNav";
 import RegistrationTitles from '../components/RegistrationTitles';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { CommonActions } from '@react-navigation/native';
@@ -39,10 +38,13 @@ export default function Registration ({navigation}) {
   }
 
   const handleSubmit = async () => {
-    let user_diet = user_diet()
-    let user_workout = user_workout()
-    await setRegistrationData({...userData, diet:user_diet, condition: user_workout}, user)
-    syncUserData({...userData, diet:user_diet, user_workout})
+    let userCondition = getUserCondition()
+    let userWorkout = `${userData.gender}_${userCondition}`
+    console.log("Set user workout to " + userWorkout)
+    let user_diet = `${userData.gender}_${userData.restriction}_${userCondition}`
+    console.log("Set user diet to " + userDiet)
+    await setRegistrationData({...userData, diet:userDiet, condition: user_workout}, user)
+    syncUserData({...userData, diet:userDiet, user_workout})
     navigation.dispatch(CommonActions.reset(({ // Stops users from going back to SignUp page
       index: 0,
       routes: [
@@ -51,39 +53,7 @@ export default function Registration ({navigation}) {
     })))
   }
 
-  function user_workout(){
-    let age = 2023 - (new Date(userData.dob).getFullYear())
-    console.log("age")
-    let userWeightMetric = userData.currentWeight*0.453592
-    console.log("weight")
-    let userHeightMetric = userData.height*2.54
-    console.log("height")
-    let restingCalories = 0
-    let userCondition = ""
-    if (userData.gender == "male"){
-      restingCalories = Math.floor(88.362 + (13.397*userWeightMetric) + (4.799*userHeightMetric) - (5.677*age))
-      userCondition = restingCalories < 2000 ? "strict"
-        : restingCalories > 3000 ? "heavy"
-          : "regular"
-    }
-    else {
-      resting_Calories = Math.floor(447.593 + (9.247*userWeightMetric) + (3.098*userHeightMetric) - (4.330*age))
-      userCondition = restingCalories < 1600 ? "strict"
-      : restingCalories > 2400 ? "heavy"
-        : "regular"
-    }
-    let user_workout = `${userData.gender}_${userCondition}`
-    console.log("user_workout")
-    return user_workout
-    /*
-      Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 
-      Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
-    */
-  }
-
-
-  
-  function user_diet(){
+  const getUserCondition = () => {
     let age = 2023 - (new Date(userData.dob).getFullYear())
     let userWeightMetric = userData.currentWeight*0.453592
     let userHeightMetric = userData.height*2.54
@@ -96,22 +66,19 @@ export default function Registration ({navigation}) {
           : "regular"
     }
     else {
-      resting_Calories = Math.floor(447.593 + (9.247*userWeightMetric) + (3.098*userHeightMetric) - (4.330*age))
+      restingCalories = Math.floor(447.593 + (9.247*userWeightMetric) + (3.098*userHeightMetric) - (4.330*age))
       userCondition = restingCalories < 1600 ? "strict"
-      : restingCalories > 2400 ? "heavy"
-        : "regular"
+        : restingCalories > 2400 ? "heavy"
+          : "regular"
     }
-    let user_diet = `${userData.gender}_${userData.restriction}_${userCondition}`
-    console.log(user_diet)
-    return user_diet
+    return userCondition
     /*
       Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years) 
       Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
     */
   }
   
-  
-    return (
+  return (
     <Swiper style={styles.wrapper} showsButtons={true} loop={false} >
       <View style={styles.slide}>
         <Text style={{...styles.titleText}}>Registration</Text>
@@ -184,13 +151,13 @@ export default function Registration ({navigation}) {
       <View style={styles.slide}>
         <Text style={{...styles.titleText}}>All Set!</Text>
         <View style = {styles.buttonLocation}>
-        <TouchableOpacity style={{...styles.button, backgroundColor:"#1DB954"}} onPress={handleSubmit}>
-          <Text style={{...styles.text}}>Begin</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={{...styles.button, backgroundColor:"#1DB954"}} onPress={handleSubmit}>
+            <Text style={{...styles.text}}>Begin</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  </Swiper>
-    );
+    </Swiper>
+  );
     
 }
 

@@ -21,7 +21,7 @@ export default function Dinner({ navigation }) {
       <BackButton navigation={navigation} title={"Today's Dinner"}/>
       <View style={{backgroundColor:"white", alignItems:"center", borderColor:"white", flexGrow:1,
         borderRadius:15, borderWidth:1, padding:5, paddingHorizontal:10, width:"80%", marginVertical:10, overflow:"scroll",flex:1}}>
-        {Object.keys(dinnerMeals).map((val, idx) => 
+        {dinnerMeals && Object.keys(dinnerMeals).map((val, idx) => 
         <FoodItem icon={faAppleWhole} color="white" backColor="green" meal={val} portion={dinnerMeals[val]} key={idx}/>
         )}
       </View>

@@ -16,10 +16,10 @@ export default function Breakfast({ navigation }) {
 
   return (
     <View style={{...styles.container}}>
-      <BackButton navigation={navigation} title={"Today's Lunch"}/>
+      <BackButton navigation={navigation} title={"Today's Breakfast"}/>
       <ScrollView contentContainerStyle={{backgroundColor:"white", alignItems:"center", borderColor:"white", flexGrow:1,
         borderRadius:15, borderWidth:1, padding:5, paddingHorizontal:10, width:"80%", marginVertical:10, flex:1}}>
-        {Object.keys(breakfastMeals).map((val, idx) => 
+        {breakfastMeals && Object.keys(breakfastMeals).map((val, idx) => 
         <FoodItem backColor = "#0080FB" icon={faEgg} color="white" meal={val} portion={breakfastMeals[val]} key={idx}/>
         )}
       </ScrollView>

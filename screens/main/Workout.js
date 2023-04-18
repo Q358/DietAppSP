@@ -24,7 +24,7 @@ export default function Workout({ navigation }) {
       </View>
       <Text style={{color:"white", fontFamily:"fontBold", fontSize:30, marginTop:80}}>Workout</Text>
       <View>
-      {Object.keys(exercises).map((val, idx)=>
+      {exercises && Object.keys(exercises).map((val, idx)=>
         <WorkoutItem exercise={val} key = {idx} reps={exercises[val]} size={30}/>
       )}
       </View>
