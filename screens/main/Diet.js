@@ -101,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
       width:"90%",
       backgroundColor: theme.colors.secondary,
       paddingVertical: 10,
+      paddingBottom: 15,
       borderRadius: 20
     },
     mealTitle: {
