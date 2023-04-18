@@ -1,10 +1,8 @@
 import { Divider, makeStyles, useTheme } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
 import { Alert, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from "react-native";
 import FatSecretBadge from "../components/FatSecretBadge";
 import LoadingModal from "../components/LoadingModal";
-import { getFood } from "../config/fatsecret";
 
 export default function BarcodeResult({ route, navigation }) {
   const styles = useStyles()
@@ -24,10 +22,10 @@ export default function BarcodeResult({ route, navigation }) {
           <Text style={{ fontFamily:"fontBold", fontSize:20, color: theme.colors.textSecondary }}>{scan ? "Item scanned!" : "Item found!"}</Text>
           <Text style={{ fontFamily:"fontBold", fontSize:25, marginVertical:5, color: theme.colors.textSecondary }}>{data?.brand_name} {data?.food_name}</Text>
           <Divider width={3} style={{marginVertical:5}}/>
-          <Text style={{fontSize:20}}>{Math.round(servings.number_of_units) || 1} serving{servings.number_of_units > 1 && "s"} per container</Text>
+          <Text style={{fontSize:20}}>{Math.round(servings.number_of_units) || 1} serving{servings?.number_of_units > 1 && "s"} per container</Text>
           <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Text style={{fontFamily:"fontBold", fontSize:20}}>Serving size</Text>
-            <Text style={{fontFamily:"fontBold", fontSize:20}}>{servings.serving_description} ({Math.round(servings.metric_serving_amount || 1)}{servings.metric_serving_unit || "g"})</Text>
+            <Text style={{fontFamily:"fontBold", fontSize:20}}>{servings.serving_description} ({Math.round(servings?.metric_serving_amount || 1)}{servings?.metric_serving_unit || "g"})</Text>
           </View>
           <Divider width={15} style={{marginVertical:5}} color="black"/>
           <View style={{justifyContent:"space-between", flexDirection:"row", alignItems:"flex-start", flex:1}}>

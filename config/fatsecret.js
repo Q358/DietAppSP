@@ -90,7 +90,7 @@ export async function getFoodData(foodId) {
   return response.json()
 }
 
-export async function getFood(barcode){
+export async function getFoodByBarcode(barcode){
   var foodId = await getFoodId(barcode)
   console.log(foodId?.food_id.value)
   return await getFoodData(foodId?.food_id.value)

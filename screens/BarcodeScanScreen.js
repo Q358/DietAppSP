@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { BarCodeScanner } from "expo-barcode-scanner"
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, useWindowDimensions } from "react-native"
-import { getFood } from "../config/fatsecret"
-import BarcodeResult from "./BarcodeResultScreen"
+import { getFoodByBarcode } from "../config/fatsecret"
 import LoadingModal from "../components/LoadingModal"
 import { StackActions } from "@react-navigation/native"
 
@@ -57,7 +56,7 @@ export default function BarcodeScanSceen({ navigation }) {
     try {
       setIsLoading(true)
       setErrorText(null)
-      var foodData = await getFood(data)
+      var foodData = await getFoodByBarcode(data)
       setIsLoading(false)
     } catch (error) {
       console.log(error)
