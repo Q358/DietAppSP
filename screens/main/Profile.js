@@ -3,7 +3,7 @@ import { Avatar, Divider, makeStyles, useTheme } from "@rneui/themed"
 import { Alert, SafeAreaView, useWindowDimensions } from "react-native"
 import { StyleSheet, Text, TouchableOpacity, Switch, View, Share } from "react-native"
 import { useAuth } from "../../config/authContext"
-import { faAppleWhole, faBreadSlice, faCarrot, faCog, faPen, faRightFromBracket, faTrophy, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faAppleWhole, faBreadSlice, faCarrot, faCog, faPen, faRightFromBracket, faTrophy, faUserPlus, faChartLine } from "@fortawesome/free-solid-svg-icons"
 import { upload } from "../../config/firebase"
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from "react"
@@ -123,6 +123,11 @@ export default function Profile({ navigation }) {
         <ProfileRow statLabel={"Longest Streak"} statCount={112} icon={faCarrot} iconColor={"#f09b24"}/>
         <ProfileRow statLabel={"Total NutriScore"} statCount={9350} icon={faAppleWhole} iconColor={"#f02c24"} iconLeft/>
         <ProfileRow statLabel={"Avg. NutriScore"} statCount={93} icon={faBreadSlice} iconColor={"#906A19"}/>
+        <Divider color="gray" width={3} style={{borderRadius:15, marginBottom:8, marginHorizontal:20}}/>
+        <TouchableOpacity style={styles.progressButton} onPress={() => navigation.navigate("Progress")}>
+          <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Progress</Text>
+          <FontAwesomeIcon icon={faChartLine} size={20} color={theme.colors.textPrimary}/>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.inviteButton} onPress={handleInvite}>
         <Text style={{fontFamily:"fontBold", fontSize:20, color:theme.colors.textPrimary, marginRight:10}}>Invite Friends</Text>
@@ -188,6 +193,15 @@ const useStyles = makeStyles((theme) => ({
     position:"absolute",
     top:"85%",
     right:"25%"
+  },
+  progressButton:{
+    paddingHorizontal:20,
+    paddingVertical:10,
+    borderRadius:20,
+    backgroundColor: "green",
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"center"
   },
   inviteButton:{
     paddingHorizontal:20,
